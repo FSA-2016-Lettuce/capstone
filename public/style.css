@@ -20,6 +20,11 @@ form div {
   display: inline-block;
 }
 
+#lettuce-logo {
+  width: 32px;
+  height: 32px;
+  margin-left: 100px;
+  
 #nav-logo {
   height:32px;
   width:32px;
