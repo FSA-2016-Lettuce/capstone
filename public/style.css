@@ -19,3 +19,14 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#nav-logo {
+  height:32px;
+  width:32px;
+  padding-right: 25px;
+}
+
+.nav-title{
+  display:flex;
+
+}
