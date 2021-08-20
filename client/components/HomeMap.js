@@ -1,61 +1,79 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-// import '../../public/style.css';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-// const dummyData = [
-//   {
-//     id: 1,
-//     coordinates: [40.759253, -73.774953],
-//     name: 'First Point',
-//   },
-//   {
-//     id: 2,
-//     coordinates: [40.779, -73.68],
-//     name: 'Second Point',
-//   },
-//   {
-//     id: 3,
-//     coordinates: [40.779, -73.68],
-//     name: 'Third Point',
-//   },
-// ];
+const dummyData = [
+  {
+    id: 1,
+    coordinates: [40.759253, -73.774953],
+    name: 'First Point',
+  },
+  {
+    id: 2,
+    coordinates: [40.779, -73.68],
+    name: 'Second Point',
+  },
+  {
+    id: 3,
+    coordinates: [40.76, -73.6],
+    name: 'Third Point',
+  },
+];
+
+const useStyles = makeStyles((theme) => ({
+  mapContainer: {
+    height: '50vh',
+  },
+}));
 
 export default function HomeMap() {
-  //   return (
-  //     <MapContainer center={[40.759253, -73.774953]} zoom={12}>
-  //       <TileLayer
-  //         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  //         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  //       />
-  //       {/* {dummyData.map((point) => (
-  //         <>
-  //           <Marker key={point.id} position={point.coordinates} />
-  //           <Popup key={point.id} position={point.coordinates}>
-  //             <div>
-  //               <h2>{point.name}</h2>
-  //             </div>
-  //           </Popup>
-  //         </>
-  //       ))} */}
-  //     </MapContainer>
-  //   );
-  // }
-
-  // const position = [51.505, -0.09]
+  const classes = useStyles();
   return (
-    <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+    <MapContainer
+      className={classes.mapContainer}
+      center={[40.759253, -73.65]}
+      zoom={10.5}
+    >
       <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      {dummyData.map((point) => (
+        <Marker key={point.id} position={point.coordinates}>
+          <Popup>
+            <div>
+              <h2>{point.name}</h2>
+              <button type="button" onClick={() => console.log('hello!')}>
+                Press Me!
+              </button>
+            </div>
+          </Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 }
+
+// const position = [51.505, -0.09]
+// return (
+//   <MapContainer
+//     style={{ height: '500px' }}
+//     center={[51.505, -0.09]}
+//     zoom={13}
+//     scrollWheelZoom={false}
+//   >
+//     <TileLayer
+//       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+//       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//     />
+//     <Marker position={[51.505, -0.09]}>
+//       <Popup>
+//         A pretty CSS3 popup. <br /> Easily customizable.
+//       </Popup>
+//     </Marker>
+//   </MapContainer>
+// );
+// }
 
 //   var mymap = L.map('mapid').setView([40.759253, -73.774953], 7.5);
 

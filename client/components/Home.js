@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import HomeMap from './HomeMap';
 
 /**
  * COMPONENT
  */
 export const Home = (props) => {
-  const { username } = props;
+  let { username } = props;
+  username = username || 'Guest';
 
   return (
     <div>
       <h3>Welcome, {username}</h3>
+      <HomeMap />
     </div>
   );
 };
