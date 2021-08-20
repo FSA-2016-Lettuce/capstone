@@ -76,6 +76,9 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  title: {
+    flexGrow: 1,
+  },
 }));
 
 export default function PersistentDrawerLeft() {
@@ -110,7 +113,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className={classes.title}>
             Flock of Lettuce
           </Typography>
           <img id="lettuce-logo" src="lettuce-logo.png"></img>
