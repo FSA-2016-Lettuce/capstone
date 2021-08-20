@@ -10,6 +10,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Drawer />
+      <Routes />
     </ThemeProvider>
   );
 };
