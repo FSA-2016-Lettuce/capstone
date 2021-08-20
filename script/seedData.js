@@ -4,43 +4,37 @@ const users = [
   {
     username: 'cody@gmail.com',
     password: 'cody123',
-    paceMinutes: 8,
-    paceSeconds: 30,
+    pace: 390,
     runningStyle: 'HOBBY',
   },
   {
     username: 'sarah@gmail.com',
     password: 'sarah123',
-    paceMinutes: 7,
-    paceSeconds: 45,
+    pace: 440,
     runningStyle: 'HOBBY',
   },
   {
     username: 'nicole@gmail.com',
     password: 'nicole123',
-    paceMinutes: 8,
-    paceSeconds: 0,
+    pace: 500,
     runningStyle: 'HOBBY',
   },
   {
     username: 'matt@gmail.com',
     password: 'matt123',
-    paceMinutes: 9,
-    paceSeconds: 30,
+    pace: 560,
     runningStyle: 'HOBBY',
   },
   {
     username: 'gary@gmail.com',
     password: 'gary123',
-    paceMinutes: 10,
-    paceSeconds: 30,
+    pace: 600,
     runningStyle: 'HOBBY',
   },
   {
     username: 'meredith@gmail.com',
     password: 'meredith123',
-    paceMinutes: 6,
-    paceSeconds: 15,
+    pace: 680,
     runningStyle: 'HOBBY',
   },
 ];
@@ -52,33 +46,27 @@ const now = moment();
 const runs = [
   {
     startDate: futureDate,
-    paceMinutes: 8,
-    paceSeconds: 30,
+    pace: 480,
   },
   {
     startDate: futureDate,
-    paceMinutes: 6,
-    paceSeconds: 30,
+    pace: 390,
   },
   {
     startDate: pastDate,
-    paceMinutes: 10,
-    paceSeconds: 30,
+    pace: 560,
   },
   {
     startDate: pastDate,
-    paceMinutes: 9,
-    paceSeconds: 15,
+    pace: 780,
   },
   {
     startDate: now,
-    paceMinutes: 7,
-    paceSeconds: 45,
+    pace: 660,
   },
   {
     startDate: now,
-    paceMinutes: 12,
-    paceSeconds: 0,
+    pace: 520,
   },
 ];
 

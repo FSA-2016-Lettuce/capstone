@@ -8,11 +8,7 @@ const Run = db.define('run', {
     type: Sequelize.DATE,
     allowNull: false,
   },
-  paceMinutes: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  paceSeconds: {
+  pace: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
@@ -27,12 +23,8 @@ Run.beforeCreate(async (run) => {
 
   // this distance needs to be replaced with calculated route distance based on the route association
   const runDistance = 4.5;
-  const runDurationMinutes =
-    (run.paceMinutes + run.paceSeconds / 60) * runDistance;
-  let runCloseTime = moment(run.startDate).add(
-    runDurationMinutes + 60,
-    'minutes'
-  );
+  const runDuration = run.pace * runDistance;
+  let runCloseTime = moment(run.startDate).add(runDuration + 3600, 'seconds');
 
   // set run status based on relative time
   if (run.startDate > now) {

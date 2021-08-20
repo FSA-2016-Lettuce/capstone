@@ -19,11 +19,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  paceMinutes: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  paceSeconds: {
+  pace: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
