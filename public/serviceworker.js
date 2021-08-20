@@ -1,7 +1,7 @@
 //the version of cache
 const CACHE_NAME = 'v1';
 //array of files you choose to cache
-const urlsToCache = ['index.html', 'style.css'];
+const urlsToCache = ['index.html', 'style.css', 'offline.html'];
 
 const self = this;
 
