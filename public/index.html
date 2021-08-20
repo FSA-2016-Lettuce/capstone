@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width initial-scale=1.0" />
+    <meta name="theme-color" content="#D3D3D3"/>
     <title>flock of lettuce</title>
     <link rel="stylesheet" href="/style.css" />
     <link
@@ -13,9 +14,20 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
+    <link rel="manifest" href="/manifest.json"/>
+    <link rel="apple-touch-icon" href="/180-png.png">
     <script defer src="/bundle.js"></script>
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      if('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./serviceworker.js')
+            .then((reg) => console.log('SW Registration Successful', reg.scope))
+            .catch((err) => console.log('SW Failed to Register', err))
+        })
+      }
+    </script>
   </body>
 </html>

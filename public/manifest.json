@@ -1,0 +1,28 @@
+{
+  "name": "flock-of-lettuce",
+  "short_name" : "flock",
+  "start_url": "/",
+  "display" : "standalone",
+  "background_color" : "#000000",
+  "theme_color" : "#000000",
+  "description" : "an all inclusive run club app designed to create running events to bring runners of the same pace and experience together",
+  "prefer_related_applications" : true,
+  "icons": [
+    {
+      "src": "/180-png.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/mid-shoe.jpeg",
+      "sizes": "225x225",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/large-shoe.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
