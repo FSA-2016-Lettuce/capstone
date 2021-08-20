@@ -10,11 +10,26 @@ const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate:{
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
-  }
+    allowNull: false
+  },
+  paceMinutes: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  paceSeconds: {
+    type: SEQUELIZE.INTEGER,
+    allowNull: false
+  },
+  runningStyle: {
+    type: SEQUELIZE.ENUM('HOBBY', 'IMPROVEMENT');
+  },
 })
 
 module.exports = User
