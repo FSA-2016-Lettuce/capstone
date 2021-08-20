@@ -2,15 +2,14 @@
 
 const {
   db,
-  models: { User },
+  models: { User, Run, Route },
 } = require('../server/db');
-const { users, runs } = require('./seedData');
+const { users, runs, routes } = require('./seedData');
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
-
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
@@ -19,7 +18,11 @@ async function seed() {
   // Creating Users
   await Promise.all(users.map((user) => User.create(user)));
 
+  // Creating Routes
+  await Promise.all(routes.map((route) => Route.create(route)));
+
   // Creating Runs
+  await Promise.all(runs.map((run) => Run.create(run)));
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);

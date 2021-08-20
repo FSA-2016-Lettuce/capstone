@@ -1,5 +1,3 @@
-//this is the access point for all things database related!
-
 const db = require('./db');
 
 const User = require('./models/User');
@@ -13,12 +11,13 @@ module.exports = {
   models: {
     User,
     Run,
-    Route
+    Route,
   },
-}
+};
 
 //Model associations
-User.hasMany(Run);
-Run.hasMany(User);
-Run.hasOne(Route);
-Route.belongsToMany(Run);
+User.belongsToMany(Run, { through: 'runHistory' });
+Run.belongsToMany(User, { through: 'runHistory' });
+
+Route.hasMany(Run);
+Run.belongsTo(Route);

@@ -1,4 +1,6 @@
-export const users = [
+const moment = require('moment');
+
+const users = [
   {
     username: 'cody@gmail.com',
     password: 'cody123',
@@ -43,8 +45,54 @@ export const users = [
   },
 ];
 
-export const runs = [
+const futureDate = moment().add(3, 'days');
+const pastDate = moment().subtract(3, 'days');
+const now = moment();
+
+const runs = [
   {
-    date: '2018-10-18T06:45:38.000Z',
+    startDate: futureDate,
+    paceMinutes: 8,
+    paceSeconds: 30,
+  },
+  {
+    startDate: futureDate,
+    paceMinutes: 6,
+    paceSeconds: 30,
+  },
+  {
+    startDate: pastDate,
+    paceMinutes: 10,
+    paceSeconds: 30,
+  },
+  {
+    startDate: pastDate,
+    paceMinutes: 9,
+    paceSeconds: 15,
+  },
+  {
+    startDate: now,
+    paceMinutes: 7,
+    paceSeconds: 45,
+  },
+  {
+    startDate: now,
+    paceMinutes: 12,
+    paceSeconds: 0,
   },
 ];
+
+const routes = [
+  {
+    startLongitude: 14.5,
+    startLatitude: -54.178,
+    endLongitude: 18.2332,
+    endLatitude: -55.034,
+  },
+];
+
+module.exports = {
+  runs,
+  users,
+  routes,
+};
