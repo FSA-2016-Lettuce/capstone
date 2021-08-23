@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
+import PocPath from './components/PocPath';
 import { me } from './store';
 
 /**
@@ -26,6 +27,7 @@ class Routes extends Component {
         ) : (
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/pocpath" exact component={PocPath} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </Switch>
