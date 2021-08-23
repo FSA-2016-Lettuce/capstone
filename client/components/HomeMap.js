@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import PopupData from './PopupData';
 
 const dummyData = [
   {
     id: 1,
     coordinates: [40.759253, -73.774953],
     name: 'First Point',
+    distance: '1 mile',
+    pace: '8 min/mile',
+    date: '08/31/2021 @ 8:00AM'
   },
   {
     id: 2,
     coordinates: [40.779, -73.68],
     name: 'Second Point',
+    distance: '2 miles',
+    pace: '12 min/mile',
+    date: '08/31/2021 @ 10:00AM'
   },
   {
     id: 3,
     coordinates: [40.76, -73.6],
     name: 'Third Point',
+    distance: '10 miles',
+    pace: '6 min/mile',
+    date: '08/31/2021 @ 8:00PM'
   },
 ];
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
-    height: '50vh',
+    height: '55vh',
   },
 }));
 
@@ -40,13 +50,9 @@ export default function HomeMap() {
       />
       {dummyData.map((point) => (
         <Marker key={point.id} position={point.coordinates}>
+          {/* going to add styling to our popup shortly */}
           <Popup>
-            <div>
-              <h2>{point.name}</h2>
-              <button type="button" onClick={() => console.log('hello!')}>
-                Press Me!
-              </button>
-            </div>
+             <PopupData data= {point}/>
           </Popup>
         </Marker>
       ))}
