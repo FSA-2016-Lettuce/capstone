@@ -22,6 +22,7 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  spacing: 1,
   root: {
     display: 'flex',
   },
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -117,13 +118,15 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            Flock of Lettuce
+            Flock Of Lettuce
           </Typography>
+
           <Typography variant="h6" noWrap className={classes.welcomeText}>
             Welcome, Guest
           </Typography>
 
           <img id="lettuce-logo" src="lettuce-logo.png"></img>
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -168,8 +171,7 @@ export default function PersistentDrawerLeft() {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
-        <Typography paragraph>Running is cool. Join a run today.</Typography>
+        {/* <div className={classes.drawerHeader} /> */}
       </main>
     </div>
   );
