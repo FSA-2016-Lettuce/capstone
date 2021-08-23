@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import HomeMap from './HomeMap';
+import FilterRuns from './FilterRuns'
+import Footer from './Footer'
 
 /**
  * COMPONENT
@@ -11,7 +13,10 @@ export const Home = (props) => {
 
   return (
     <div>
+      <h2>Welcome to Flock! The runs in your area are shown below: </h2>
       <HomeMap />
+      <FilterRuns />
+      <Footer />
     </div>
   );
 };
