@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
@@ -35,7 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SingleRunView() {
+const SingleRunView = (props) => {
+  const runId = props.match.params.id;
+  console.log('this is my runId: ', runId);
+  useEffect(async () => {
+    await props.getRun(runId);
+  }, []);
   const classes = useStyles();
 
   const displayPace = moment.utc(dummyRun.pace * 1000).format('m:ss');
@@ -45,7 +52,7 @@ export default function SingleRunView() {
       <Typography className={classes.runDetail}>
         Run Details: Run #2106
       </Typography>
-      <SingleRunMap />
+      <SingleRunMap runId={props.runId} />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
@@ -104,4 +111,14 @@ export default function SingleRunView() {
       </div>
     </div>
   );
-}
+};
+
+const mapState = (state) => ({
+  run: state.run,
+});
+
+const mapDispatch = (dispatch) => ({
+  getRun: (runId) => dispatch(getRunThunk(runId)),
+});
+
+export default withRouter(connect(mapState, mapDispatch)(SingleRunView));

@@ -49,10 +49,6 @@ const useStyles = makeStyles((theme) => ({
 const SingleRunMap = (props) => {
   const classes = useStyles();
 
-  useEffect() {
-
-  }
-
   return (
     // Map container is the skeleton component to hold the map itself
     <MapContainer
@@ -82,11 +78,11 @@ const SingleRunMap = (props) => {
 };
 
 const mapState = (state) => ({
-  route: state.route
+  route: state.route,
 });
 
 const mapDispatch = (dispatch) => ({
-  getRouteWaypoints: () => dispatch(getRouteWaypointsThunk()),
+  getRouteWaypoints: () => dispatch(getWaypointsThunk()),
 });
 
 export default SingleRunMap;
