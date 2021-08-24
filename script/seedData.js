@@ -99,7 +99,8 @@ const waypointCoords = [
   [40.759253, -73.774953],
 ];
 
-const waypoints = waypointCoords.map((coord) => ({
+const waypoints = waypointCoords.map((coord, index) => ({
+  pathIndex: index,
   latitude: coord[0],
   longitude: coord[1],
 }));

@@ -4,11 +4,10 @@ const {
 } = require('../db');
 module.exports = router;
 
+// this route is not being used. needs to be updated when used
 router.get('/:id', async (req, res, next) => {
   try {
-    const route = await Route.findByPk(req.params.routeId);
-    const waypoints = await route.getWaypoints();
-    res.json(waypoints);
+    res.json('hello');
   } catch (err) {
     next(err);
   }

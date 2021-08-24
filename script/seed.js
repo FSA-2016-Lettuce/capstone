@@ -25,14 +25,16 @@ async function seed() {
   const allWaypoints = await Waypoint.findAll();
   const newRoute = await Route.create();
   await newRoute.setWaypoints(allWaypoints);
-  newRoute.getDistance();
+  await newRoute.update({});
 
   // Create Runs
   await Promise.all(runs.map((run) => Run.create(run)));
 
-  // Associate Run 1 with Route 1
+  // Associate Run 1 with Route 1 and Users 1 and 2
   const runOne = await Run.findByPk(1);
   await runOne.setRoute(newRoute);
+  await runOne.addUser(1);
+  await runOne.addUser(2);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);

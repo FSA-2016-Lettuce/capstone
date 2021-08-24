@@ -17,9 +17,11 @@ const getWaypoints = (waypoints) => ({ type: GET_WAYPOINTS, waypoints });
 /**
  * THUNK CREATORS
  */
-export const getWaypointsThunk = (routeId) => async (dispatch) => {
-  const waypoints = await axios.get(`/routes/${routeId}`);
-  return dispatch(getWaypoints(waypoints));
+
+export const getRouteDistanceThunk = (routeId) => async (dispatch) => {
+  const { data: distance } = await axios.get(`/api/routes/${routeId}`);
+  // this function is not finished or being used right now
+  return distance;
 };
 
 /**

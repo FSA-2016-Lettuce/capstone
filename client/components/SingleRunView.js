@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { getRunThunk } from '../store/run';
+import { getRouteDistanceThunk } from '../store/route';
+import { displayKm } from '../utils';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
@@ -49,6 +51,7 @@ const SingleRunView = (props) => {
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
+  const displayDistance = displayKm(run.route.distance);
   return (
     <div>
       <Typography className={classes.runDetail}>
@@ -71,7 +74,7 @@ const SingleRunView = (props) => {
               <img src="/clock.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="PACE" secondary={`${displayPace} min/mi`} />
+          <ListItemText primary="PACE" secondary={`${displayPace} min/km`} />
         </ListItem>
         <Divider />
         <ListItem>
@@ -82,7 +85,7 @@ const SingleRunView = (props) => {
           </ListItemAvatar>
           <ListItemText
             primary="DISTANCE"
-            secondary={`${dummyRun.distance} mi`}
+            secondary={`${displayDistance} km`}
           />
         </ListItem>
         <Divider />
@@ -92,7 +95,7 @@ const SingleRunView = (props) => {
               <img src="/runners.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="# OF RUNNERS" secondary={`10`} />
+          <ListItemText primary="# OF RUNNERS" secondary={run.users.length} />
         </ListItem>
       </List>
       <div className="singlePageButtons">

@@ -1,7 +1,7 @@
 import { NextWeek } from '@material-ui/icons';
 import axios from 'axios';
 
-const initialState = {};
+const initialState = { route: { distance: 0 }, users: [] };
 
 /**
  * ACTION TYPES

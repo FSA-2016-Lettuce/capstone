@@ -1,26 +1,33 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Route = db.define('route', {});
+const Route = db.define('route', {
+  distance: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+});
+
+Route.beforeUpdate(async (route) => {
+  route.distance = await route.getDistance();
+});
 
 Route.prototype.getDistance = async function () {
-  const waypoints = await this.getWaypoints();
-  const origin = [waypoints[0].latitude, waypoints[0].longitude];
-  const destination = [waypoints[1].latitude, waypoints[1].longitude];
-  const distanceOne = getDistanceOne(origin, destination);
-  const distanceTwo = getDistanceTwo(
-    origin[0],
-    origin[1],
-    destination[0],
-    destination[1]
-  );
-  console.log('distance ONE: ', distanceOne);
-  console.log('distance TWO: ', distanceTwo);
+  const waypoints = await this.getWaypoints({ order: [['pathIndex', 'ASC']] });
+
+  let routeDistance = 0;
+  for (let i = 0; i < waypoints.length - 1; i++) {
+    let origin = [waypoints[i].latitude, waypoints[i].longitude];
+    let destination = [waypoints[i + 1].latitude, waypoints[i + 1].longitude];
+    let currentDistance = getDistanceHelper(origin, destination);
+    routeDistance += currentDistance;
+  }
+  return routeDistance;
 };
 
 module.exports = Route;
 
-function getDistanceOne(origin, destination) {
+function getDistanceHelper(origin, destination) {
   // return distance in meters
   let lon1 = toRadian(origin[1]),
     lat1 = toRadian(origin[0]),
@@ -35,13 +42,14 @@ function getDistanceOne(origin, destination) {
     Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon / 2), 2);
   let c = 2 * Math.asin(Math.sqrt(a));
   const EARTH_RADIUS = 6371;
-  return c * EARTH_RADIUS * 1000;
+  return Math.round(c * EARTH_RADIUS * 1000);
 }
 
 function toRadian(degree) {
   return (degree * Math.PI) / 180;
 }
 
+/* Alternative distance function
 function getDistanceTwo(lat1, lon1, lat2, lon2, unit) {
   if (lat1 == lat2 && lon1 == lon2) {
     return 0;
@@ -68,3 +76,4 @@ function getDistanceTwo(lat1, lon1, lat2, lon2, unit) {
     return dist;
   }
 }
+*/
