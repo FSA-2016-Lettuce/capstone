@@ -25,6 +25,7 @@ async function seed() {
   const allWaypoints = await Waypoint.findAll();
   const newRoute = await Route.create();
   await newRoute.setWaypoints(allWaypoints);
+  newRoute.getDistance();
 
   // Create Runs
   await Promise.all(runs.map((run) => Run.create(run)));

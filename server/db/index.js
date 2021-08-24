@@ -26,3 +26,8 @@ Run.belongsTo(Route);
 
 Route.belongsToMany(Waypoint, { through: 'routePaths' });
 Waypoint.belongsToMany(Route, { through: 'routePaths' });
+
+Route.prototype.getDistance = async function () {
+  const waypoints = await this.getWaypoints();
+  console.log('here are the waypoints for this route: ', waypoints);
+};

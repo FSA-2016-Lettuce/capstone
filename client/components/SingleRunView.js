@@ -40,21 +40,21 @@ const useStyles = makeStyles((theme) => ({
 
 const SingleRunView = (props) => {
   const runId = props.match.params.id;
-  console.log('this is my runId: ', runId);
+  console.log('SingleRunView props: ', props);
   useEffect(async () => {
     await props.getRun(runId);
-    console.log('props.run from useEffect: ', props.run);
   }, []);
   const classes = useStyles();
+  const { run } = props;
 
-  const displayPace = moment.utc(dummyRun.pace * 1000).format('m:ss');
-  const displayDate = moment(dummyRun.date).format('ddd, MMM Do YYYY, h:mm a');
+  const displayPace = moment.utc(run.pace * 1000).format('m:ss');
+  const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
   return (
     <div>
       <Typography className={classes.runDetail}>
-        Run Details: Run #2106
+        Run Details for Run #{run.id}
       </Typography>
-      <SingleRunMap runId={props.runId} />
+      <SingleRunMap runId={run.id} />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
@@ -101,14 +101,14 @@ const SingleRunView = (props) => {
           color="secondary"
           className={classes.button}
         >
-          RSVP YES
+          JOIN THIS RUN
         </Button>
         <Button
           variant="contained"
           color="secondary"
           className={classes.button}
         >
-          RSVP NO
+          BACK
         </Button>
       </div>
     </div>
