@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { getRunThunk } from '../store/run';
-import { getRouteDistanceThunk } from '../store/route';
 import { displayKm } from '../utils';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
@@ -18,12 +17,6 @@ import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Button from '@material-ui/core/Button';
-
-const dummyRun = {
-  date: new Date() + 1,
-  distance: 4.5,
-  pace: 560,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,16 +35,19 @@ const useStyles = makeStyles((theme) => ({
 
 const SingleRunView = (props) => {
   const runId = props.match.params.id;
+  const { run } = props;
+  const classes = useStyles();
+
   console.log('SingleRunView props: ', props);
+
   useEffect(async () => {
     await props.getRun(runId);
   }, []);
-  const classes = useStyles();
-  const { run } = props;
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
   const displayDistance = displayKm(run.route.distance);
+
   return (
     <div>
       <Typography className={classes.runDetail}>
