@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
+    width: '45%',
   },
 }));
 
@@ -47,6 +48,7 @@ const SingleRunView = (props) => {
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
   const displayDistance = displayKm(run.route.distance);
+
 
   return (
     <div>
@@ -94,6 +96,7 @@ const SingleRunView = (props) => {
           <ListItemText primary="# OF RUNNERS" secondary={run.users.length} />
         </ListItem>
       </List>
+      {/* TODO: To be changed after Hookup */}
       <div className="singlePageButtons">
         <Button
           variant="contained"

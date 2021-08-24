@@ -80,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  welcomeText: {
+    marginRight: '.5em',
+  },
 }));
 
 export default function PersistentDrawerLeft(props) {
@@ -117,6 +120,11 @@ export default function PersistentDrawerLeft(props) {
           <Typography variant="h6" noWrap className={classes.title}>
             Flock Of Lettuce
           </Typography>
+
+          <Typography variant="h6" noWrap className={classes.welcomeText}>
+            Guest
+          </Typography>
+
           <img id="lettuce-logo" src="/lettuce-logo.png"></img>
         </Toolbar>
       </AppBar>
