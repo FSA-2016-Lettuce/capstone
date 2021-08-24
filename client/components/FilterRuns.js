@@ -63,10 +63,10 @@ const FilterRuns = (props) => {
 
         {/* second button below */}
 
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="demo-simple-select-outlined-label">
+        <FormControl variant="outlined" className={classes.formControl}><InputLabel id="demo-simple-select-outlined-label">
             Distance
           </InputLabel>
+          
           <Select
             labelId="demo-simple-select-outlined-label"
             value={distance}
@@ -87,7 +87,7 @@ const FilterRuns = (props) => {
 
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="demo-simple-select-outlined-label">
-            Run Start
+            Start
           </InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
