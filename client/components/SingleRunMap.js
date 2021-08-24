@@ -53,7 +53,7 @@ export default function SingleMapView() {
       className={classes.mapContainer}
       // For centering in the future, maybe find the mid-range and use that?
       // (Max Y + Min Y) / 2 && (Max X + Min X) / 2
-      center={dummyData[0]}
+      center={dummyData[3]}
       zoom={13.5}
     >
       {/* TileLayer states where you want the map itself to come from.

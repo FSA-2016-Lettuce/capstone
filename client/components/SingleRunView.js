@@ -14,6 +14,7 @@ import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Button from '@material-ui/core/Button';
 
+//simulation of db data
 const dummyRun = {
   date: new Date() + 1,
   distance: 4.5,
@@ -32,14 +33,18 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
+    width: '45%',
   },
 }));
 
 export default function SingleRunView() {
   const classes = useStyles();
-
+  //converting run pace from seconds to minutes:seconds
   const displayPace = moment.utc(dummyRun.pace * 1000).format('m:ss');
+
+  //converting ugly date to pretty date
   const displayDate = moment(dummyRun.date).format('ddd, MMM Do YYYY, h:mm a');
+
   return (
     <div>
       <Typography className={classes.runDetail}>
@@ -86,6 +91,7 @@ export default function SingleRunView() {
           <ListItemText primary="# OF RUNNERS" secondary={`10`} />
         </ListItem>
       </List>
+      {/* TODO: To be changed after Hookup */}
       <div className="singlePageButtons">
         <Button
           variant="contained"
