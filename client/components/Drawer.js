@@ -122,11 +122,10 @@ export default function PersistentDrawerLeft(props) {
           </Typography>
 
           <Typography variant="h6" noWrap className={classes.welcomeText}>
-            Welcome, Guest
+            Guest
           </Typography>
 
-          <img id="lettuce-logo" src="lettuce-logo.png"></img>
-
+          <img id="lettuce-logo" src="/lettuce-logo.png"></img>
         </Toolbar>
       </AppBar>
       <Drawer

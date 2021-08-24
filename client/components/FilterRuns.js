@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterRuns = (props) => {
   const classes = useStyles();
-  const [pace, setPace] = React.useState('');
-  const [distance, setDistance] = React.useState('');
-  const [runStart, setRunStart] = React.useState('');
+  const [pace, setPace] = React.useState();
+  const [distance, setDistance] = React.useState();
+  const [runStart, setRunStart] = React.useState();
 
   const handleChange = (event) => {
     console.log('Event.target: ', event.target);
@@ -42,66 +42,66 @@ const FilterRuns = (props) => {
   return (
     <div>
       <div>Filter By: </div>
-      <Box display='flex' justifyContent='space-around'>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Pace</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          value={pace}
-          onChange={handleChange}
-          label="Pace"
-          name="pace"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={12}>12:00</MenuItem>
-          <MenuItem value={10}>10:00</MenuItem>
-          <MenuItem value={8}>8:00</MenuItem>
-        </Select>
-      </FormControl>
+      <Box display="flex" justifyContent="space-around">
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-outlined-label">Pace</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            value={pace}
+            onChange={handleChange}
+            label="Pace"
+            name="pace"
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={12}>12:00</MenuItem>
+            <MenuItem value={10}>10:00</MenuItem>
+            <MenuItem value={8}>8:00</MenuItem>
+          </Select>
+        </FormControl>
 
-      {/* second button below */}
+        {/* second button below */}
 
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Distance</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          value={distance}
-          onChange={handleChange}
-          label="distance"
-          name="distance"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={2}>2 miles</MenuItem>
-          <MenuItem value={3}>3 miles</MenuItem>
-          <MenuItem value={10}>10 miles</MenuItem>
-        </Select>
-      </FormControl>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-outlined-label">
+            Distance
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            value={distance}
+            onChange={handleChange}
+            label="distance"
+            name="distance"
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={2}>2 miles</MenuItem>
+            <MenuItem value={3}>3 miles</MenuItem>
+            <MenuItem value={10}>10 miles</MenuItem>
+          </Select>
+        </FormControl>
 
-      {/* third button below */}
+        {/* third button below */}
 
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">
-          Run Start
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          value={runStart}
-          onChange={handleChange}
-          label="Start"
-          name="runStart"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>08/31/2021 @ 10:00AM</MenuItem>
-          <MenuItem value={12}>08/31/2021 @ 12:00PM</MenuItem>
-          <MenuItem value={16}>08/31/2021 @ 4:00PM</MenuItem>
-        </Select>
-      </FormControl>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-outlined-label">Start</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            value={runStart}
+            onChange={handleChange}
+            label="Start"
+            name="runStart"
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>08/31/2021 @ 10:00AM</MenuItem>
+            <MenuItem value={12}>08/31/2021 @ 12:00PM</MenuItem>
+            <MenuItem value={16}>08/31/2021 @ 4:00PM</MenuItem>
+          </Select>
+        </FormControl>
       </Box>
     </div>
   );
