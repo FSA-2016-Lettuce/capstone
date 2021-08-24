@@ -22,19 +22,19 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterRuns = (props) => {
   const classes = useStyles();
-  const [pace, setPace] = React.useState();
-  const [distance, setDistance] = React.useState();
-  const [runStart, setRunStart] = React.useState();
+  const [pace, setPace] = React.useState('');
+  const [distance, setDistance] = React.useState('');
+  const [runStart, setRunStart] = React.useState('');
 
   const handleChange = (event) => {
     console.log('Event.target: ', event.target);
-    if (event.target === 'Pace') {
+    if (event.target.name === 'pace') {
       setPace(event.target.value);
     }
-    if (event.target === 'Distance') {
+    if (event.target.name === 'distance') {
       setDistance(event.target.value);
     }
-    if (event.target === 'runStart') {
+    if (event.target.name === 'runStart') {
       setRunStart(event.target.value);
     }
   };
@@ -63,10 +63,10 @@ const FilterRuns = (props) => {
 
         {/* second button below */}
 
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="demo-simple-select-outlined-label">
+        <FormControl variant="outlined" className={classes.formControl}><InputLabel id="demo-simple-select-outlined-label">
             Distance
           </InputLabel>
+          
           <Select
             labelId="demo-simple-select-outlined-label"
             value={distance}
@@ -86,7 +86,9 @@ const FilterRuns = (props) => {
         {/* third button below */}
 
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="demo-simple-select-outlined-label">Start</InputLabel>
+          <InputLabel id="demo-simple-select-outlined-label">
+            Start
+          </InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
             value={runStart}
