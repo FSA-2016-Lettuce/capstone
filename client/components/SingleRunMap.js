@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import { connect } from 'react-redux';
 // What I'm importing below are the built-in react components to create the map
 import {
   MapContainer,
@@ -45,8 +46,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SingleMapView() {
+const SingleRunMap = (props) => {
   const classes = useStyles();
+
+  useEffect() {
+
+  }
+
   return (
     // Map container is the skeleton component to hold the map itself
     <MapContainer
@@ -73,4 +79,14 @@ export default function SingleMapView() {
       <Polyline pathOptions={{ color: 'blue' }} positions={dummyData} />
     </MapContainer>
   );
-}
+};
+
+const mapState = (state) => ({
+  route: state.route
+});
+
+const mapDispatch = (dispatch) => ({
+  getRouteWaypoints: () => dispatch(getRouteWaypointsThunk()),
+});
+
+export default SingleRunMap;
