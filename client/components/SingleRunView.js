@@ -2,6 +2,7 @@ import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { getRunThunk } from '../store/run';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
@@ -42,6 +43,7 @@ const SingleRunView = (props) => {
   console.log('this is my runId: ', runId);
   useEffect(async () => {
     await props.getRun(runId);
+    console.log('props.run from useEffect: ', props.run);
   }, []);
   const classes = useStyles();
 

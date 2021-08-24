@@ -4,7 +4,7 @@ const {
 } = require('../db');
 module.exports = router;
 
-router.get('/:routeId', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const route = await Route.findByPk(req.params.routeId);
     const waypoints = await route.getWaypoints();
