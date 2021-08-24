@@ -1,5 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { getRunThunk } from '../store/run';
+import { displayKm } from '../utils';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
@@ -13,13 +17,6 @@ import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Button from '@material-ui/core/Button';
-
-//simulation of db data
-const dummyRun = {
-  date: new Date() + 1,
-  distance: 4.5,
-  pace: 560,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,20 +34,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SingleRunView() {
+const SingleRunView = (props) => {
+  const runId = props.match.params.id;
+  const { run } = props;
   const classes = useStyles();
-  //converting run pace from seconds to minutes:seconds
-  const displayPace = moment.utc(dummyRun.pace * 1000).format('m:ss');
 
-  //converting ugly date to pretty date
-  const displayDate = moment(dummyRun.date).format('ddd, MMM Do YYYY, h:mm a');
+  console.log('SingleRunView props: ', props);
+
+  useEffect(async () => {
+    await props.getRun(runId);
+  }, []);
+
+  const displayPace = moment.utc(run.pace * 1000).format('m:ss');
+  const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
+  const displayDistance = displayKm(run.route.distance);
+
 
   return (
     <div>
       <Typography className={classes.runDetail}>
-        Run Details: Run #2106
+        Run Details for Run #{run.id}
       </Typography>
-      <SingleRunMap />
+      <SingleRunMap runId={run.id} />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
@@ -67,7 +72,7 @@ export default function SingleRunView() {
               <img src="/clock.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="PACE" secondary={`${displayPace} min/mi`} />
+          <ListItemText primary="PACE" secondary={`${displayPace} min/km`} />
         </ListItem>
         <Divider />
         <ListItem>
@@ -78,7 +83,7 @@ export default function SingleRunView() {
           </ListItemAvatar>
           <ListItemText
             primary="DISTANCE"
-            secondary={`${dummyRun.distance} mi`}
+            secondary={`${displayDistance} km`}
           />
         </ListItem>
         <Divider />
@@ -88,7 +93,7 @@ export default function SingleRunView() {
               <img src="/runners.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="# OF RUNNERS" secondary={`10`} />
+          <ListItemText primary="# OF RUNNERS" secondary={run.users.length} />
         </ListItem>
       </List>
       {/* TODO: To be changed after Hookup */}
@@ -98,16 +103,26 @@ export default function SingleRunView() {
           color="secondary"
           className={classes.button}
         >
-          RSVP YES
+          JOIN THIS RUN
         </Button>
         <Button
           variant="contained"
           color="secondary"
           className={classes.button}
         >
-          RSVP NO
+          BACK
         </Button>
       </div>
     </div>
   );
-}
+};
+
+const mapState = (state) => ({
+  run: state.run,
+});
+
+const mapDispatch = (dispatch) => ({
+  getRun: (runId) => dispatch(getRunThunk(runId)),
+});
+
+export default withRouter(connect(mapState, mapDispatch)(SingleRunView));
