@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import SingleRunView from './components/SingleRunView';
+import LeafletDrawDemo from './components/LeafletDrawDemo';
 import { me } from './store';
 
 /**
@@ -16,7 +17,7 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         {isLoggedIn ? (
@@ -30,6 +31,7 @@ console.log(this.props)
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/runs/:id" component={SingleRunView} />
+            <Route path="/leafletdrawdemo" component={LeafletDrawDemo} />
           </Switch>
         )}
       </div>

@@ -30,6 +30,16 @@ form div {
   width: 28px;
 }
 
-.singlePageButtons{
-  display:flex;
+.singlePageButtons {
+  display: flex;
+}
+
+/* For React-Leafelt-Draw */
+.sr-only {
+  display: none;
+}
+.leaflet-container {
+  height: 400px;
+  width: 80%;
+  margin: 0 auto;
 }
