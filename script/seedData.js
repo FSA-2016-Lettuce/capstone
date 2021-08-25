@@ -111,8 +111,42 @@ const waypoints = waypointCoords.map((coord, index) => ({
   longitude: coord[1],
 }));
 
+const homeLocations = [
+  {
+    pathIndex: 1,
+    latitude: 48.85837,
+    longitude: 2.294481,
+  },
+  {
+    pathIndex: 1,
+    latitude: 3.2028,
+    longitude: 73.2207,
+  },
+  {
+    pathIndex: 1,
+    latitude: -16.5004,
+    longitude: -151.7415,
+  },
+  {
+    pathIndex: 1,
+    latitude: -82.8628,
+    longitude: 135.0,
+  },
+  {
+    pathIndex: 1,
+    latitude: 13.736717,
+    longitude: 100.523186,
+  },
+  {
+    pathIndex: 1,
+    latitude: 49.2827,
+    longitude: -123.1207,
+  },
+];
+
 module.exports = {
   runs,
   users,
   waypoints,
+  homeLocations,
 };

@@ -20,9 +20,7 @@ const Run = db.define('run', {
 
 // Set the Run status based on the current time relative to the Run time
 Run.beforeCreate(async (run) => {
-  // all Runs are initialized with association to Route 1, since they must have a Route
-
-  // this distance needs to be replaced with calculated route distance based on the route association
+  // TODO:this distance needs to be replaced with calculated route distance based on the route association
   const now = moment();
   const runDistance = 4.5;
   const runDuration = run.pace * runDistance;

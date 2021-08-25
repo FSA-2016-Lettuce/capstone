@@ -22,9 +22,19 @@ const User = db.define('user', {
   pace: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: 360,
+  },
+  distance: {
+    type: Sequelize.INTEGER,
+    defaultValue: 5000,
   },
   runningStyle: {
     type: Sequelize.ENUM('HOBBY', 'IMPROVEMENT'),
+    defaultValue: 'HOBBY',
+  },
+  profileImg: {
+    type: Sequelize.STRING,
+    defaultValue: '/defaultProfile.png',
   },
 });
 
