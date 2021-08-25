@@ -21,20 +21,24 @@ async function seed() {
   // Creating Waypoints
   await Promise.all(waypoints.map((waypoint) => Waypoint.create(waypoint)));
 
-  // Create a route and use magic method to set its waypoints
+  // Create Runs and include creation of / association to an empty Route
+  await Promise.all(runs.map((run) => Run.create(run, { include: [Route] })));
+
+  // Find Route id 1 and use magic method to set its waypoints
   const allWaypoints = await Waypoint.findAll();
-  const newRoute = await Route.create();
-  await newRoute.setWaypoints(allWaypoints);
-  await newRoute.update({});
+  const routeOne = await Route.findByPk(1);
+  await routeOne.setWaypoints(allWaypoints);
+  // Trigger Route beforeUpdate hook to calculate route distance
+  await routeOne.update({});
 
-  // Create Runs
-  await Promise.all(runs.map((run) => Run.create(run)));
-
-  // Associate Run 1 with Route 1 and Users 1 and 2
+  // Associate some Runs with some Users
   const runOne = await Run.findByPk(1);
-  await runOne.setRoute(newRoute);
+  const runTwo = await Run.findByPk(2);
   await runOne.addUser(1);
   await runOne.addUser(2);
+  await runTwo.addUser(4);
+  await runTwo.addUser(5);
+  await runTwo.addUser(6);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
