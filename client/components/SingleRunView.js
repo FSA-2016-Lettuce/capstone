@@ -58,7 +58,7 @@ const SingleRunView = (props) => {
       <Typography className={classes.runDetail}>
         Run Details for Run #{run.id}
       </Typography>
-      <SingleRunMap runId={run.id} />
+      <SingleRunMap waypoints={run.route.waypoints} />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
