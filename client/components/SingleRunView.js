@@ -41,14 +41,17 @@ const SingleRunView = (props) => {
 
   console.log('SingleRunView props: ', props);
 
-  useEffect(async () => {
-    await props.getRun(runId);
+  useEffect(() => {
+    async function loadRun() {
+      await props.getRun(runId);
+    }
+
+    loadRun();
   }, []);
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
   const displayDistance = displayKm(run.route.distance);
-
 
   return (
     <div>

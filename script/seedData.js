@@ -47,26 +47,32 @@ const runs = [
   {
     startDate: futureDate,
     pace: 480,
+    route: {},
   },
   {
     startDate: futureDate,
     pace: 390,
+    route: {},
   },
   {
     startDate: pastDate,
     pace: 560,
+    route: {},
   },
   {
     startDate: pastDate,
     pace: 780,
+    route: {},
   },
   {
     startDate: now,
     pace: 660,
+    route: {},
   },
   {
     startDate: now,
     pace: 520,
+    route: {},
   },
 ];
 
@@ -100,7 +106,7 @@ const waypointCoords = [
 ];
 
 const waypoints = waypointCoords.map((coord, index) => ({
-  pathIndex: index,
+  pathIndex: index + 1,
   latitude: coord[0],
   longitude: coord[1],
 }));
