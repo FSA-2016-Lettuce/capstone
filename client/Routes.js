@@ -16,12 +16,16 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/runs/:id" component={SingleRunView} />
             <Redirect to="/home" />
           </Switch>
         ) : (

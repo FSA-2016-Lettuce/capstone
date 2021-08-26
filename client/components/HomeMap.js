@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import PopupData from './PopupData';
+import HomeMapRunView from './HomeMapRunView';
 
 const dummyData = [
   {
@@ -10,7 +13,7 @@ const dummyData = [
     name: 'First Point',
     distance: '1 mile',
     pace: '8 min/mile',
-    date: '08/31/2021 @ 8:00AM'
+    date: '08/31/2021 @ 8:00AM',
   },
   {
     id: 2,
@@ -18,7 +21,7 @@ const dummyData = [
     name: 'Second Point',
     distance: '2 miles',
     pace: '12 min/mile',
-    date: '08/31/2021 @ 10:00AM'
+    date: '08/31/2021 @ 10:00AM',
   },
   {
     id: 3,
@@ -26,7 +29,7 @@ const dummyData = [
     name: 'Third Point',
     distance: '10 miles',
     pace: '6 min/mile',
-    date: '08/31/2021 @ 8:00PM'
+    date: '08/31/2021 @ 8:00PM',
   },
 ];
 
@@ -36,92 +39,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HomeMap() {
+const HomeMap = (props) => {
   const classes = useStyles();
+  const user = useSelector((state) => state.auth);
+
+  console.log('HomeMap props: ', props);
+
   return (
-    <MapContainer
-      className={classes.mapContainer}
-      center={[40.759253, -73.65]}
-      zoom={10.5}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
-      {dummyData.map((point) => (
-        <Marker key={point.id} position={point.coordinates}>
-          {/* going to add styling to our popup shortly */}
-          <Popup>
-             <PopupData data= {point}/>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    user.homeLat !== 0 && (
+      <MapContainer
+        className={classes.mapContainer}
+        center={[user.homeLat, user.homeLng]}
+        zoom={13.5}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <HomeMapRunView user={user} />
+      </MapContainer>
+    )
   );
-}
+};
 
-// const position = [51.505, -0.09]
-// return (
-//   <MapContainer
-//     style={{ height: '500px' }}
-//     center={[51.505, -0.09]}
-//     zoom={13}
-//     scrollWheelZoom={false}
-//   >
-//     <TileLayer
-//       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//     />
-//     <Marker position={[51.505, -0.09]}>
-//       <Popup>
-//         A pretty CSS3 popup. <br /> Easily customizable.
-//       </Popup>
-//     </Marker>
-//   </MapContainer>
-// );
-// }
-
-//   var mymap = L.map('mapid').setView([40.759253, -73.774953], 7.5);
-
-//   L.tileLayer(
-//     'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',
-//     {
-//       maxZoom: 18,
-//       attribution:
-//         'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-//         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-//       id: 'mapbox/streets-v11',
-//       tileSize: 512,
-//       zoomOffset: -1,
-//     }
-//   ).addTo(mymap);
-
-//   L.marker([51.5, -0.09])
-//     .addTo(mymap)
-//     .bindPopup('<b>Hello world!</b><br />I am a popup.');
-//   // .openPopup();
-//   //the below code allows us to customize a pin (should we decide to go with a circle shaped pin-drop)
-
-//   L.circle([40.759253, -73.774953], 500, {
-//     color: 'red',
-//     fillColor: '#f03',
-//     fillOpacity: 0.5,
-//   })
-//     .addTo(mymap)
-//     .bindPopup('What up lettuce!')
-
-//     // L.polygon([
-//     //   [40.459253, -73.774953],
-//     //   [40.759253, -73.774953],
-//     //   [40.759253, -74.774953],
-//     // ])
-//     .addTo(mymap)
-//     .bindPopup('I am a polygon.');
-
-//   var popup = L.popup();
-
-//   L.marker([40.789253, -73.772953])
-//     .addTo(mymap)
-//     .bindPopup('Team Lettuce is running these streets!');
-
-// }
+export default HomeMap;

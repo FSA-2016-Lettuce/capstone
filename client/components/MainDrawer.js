@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -85,7 +87,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft(props) {
+const MainDrawer = (props) => {
+  console.log('MainDrawer props: ', props);
+  const { user } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -97,6 +101,18 @@ export default function PersistentDrawerLeft(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const findRunHandler = () => {};
+  const createRunHandler = () => {};
+  const viewStatsHandler = () => {};
+  const logoutHandler = () => {};
+
+  const menuItemList = [
+    { label: 'Find Run', clickHandler: findRunHandler },
+    { label: 'Create Run', clickHandler: createRunHandler },
+    { label: 'View Stats', clickHandler: viewStatsHandler },
+    { label: 'Logout', clickHandler: logoutHandler },
+  ];
 
   return (
     <div className={classes.root}>
@@ -122,7 +138,7 @@ export default function PersistentDrawerLeft(props) {
           </Typography>
 
           <Typography variant="h6" noWrap className={classes.welcomeText}>
-            Guest
+            {user.firstName}
           </Typography>
 
           <img id="lettuce-logo" src="/lettuce-logo.png"></img>
@@ -148,20 +164,22 @@ export default function PersistentDrawerLeft(props) {
         </div>
         <Divider />
         <List>
-          {['Find Run', 'Create Run', 'Your Stats', 'Logout'].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? (
-                    <DirectionsRunIcon />
-                  ) : (
-                    <DirectionsRunIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          {menuItemList.map((menuItem, index) => (
+            <ListItem
+              button
+              key={menuItem.label}
+              onClick={menuItem.clickHandler}
+            >
+              <ListItemIcon>
+                {index % 2 === 0 ? (
+                  <DirectionsRunIcon />
+                ) : (
+                  <DirectionsRunIcon />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={menuItem.label} />
+            </ListItem>
+          ))}
         </List>
         <Divider />
       </Drawer>
@@ -174,4 +192,10 @@ export default function PersistentDrawerLeft(props) {
       </main>
     </div>
   );
-}
+};
+
+const mapState = (state) => ({
+  user: state.auth,
+});
+
+export default withRouter(connect(mapState)(MainDrawer));
