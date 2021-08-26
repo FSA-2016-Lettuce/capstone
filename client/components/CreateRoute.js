@@ -5,11 +5,13 @@ import React, {
   useEffect,
   useReducer,
 } from 'react';
+import { useSelector } from 'react-redux';
 import { MapContainer, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
 import L from 'leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { FormControl, Box, TextField, Button } from '@material-ui/core';
+import {createRouteThunk} from '../store/route'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -23,12 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LeafletDrawDemo = () => {
+const CreateRoute = () => {
   const classes = useStyles();
   const [center, setCenter] = useState({ lat: 39.272132, lng: -76.598145 });
   const [mapLayers, setMapLayers] = useState([]);
   const zoomLevel = 13;
   const mapRef = useRef();
+
+  const user = useSelector((state) => state.auth)
 
   // Callback functions to handle updating drawing state
   const _onCreated = (e) => {
@@ -115,7 +119,7 @@ const LeafletDrawDemo = () => {
         To get started, click the / button in the top right corner of the map
       </h3>
       {/* space for modal */}
-      <MapContainer center={center} zoom={zoomLevel} ref={mapRef}>
+      <MapContainer center={[user.homeLat, user.homeLng]} zoom={zoomLevel} ref={mapRef}>
         <FeatureGroup>
           <EditControl
             position="topright"
@@ -160,7 +164,7 @@ const LeafletDrawDemo = () => {
             color="primary"
             // className={classes.button}
           >
-            Submit Run
+            Submit Route
           </Button>
         </form>
       </Box>
@@ -169,4 +173,4 @@ const LeafletDrawDemo = () => {
   );
 };
 
-export default LeafletDrawDemo;
+export default CreateRoute;
