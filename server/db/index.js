@@ -26,10 +26,3 @@ Run.belongsTo(Route);
 
 Route.belongsToMany(Waypoint, { through: 'routePaths' });
 Waypoint.belongsToMany(Route, { through: 'routePaths' });
-
-Waypoint.hasOne(User, {
-  foreignKey: 'homeLocation',
-});
-User.belongsTo(Waypoint, {
-  foreignKey: 'homeLocation',
-});

@@ -3,39 +3,63 @@ const moment = require('moment');
 const users = [
   {
     username: 'cody@gmail.com',
+    firstName: 'Cody',
+    lastName: 'Coder',
     password: 'cody123',
     pace: 390,
     runningStyle: 'HOBBY',
+    homeLat: 48.85837,
+    homeLng: 2.294481,
   },
   {
     username: 'sarah@gmail.com',
     password: 'sarah123',
+    firstName: 'Sarah',
+    lastName: 'Z',
     pace: 440,
     runningStyle: 'HOBBY',
+    homeLat: 3.2028,
+    homeLng: 73.2207,
   },
   {
     username: 'nicole@gmail.com',
     password: 'nicole123',
-    pace: 500,
+    firstName: 'Nicole',
+    lastName: 'Y',
+    pace: 320,
     runningStyle: 'HOBBY',
+    homeLat: -16.5004,
+    homeLng: -151.7415,
   },
   {
     username: 'matt@gmail.com',
     password: 'matt123',
-    pace: 560,
+    firstName: 'Matt',
+    lastName: 'G',
+    pace: 380,
     runningStyle: 'HOBBY',
+    homeLat: -82.8628,
+    homeLng: 135.0,
   },
   {
     username: 'gary@gmail.com',
     password: 'gary123',
-    pace: 600,
+    firstName: 'Gary',
+    lastName: 'K',
+    pace: 290,
     runningStyle: 'HOBBY',
+    homeLat: 13.736717,
+    homeLng: 100.523186,
   },
   {
     username: 'meredith@gmail.com',
     password: 'meredith123',
-    pace: 680,
+    firstName: 'Meredith',
+    lastName: 'C',
+    pace: 510,
     runningStyle: 'HOBBY',
+    homeLat: 49.2827,
+    homeLng: -123.1207,
   },
 ];
 
@@ -111,42 +135,8 @@ const waypoints = waypointCoords.map((coord, index) => ({
   longitude: coord[1],
 }));
 
-const homeLocations = [
-  {
-    pathIndex: 1,
-    latitude: 48.85837,
-    longitude: 2.294481,
-  },
-  {
-    pathIndex: 1,
-    latitude: 3.2028,
-    longitude: 73.2207,
-  },
-  {
-    pathIndex: 1,
-    latitude: -16.5004,
-    longitude: -151.7415,
-  },
-  {
-    pathIndex: 1,
-    latitude: -82.8628,
-    longitude: 135.0,
-  },
-  {
-    pathIndex: 1,
-    latitude: 13.736717,
-    longitude: 100.523186,
-  },
-  {
-    pathIndex: 1,
-    latitude: 49.2827,
-    longitude: -123.1207,
-  },
-];
-
 module.exports = {
   runs,
   users,
   waypoints,
-  homeLocations,
 };

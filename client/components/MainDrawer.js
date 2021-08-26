@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -85,7 +87,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft(props) {
+const MainDrawer = (props) => {
+  console.log('MainDrawer props: ', props);
+  const { user } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -122,7 +126,7 @@ export default function PersistentDrawerLeft(props) {
           </Typography>
 
           <Typography variant="h6" noWrap className={classes.welcomeText}>
-            Guest
+            {user.firstName}
           </Typography>
 
           <img id="lettuce-logo" src="/lettuce-logo.png"></img>
@@ -174,4 +178,10 @@ export default function PersistentDrawerLeft(props) {
       </main>
     </div>
   );
-}
+};
+
+const mapState = (state) => ({
+  user: state.auth,
+});
+
+export default withRouter(connect(mapState)(MainDrawer));

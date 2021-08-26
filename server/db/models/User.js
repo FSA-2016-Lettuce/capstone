@@ -19,6 +19,14 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   pace: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -35,6 +43,16 @@ const User = db.define('user', {
   profileImg: {
     type: Sequelize.STRING,
     defaultValue: '/defaultProfile.png',
+  },
+  homeLat: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 48.85837,
+  },
+  homeLng: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 2.294481,
   },
 });
 

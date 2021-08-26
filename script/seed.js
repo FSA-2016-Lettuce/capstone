@@ -4,7 +4,7 @@ const {
   db,
   models: { User, Run, Waypoint, Route },
 } = require('../server/db');
-const { users, runs, waypoints, homeLocations } = require('./seedData');
+const { users, runs, waypoints } = require('./seedData');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -17,17 +17,6 @@ async function seed() {
 
   // Creating Users
   await Promise.all(users.map((user) => User.create(user)));
-
-  //creating home locations and associating to users
-  await Promise.all(
-    homeLocations.map((homeLocation) => Waypoint.create(homeLocation))
-  );
-
-  const allUsers = await User.findAll();
-  allUsers.map(async (user) => {
-    const homeLocation = await Waypoint.findByPk(user.id);
-    await user.setWaypoint(homeLocation);
-  });
 
   // Creating Waypoints
   await Promise.all(waypoints.map((waypoint) => Waypoint.create(waypoint)));
