@@ -14,7 +14,7 @@ const MapWithRoute = (props) => {
   const map = useMap();
   const routeStart = props.routePath[0];
   // Center map view at the beginning of the Route
-  map.setView(routeStart, 14);
+  map.setView(routeStart, 13.5);
 
   return (
     <div>

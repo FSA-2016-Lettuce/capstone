@@ -26,7 +26,7 @@ async function seed() {
   const allUsers = await User.findAll();
   allUsers.map(async (user) => {
     const homeLocation = await Waypoint.findByPk(user.id);
-    await user.addHomeLocation(homeLocation);
+    await user.setWaypoint(homeLocation);
   });
 
   // Creating Waypoints

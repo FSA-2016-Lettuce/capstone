@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const Home = (props) => {
   const classes = useStyles();
-  let { username } = props;
-  username = username || 'Guest';
+  let { user } = props;
+  console.log('user: ', user);
 
   return (
     <div>
@@ -39,7 +39,7 @@ export const Home = (props) => {
  */
 const mapState = (state) => {
   return {
-    username: state.auth.username,
+    user: state.auth,
   };
 };
 

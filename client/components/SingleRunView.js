@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SingleRunView = (props) => {
   const runId = props.match.params.id;
-  const { run } = props;
+  const { user, run } = props;
   const classes = useStyles();
 
   console.log('SingleRunView props: ', props);
@@ -122,6 +122,7 @@ const SingleRunView = (props) => {
 
 const mapState = (state) => ({
   run: state.run,
+  user: state.auth,
 });
 
 const mapDispatch = (dispatch) => ({
