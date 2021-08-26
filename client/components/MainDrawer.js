@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -20,6 +20,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../store/auth.js';
 
 const drawerWidth = 240;
 
@@ -93,6 +95,7 @@ const MainDrawer = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -102,16 +105,50 @@ const MainDrawer = (props) => {
     setOpen(false);
   };
 
-  const findRunHandler = () => {};
-  const createRunHandler = () => {};
-  const viewStatsHandler = () => {};
-  const logoutHandler = () => {};
+  // const findRunHandler = () => {
+
+  // }
+  // const createRunHandler = () => {
+
+  // }
+  // const logoutHandlerHandler = () => {
+
+  // }
+
+  // const logoutHandler = () => {
+
+  // }
 
   const menuItemList = [
-    { label: 'Find Run', clickHandler: findRunHandler },
-    { label: 'Create Run', clickHandler: createRunHandler },
-    { label: 'View Stats', clickHandler: viewStatsHandler },
-    { label: 'Logout', clickHandler: logoutHandler },
+    {
+      label: 'Find Run',
+      clickHandler: () => {
+        handleDrawerClose();
+      },
+      path: '/',
+    },
+    {
+      label: 'Create Run',
+      clickHandler: () => {
+        handleDrawerClose();
+      },
+      path: '/',
+    },
+    {
+      label: 'View Stats',
+      clickHandler: () => {
+        handleDrawerClose();
+      },
+      path: '/',
+    },
+    {
+      label: 'Logout',
+      clickHandler: () => {
+        dispatch(logout());
+        handleDrawerClose();
+      },
+      path: '/',
+    },
   ];
 
   return (
@@ -165,20 +202,21 @@ const MainDrawer = (props) => {
         <Divider />
         <List>
           {menuItemList.map((menuItem, index) => (
-            <ListItem
-              button
-              key={menuItem.label}
-              onClick={menuItem.clickHandler}
-            >
-              <ListItemIcon>
-                {index % 2 === 0 ? (
-                  <DirectionsRunIcon />
-                ) : (
-                  <DirectionsRunIcon />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={menuItem.label} />
-            </ListItem>
+            <div key={menuItem.label}>
+              {console.log('Path in Main Drawer', menuItem.path)}
+              <Link to={menuItem.path}>
+                <ListItem button onClick={menuItem.clickHandler}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? (
+                      <DirectionsRunIcon />
+                    ) : (
+                      <DirectionsRunIcon />
+                    )}
+                  </ListItemIcon>
+                  <ListItemText primary={menuItem.label} />
+                </ListItem>
+              </Link>
+            </div>
           ))}
         </List>
         <Divider />
