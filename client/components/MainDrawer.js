@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -91,11 +91,13 @@ const useStyles = makeStyles((theme) => ({
 
 const MainDrawer = (props) => {
   console.log('MainDrawer props: ', props);
-  const { user } = props;
+  // const { user } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
+  const history = useHistory();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -104,20 +106,6 @@ const MainDrawer = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  // const findRunHandler = () => {
-
-  // }
-  // const createRunHandler = () => {
-
-  // }
-  // const logoutHandlerHandler = () => {
-
-  // }
-
-  // const logoutHandler = () => {
-
-  // }
 
   const menuItemList = [
     {
@@ -146,8 +134,9 @@ const MainDrawer = (props) => {
       clickHandler: () => {
         dispatch(logout());
         handleDrawerClose();
+        // history.push('/login');
       },
-      path: '/',
+      path: '/login',
     },
   ];
 
@@ -232,8 +221,8 @@ const MainDrawer = (props) => {
   );
 };
 
-const mapState = (state) => ({
-  user: state.auth,
-});
+// const mapState = (state) => ({
+//   user: state.auth,
+// });
 
-export default withRouter(connect(mapState)(MainDrawer));
+export default withRouter(MainDrawer);
