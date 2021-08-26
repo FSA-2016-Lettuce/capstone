@@ -38,8 +38,8 @@ const users = [
     lastName: 'G',
     pace: 380,
     runningStyle: 'HOBBY',
-    homeLat: -82.8628,
-    homeLng: 135.0,
+    homeLat: 13.40749837,
+    homeLng: 103.8666632,
   },
   {
     username: 'gary@gmail.com',

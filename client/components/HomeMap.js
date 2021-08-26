@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { makeStyles } from '@material-ui/core/styles';
@@ -41,25 +41,25 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeMap = (props) => {
   const classes = useStyles();
+  const user = useSelector((state) => state.auth);
+
   console.log('HomeMap props: ', props);
-  const { user } = props;
+
   return (
-    <MapContainer
-      className={classes.mapContainer}
-      center={[user.homeLat, user.homeLng]}
-      zoom={10.5}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <HomeMapRunView user={user} />
-    </MapContainer>
+    user.homeLat !== 0 && (
+      <MapContainer
+        className={classes.mapContainer}
+        center={[user.homeLat, user.homeLng]}
+        zoom={13.5}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <HomeMapRunView user={user} />
+      </MapContainer>
+    )
   );
 };
 
-const mapState = (state) => ({
-  user: state.auth,
-});
-
-export default withRouter(connect(mapState)(HomeMap));
+export default HomeMap;

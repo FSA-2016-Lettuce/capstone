@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Marker, Popup, useMap } from 'react-leaflet';
 import PopupData from './PopupData';
 
@@ -33,7 +33,12 @@ const HomeMapRunView = (props) => {
   console.log('HomeMapRunView props: ', props);
   const { user } = props;
   const map = useMap();
-  map.setView([user.homeLat, user.homeLng], 13.5);
+
+  // useEffect(() => {
+  //   console.log('useffect fired inside homeMapRunView');
+  //   if (map && user.homeLat !== 0)
+  //     map.setView([user.homeLat, user.homeLng], 13.5);
+  // }, [props.user]);
 
   return (
     <div>

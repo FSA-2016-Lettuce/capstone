@@ -102,6 +102,18 @@ const MainDrawer = (props) => {
     setOpen(false);
   };
 
+  const findRunHandler = () => {};
+  const createRunHandler = () => {};
+  const viewStatsHandler = () => {};
+  const logoutHandler = () => {};
+
+  const menuItemList = [
+    { label: 'Find Run', clickHandler: findRunHandler },
+    { label: 'Create Run', clickHandler: createRunHandler },
+    { label: 'View Stats', clickHandler: viewStatsHandler },
+    { label: 'Logout', clickHandler: logoutHandler },
+  ];
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -152,20 +164,22 @@ const MainDrawer = (props) => {
         </div>
         <Divider />
         <List>
-          {['Find Run', 'Create Run', 'Your Stats', 'Logout'].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? (
-                    <DirectionsRunIcon />
-                  ) : (
-                    <DirectionsRunIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          {menuItemList.map((menuItem, index) => (
+            <ListItem
+              button
+              key={menuItem.label}
+              onClick={menuItem.clickHandler}
+            >
+              <ListItemIcon>
+                {index % 2 === 0 ? (
+                  <DirectionsRunIcon />
+                ) : (
+                  <DirectionsRunIcon />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={menuItem.label} />
+            </ListItem>
+          ))}
         </List>
         <Divider />
       </Drawer>

@@ -1,6 +1,5 @@
 import React, { Component, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { getRunThunk } from '../store/run';
 import { displayKm } from '../utils';
@@ -36,18 +35,19 @@ const useStyles = makeStyles((theme) => ({
 
 const SingleRunView = (props) => {
   const runId = props.match.params.id;
-  const { user, run } = props;
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const run = useSelector((state) => state.run);
 
   console.log('SingleRunView props: ', props);
 
   useEffect(() => {
     async function loadRun() {
-      await props.getRun(runId);
+      await dispatch(getRunThunk(runId));
     }
 
     loadRun();
-  }, []);
+  }, [props.location]);
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
@@ -120,13 +120,4 @@ const SingleRunView = (props) => {
   );
 };
 
-const mapState = (state) => ({
-  run: state.run,
-  user: state.auth,
-});
-
-const mapDispatch = (dispatch) => ({
-  getRun: (runId) => dispatch(getRunThunk(runId)),
-});
-
-export default withRouter(connect(mapState, mapDispatch)(SingleRunView));
+export default SingleRunView;
