@@ -6,6 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import { deepPurple } from '@material-ui/core/colors';
 import { useSelector } from 'react-redux';
 import { displayKm, displayPace } from '../utils';
@@ -13,28 +15,20 @@ import { displayKm, displayPace } from '../utils';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
   avatar: {
-    // display: 'flex',
-    '& > *': {
-      // margin: theme.spacing(1),
-      height: '200px',
-      width: '200px',
-      padding: '4px',
-      justifyContent: 'center',
-    },
+    height: 200,
+    width: 200,
+    margin: 'auto',
   },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
   button: {
-    '& > *': {
-      // margin: theme.spacing(1),
-      padding: '5px',
-    },
+    margin: theme.spacing(1),
   },
   buttonContainer: {
     textAlign: 'center',
@@ -45,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
   avatarContainer: {
     textAlign: 'center',
     justifyContent: 'center',
+    display: 'flex',
+    height: 200,
+    width: 200,
+  },
+  profileContainer: {
+    textAlign: 'center',
   },
 }));
 
@@ -55,19 +55,18 @@ const UserProfile = () => {
   const pace = displayPace(user.pace);
 
   return (
-    <div>
-      <div className={classes.avatarContainer}>
-        <div className={classes.avatar}>
-          <Avatar
-            id="avatar"
-            alt={`${user.username}`}
-            src={`${user.profileImg}`}
-          />
-        </div>
-        <Button className={classes.button} variant="contained" color="primary">
-          Add/Edit Photo
-        </Button>
-      </div>
+    <Container className={classes.profileContainer} maxWidth="sm">
+      <Box className={classes.avatarContainer}>
+        <Avatar
+          className={classes.avatar}
+          id="avatar"
+          alt={`${user.username}`}
+          src={`${user.profileImg}`}
+        />
+      </Box>
+      <Button className={classes.button} variant="outlined" color="primary">
+        Add/Edit Photo
+      </Button>
       <List className={classes.root}>
         <ListItem>
           <ListItemAvatar>
@@ -113,7 +112,7 @@ const UserProfile = () => {
           Edit Profile
         </Button>
       </div>
-    </div>
+    </Container>
   );
 };
 

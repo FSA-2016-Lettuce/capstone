@@ -13,7 +13,7 @@ import { CallMissedSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   banner: {
-    marginLeft: '14px',
+    marginLeft: theme.spacing(2),
   },
 }));
 
