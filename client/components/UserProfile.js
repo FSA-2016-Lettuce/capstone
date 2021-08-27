@@ -6,10 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-
 import { deepPurple } from '@material-ui/core/colors';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { displayKm, displayPace } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
   buttonWidth: {
     width: '90%',
   },
+  avatarContainer: {
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
 }));
 
 const UserProfile = () => {
@@ -54,7 +56,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      <div id="avatar-container">
+      <div className={classes.avatarContainer}>
         <div className={classes.avatar}>
           <Avatar
             id="avatar"
@@ -87,7 +89,7 @@ const UserProfile = () => {
           </ListItemAvatar>
           <ListItemText
             primary=" Preferred Pace"
-            secondary={`${pace} km/min`}
+            secondary={`${pace} min/km`}
           />
         </ListItem>
         <ListItem>
