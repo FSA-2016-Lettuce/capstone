@@ -34,8 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     '& > *': {
-      margin: theme.spacing(1),
+      // margin: theme.spacing(1),
+      padding: '5px',
     },
+  },
+  buttonContainer: {
+    textAlign: 'center',
   },
 }));
 
@@ -47,16 +51,18 @@ const UserProfile = () => {
 
   return (
     <div>
-      <div className={classes.avatar}>
-        <Avatar
-          id="avatar"
-          alt={`${user.username}`}
-          src={`${user.profileImg}`}
-        />
+      <div id="avatar-container">
+        <div className={classes.avatar}>
+          <Avatar
+            id="avatar"
+            alt={`${user.username}`}
+            src={`${user.profileImg}`}
+          />
+        </div>
+        <Button className={classes.button} variant="contained" color="primary">
+          Add/Edit Photo
+        </Button>
       </div>
-      <Button className={classes.button} variant="contained" color="primary">
-        Add/Edit Photo
-      </Button>
       <List className={classes.root}>
         <ListItem>
           <ListItemAvatar>
@@ -93,9 +99,11 @@ const UserProfile = () => {
           />
         </ListItem>
       </List>
-      <Button variant="contained" color="primary">
-        Edit Profile
-      </Button>
+      <div className={classes.buttonContainer}>
+        <Button variant="contained" color="primary">
+          Edit Profile
+        </Button>
+      </div>
     </div>
   );
 };
