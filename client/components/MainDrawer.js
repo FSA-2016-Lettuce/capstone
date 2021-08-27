@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link, useHistory } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -94,11 +94,9 @@ const MainDrawer = (props) => {
   // const { user } = props;
   const classes = useStyles();
   const theme = useTheme();
-  let history = useHistory();
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
-  const history = useHistory();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -123,11 +121,13 @@ const MainDrawer = (props) => {
       },
       path: '/',
     },
-    { label: 'Create Route',
-      clickHandler: ()=> {
-        handleDrawerClose()
+    {
+      label: 'Create Route',
+      clickHandler: () => {
+        handleDrawerClose();
       },
-      path: '/createroute' }
+      path: '/createroute',
+    },
     {
       label: 'View Stats',
       clickHandler: () => {
