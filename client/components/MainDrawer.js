@@ -94,7 +94,6 @@ const MainDrawer = (props) => {
   // const { user } = props;
   const classes = useStyles();
   const theme = useTheme();
-  let history = useHistory();
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
@@ -123,11 +122,13 @@ const MainDrawer = (props) => {
       },
       path: '/',
     },
-    { label: 'Create Route',
-      clickHandler: ()=> {
-        handleDrawerClose()
+    {
+      label: 'Create Route',
+      clickHandler: () => {
+        handleDrawerClose();
       },
-      path: '/createroute' }
+      path: '/createroute',
+    },
     {
       label: 'View Stats',
       clickHandler: () => {
