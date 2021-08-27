@@ -5,6 +5,7 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import SingleRunView from './components/SingleRunView';
 import LeafletDrawDemo from './components/LeafletDrawDemo';
+import UserProfile from './components/UserProfile';
 import { me } from './store';
 
 /**
@@ -26,6 +27,7 @@ class Routes extends Component {
             <Route path="/" exact component={Home} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/profile" component={UserProfile} />
             <Route path="/runs/:id" component={SingleRunView} />
             <Redirect to="/home" />
           </Switch>
