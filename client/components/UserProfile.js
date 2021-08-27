@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     textAlign: 'center',
   },
+  buttonWidth: {
+    width: '90%',
+  },
 }));
 
 const UserProfile = () => {
@@ -100,7 +103,11 @@ const UserProfile = () => {
         </ListItem>
       </List>
       <div className={classes.buttonContainer}>
-        <Button variant="contained" color="primary">
+        <Button
+          className={classes.buttonWidth}
+          variant="contained"
+          color="primary"
+        >
           Edit Profile
         </Button>
       </div>
