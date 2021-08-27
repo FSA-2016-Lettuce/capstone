@@ -4,7 +4,7 @@ const {
   db,
   models: { User, Run, Waypoint, Route },
 } = require('../server/db');
-const { users, runs, waypoints } = require('./seedData');
+const { users, runs, waypoints, homeLocations } = require('./seedData');
 
 /**
  * seed - this function clears the database, updates tables to
