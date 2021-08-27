@@ -5,22 +5,25 @@ import React, {
   useEffect,
   useReducer,
 } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { MapContainer, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
 import L from 'leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { FormControl, Box, TextField, Button } from '@material-ui/core';
-import {createRouteThunk} from '../store/route'
+import { createRouteThunk } from '../store/route';
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    height: '30vh',
-  },
   root: {
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
+    },
+  },
+  textField: {
+    '& > *': {
+      margin: theme.spacing(1),
     },
   },
 }));
@@ -28,13 +31,24 @@ const useStyles = makeStyles((theme) => ({
 const CreateRoute = () => {
   const classes = useStyles();
   const [center, setCenter] = useState({ lat: 39.272132, lng: -76.598145 });
+  // Local state to hold information about drawn lines on map
   const [mapLayers, setMapLayers] = useState([]);
+  // Local state to hold information about text entered into "Name" form
+  const [formName, setFormName] = useState('');
+  // Local state for visibility of error message
+  const [errorVis, setErrorVis] = useState('hidden');
   const zoomLevel = 13;
+  // Save map ref to pass into mapContainer
   const mapRef = useRef();
 
-  const user = useSelector((state) => state.auth)
+  // Grab current logged in user from store
+  const user = useSelector((state) => state.auth);
+  // Set up dispatch and history functionality
+  const dispatch = useDispatch();
+  let history = useHistory();
 
-  // Callback functions to handle updating drawing state
+  // Callback functions to handle drawing state
+  // When a polyline is created, add that polyline layer to state
   const _onCreated = (e) => {
     console.log('ON CREATE: ', e);
 
@@ -49,6 +63,7 @@ const CreateRoute = () => {
     }
   };
 
+  // When a polyline is edited, update the polyline that was edited
   const _onEdited = (e) => {
     console.log('ON EDIT: ', e);
 
@@ -65,6 +80,7 @@ const CreateRoute = () => {
     });
   };
 
+  // When a polyline is deleted, remove that polyline from state
   const _onDeleted = (e) => {
     console.log('ON DELETE: ', e);
     const {
@@ -76,40 +92,38 @@ const CreateRoute = () => {
     });
   };
 
-  const [formName, setFormName] = useState('');
-
+  // Update state of form as user updated text field
   const handleInput = (evt) => {
-    const newValue = evt.target.value;
+    const newValue = evt.target.value.trim();
     setFormName(newValue);
   };
 
+  // What to do when a user hits the "submit" button:
   const handleSubmit = (evt) => {
+    // Prevent default form behavior
     evt.preventDefault();
 
-    // console.log('WHAT IS OUR ROUTE?', mapLayers);
+    // NOTE: There is nothing stopping users from creating multiple routes at one
+    // time. Prevent that with the conditional below:
+    if (mapLayers.length === 1) {
+      // Create an array of waypoints only from current mapLayers state
+      const waypointsOnly = mapLayers[0].latlngs.map((point) => {
+        return [point.lat, point.lng];
+      });
 
-    // console.log('WHAT IS NAME?', formName);
+      // Create routeDetails object that will be sent to back-end
+      const routeDetails = {
+        name: formName,
+        waypoints: [...waypointsOnly],
+      };
 
-    const waypointsOnly = mapLayers[0].latlngs.map((point) => {
-      return [point.lat, point.lng];
-    });
-
-    console.log('WHAT IS WAYPOINTS ONLY?', waypointsOnly);
-
-    const routeDetails = {
-      name: formName,
-      waypoints: [...waypointsOnly],
-    };
-
-    console.log('WHAT IS ROUTE DETAILS?', routeDetails);
-
-    /*
-      THE OBJECT TO SEND:
-      {
-        name: "STRING",
-        waypoints: ARRAY
-      }
-    */
+      // Dispatch thunk to create the route and push back to the home page
+      dispatch(createRouteThunk(routeDetails));
+      history.push('/');
+    } else {
+      // Otherwise, do nothing but show error message
+      setErrorVis('visible');
+    }
   };
 
   return (
@@ -119,7 +133,11 @@ const CreateRoute = () => {
         To get started, click the / button in the top right corner of the map
       </h3>
       {/* space for modal */}
-      <MapContainer center={[user.homeLat, user.homeLng]} zoom={zoomLevel} ref={mapRef}>
+      <MapContainer
+        center={[user.homeLat, user.homeLng]}
+        zoom={zoomLevel}
+        ref={mapRef}
+      >
         <FeatureGroup>
           <EditControl
             position="topright"
@@ -145,19 +163,18 @@ const CreateRoute = () => {
       <Box
         display="flex"
         justifyContent="space-around"
-        className={classes.formControl}
+        // className={classes.formControl}
       >
         <form className={classes.root} onSubmit={handleSubmit}>
           <TextField
+            size="small"
             label="Name"
-            id="margin-normal"
-            name="name"
             defaultValue={formName}
-            // className={classes.textField}
+            variant="filled"
+            className={classes.textField}
             helperText="Enter the name of the Route"
             onChange={handleInput}
           />
-          {/* <TextField id="outlined-basic" label="Name" variant="filled" />  */}
           <Button
             type="submit"
             variant="contained"
@@ -168,7 +185,14 @@ const CreateRoute = () => {
           </Button>
         </form>
       </Box>
-      <pre>{JSON.stringify(mapLayers, 0, 2)}</pre>
+      <Box
+        component="div"
+        visibility={errorVis}
+        color="red"
+        fontWeight="fontWeightBold"
+      >
+        You may only create one route at a time. Update the map accordingly.
+      </Box>
     </div>
   );
 };
