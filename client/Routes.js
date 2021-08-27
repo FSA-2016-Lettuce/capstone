@@ -4,7 +4,7 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import SingleRunView from './components/SingleRunView';
-import LeafletDrawDemo from './components/LeafletDrawDemo';
+import CreateRoute from './components/CreateRoute';
 import { me } from './store';
 
 /**
@@ -27,6 +27,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/runs/:id" component={SingleRunView} />
+            <Route path="/createroute" component={CreateRoute} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -35,7 +36,6 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/runs/:id" component={SingleRunView} />
-            <Route path="/leafletdrawdemo" component={LeafletDrawDemo} />
           </Switch>
         )}
       </div>
