@@ -11,20 +11,34 @@ import { MapContainer, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
 import L from 'leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { FormControl, Box, TextField, Button } from '@material-ui/core';
+import {
+  FormControl,
+  Box,
+  TextField,
+  Button,
+  Divider,
+  Typography,
+} from '@material-ui/core';
 import { createRouteThunk } from '../store/route';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '95%',
     },
   },
   textField: {
     '& > *': {
       margin: theme.spacing(1),
     },
+  },
+  title: {
+    paddingLeft: '6px',
+    marginTop: '20px',
+  },
+  subtitle: {
+    paddingLeft: '6px',
   },
 }));
 
@@ -128,10 +142,18 @@ const CreateRoute = () => {
 
   return (
     <div>
-      <h2>Welcome to Create-A-Route!</h2>
-      <h3>
-        To get started, click the / button in the top right corner of the map
-      </h3>
+      <Typography className={classes.title} variant="h5">
+        Welcome to Create-A-Route!
+      </Typography>
+      <Typography className={classes.subtitle} variant="subtitle1">
+        To get started, click the "Draw a polyline" button in the top right
+        corner of the map.
+      </Typography>
+      <Typography className={classes.subtitle} variant="subtitle1">
+        Note: The first point created for the Route will be assumed to be the
+        starting location.
+      </Typography>
+
       {/* space for modal */}
       <MapContainer
         center={[user.homeLat, user.homeLng]}
@@ -160,31 +182,21 @@ const CreateRoute = () => {
         />
       </MapContainer>
 
-      <Box
-        display="flex"
-        justifyContent="space-around"
-        // className={classes.formControl}
-      >
-        <form className={classes.root} onSubmit={handleSubmit}>
-          <TextField
-            size="small"
-            label="Name"
-            defaultValue={formName}
-            variant="filled"
-            className={classes.textField}
-            helperText="Enter the name of the Route"
-            onChange={handleInput}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            // className={classes.button}
-          >
-            Submit Route
-          </Button>
-        </form>
-      </Box>
+      <form className={classes.root} onSubmit={handleSubmit}>
+        <TextField
+          size="small"
+          label="Name"
+          defaultValue={formName}
+          className={classes.textField}
+          variant="filled"
+          helperText="Enter the name of the Route"
+          onChange={handleInput}
+        />
+
+        <Button type="submit" variant="contained" color="primary">
+          Submit Route
+        </Button>
+      </form>
       <Box
         component="div"
         visibility={errorVis}

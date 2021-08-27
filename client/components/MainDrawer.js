@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -92,6 +93,7 @@ const MainDrawer = (props) => {
   const { user } = props;
   const classes = useStyles();
   const theme = useTheme();
+  let history = useHistory();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -104,12 +106,18 @@ const MainDrawer = (props) => {
 
   const findRunHandler = () => {};
   const createRunHandler = () => {};
+  const createRouteHandler = () => {
+    history.push('/createroute');
+    handleDrawerClose();
+    return;
+  };
   const viewStatsHandler = () => {};
   const logoutHandler = () => {};
 
   const menuItemList = [
     { label: 'Find Run', clickHandler: findRunHandler },
     { label: 'Create Run', clickHandler: createRunHandler },
+    { label: 'Create Route', clickHandler: createRouteHandler },
     { label: 'View Stats', clickHandler: viewStatsHandler },
     { label: 'Logout', clickHandler: logoutHandler },
   ];
