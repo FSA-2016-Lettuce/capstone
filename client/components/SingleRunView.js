@@ -39,7 +39,7 @@ const SingleRunView = (props) => {
   const dispatch = useDispatch();
   const run = useSelector((state) => state.run);
 
-  console.log('SingleRunView props: ', props);
+  console.log('SingleRunView run: ', run);
 
   useEffect(() => {
     async function loadRun() {

@@ -4,7 +4,15 @@ const {
   db,
   models: { User, Run, Waypoint, Route },
 } = require('../server/db');
-const { users, runs, waypoints, homeLocations } = require('./seedData');
+const {
+  users,
+  runs,
+  routeOneWaypoints,
+  routeTwoWaypoints,
+  routeThreeWaypoints,
+  routeFourWaypoints,
+  routeFiveWaypoints,
+} = require('./seedData');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -18,18 +26,32 @@ async function seed() {
   // Creating Users
   await Promise.all(users.map((user) => User.create(user)));
 
-  // Creating Waypoints
-  await Promise.all(waypoints.map((waypoint) => Waypoint.create(waypoint)));
-
   // Create Runs and include creation of / association to an empty Route
   await Promise.all(runs.map((run) => Run.create(run, { include: [Route] })));
 
+  // Creating Waypoints
+  await Promise.all(
+    routeOneWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeTwoWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeThreeWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeFourWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeFiveWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+
   // Find Route id 1 and use magic method to set its waypoints
-  const allWaypoints = await Waypoint.findAll();
-  const routeOne = await Route.findByPk(1);
-  await routeOne.setWaypoints(allWaypoints);
+  // const allWaypoints = await Waypoint.findAll();
+  const routes = await Route.findAll();
+  // await routeOne.setWaypoints(allWaypoints);
   // Trigger Route beforeUpdate hook to calculate route distance
-  await routeOne.update({});
+  await routes.forEach((route) => route.update({}));
 
   // Associate some Runs with some Users
   const runOne = await Run.findByPk(1);
