@@ -16,8 +16,26 @@ router.get('/:id', async (req, res, next) => {
       ],
       order: [[Route, Waypoint, 'pathIndex', 'ASC']],
     });
-    console.log('run');
     res.json(run);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/', async (req, res, next) => {
+  try {
+    const runs = await Run.findAll({
+      include: [
+        {
+          model: Route,
+          include: [Waypoint],
+        },
+        { model: User },
+      ],
+      order: [[Route, Waypoint, 'pathIndex', 'ASC']],
+    });
+    console.log('runs from server:', runs);
+    res.json(runs);
   } catch (err) {
     next(err);
   }

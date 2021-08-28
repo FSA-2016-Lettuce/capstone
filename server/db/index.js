@@ -24,5 +24,5 @@ Run.belongsToMany(User, { through: 'runHistory' });
 Route.hasMany(Run);
 Run.belongsTo(Route);
 
-Route.belongsToMany(Waypoint, { through: 'routePaths' });
-Waypoint.belongsToMany(Route, { through: 'routePaths' });
+Route.hasMany(Waypoint);
+Waypoint.belongsTo(Route);
