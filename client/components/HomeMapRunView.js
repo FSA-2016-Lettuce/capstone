@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Marker, Popup, useMap } from 'react-leaflet';
 import PopupData from './PopupData';
+import { _getRuns } from '../store/run';
 
 const dummyData = [
   {
@@ -31,25 +33,33 @@ const dummyData = [
 
 const HomeMapRunView = (props) => {
   console.log('HomeMapRunView props: ', props);
-  const { user } = props;
-  const map = useMap();
-
-  // useEffect(() => {
-  //   console.log('useffect fired inside homeMapRunView');
-  //   if (map && user.homeLat !== 0)
-  //     map.setView([user.homeLat, user.homeLng], 13.5);
-  // }, [props.user]);
-
+  const dispatch = useDispatch();
+  const runs = useSelector((state) => state.run);
+  console.log("runs y'all", runs);
+  useEffect(() => {
+    async function loadRuns() {
+      await dispatch(_getRuns());
+    }
+    if (runs.length === 1) loadRuns();
+  }),
+    [];
   return (
     <div>
-      {dummyData.map((point) => (
-        <Marker key={point.id} position={point.coordinates}>
-          {/* going to add styling to our popup shortly */}
-          <Popup>
-            <PopupData data={point} />
-          </Popup>
-        </Marker>
-      ))}
+      {runs[0].id &&
+        runs.map((run) => (
+          <Marker
+            key={run.id}
+            position={[
+              run.route.waypoints[0].latitude,
+              run.route.waypoints[0].longitude,
+            ]}
+          >
+            {/* going to add styling to our popup shortly */}
+            <Popup>
+              <PopupData run={run} />
+            </Popup>
+          </Marker>
+        ))}
     </div>
   );
 };

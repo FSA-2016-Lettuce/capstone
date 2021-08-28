@@ -12,6 +12,7 @@ const {
   routeThreeWaypoints,
   routeFourWaypoints,
   routeFiveWaypoints,
+  routeSixWaypoints,
 } = require('./seedData');
 
 /**
@@ -29,7 +30,7 @@ async function seed() {
   // Create Runs and include creation of / association to an empty Route
   await Promise.all(runs.map((run) => Run.create(run, { include: [Route] })));
 
-  // Creating Waypoints
+  // Creating Waypoints with Route associations
   await Promise.all(
     routeOneWaypoints.map((waypoint) => Waypoint.create(waypoint))
   );
@@ -45,12 +46,12 @@ async function seed() {
   await Promise.all(
     routeFiveWaypoints.map((waypoint) => Waypoint.create(waypoint))
   );
+  await Promise.all(
+    routeSixWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
 
-  // Find Route id 1 and use magic method to set its waypoints
-  // const allWaypoints = await Waypoint.findAll();
+  // Trigger Route beforeUpdate hook to calculate route distances
   const routes = await Route.findAll();
-  // await routeOne.setWaypoints(allWaypoints);
-  // Trigger Route beforeUpdate hook to calculate route distance
   await routes.forEach((route) => route.update({}));
 
   // Associate some Runs with some Users

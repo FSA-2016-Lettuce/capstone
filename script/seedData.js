@@ -20,8 +20,8 @@ const users = [
     lastName: 'Z',
     pace: 440,
     runningStyle: 'HOBBY',
-    homeLat: 3.2028,
-    homeLng: 73.2207,
+    homeLat: 59.9375,
+    homeLng: 30.308611,
   },
   {
     id: 3,
@@ -75,34 +75,40 @@ const now = moment();
 
 const runs = [
   {
+    id: 1,
     startDate: futureDate,
     pace: 480,
-    route: {},
+    route: { id: 1, name: 'Crocheron Park Run' },
   },
   {
+    id: 2,
     startDate: futureDate,
     pace: 390,
-    route: {},
+    route: { id: 2, name: 'English Bay Scramble' },
   },
   {
+    id: 3,
     startDate: pastDate,
     pace: 560,
-    route: {},
+    route: { id: 3, name: 'Stanley Park Stroll' },
   },
   {
+    id: 4,
     startDate: pastDate,
     pace: 780,
-    route: {},
+    route: { id: 4, name: 'Chinatown Jaunt' },
   },
   {
+    id: 5,
     startDate: now,
     pace: 660,
-    route: {},
+    route: { id: 5, name: 'Yaletown Docks' },
   },
   {
+    id: 6,
     startDate: now,
     pace: 520,
-    route: {},
+    route: { id: 6, name: 'Burrard Street Bridge' },
   },
 ];
 
@@ -274,6 +280,32 @@ const routeFiveWaypoints = routeFivePath.map((coord, index) => ({
   routeId: 5,
 }));
 
+const routeSixPath = [
+  [49.27899545, -123.1332087],
+  [49.27769949, -123.1312699],
+  [49.27687075, -123.1327473],
+  [49.27260784, -123.1451923],
+  [49.27250219, -123.1503313],
+  [49.27759868, -123.1500106],
+  [49.27758899, -123.1515711],
+  [49.27665519, -123.1520656],
+  [49.27324513, -123.1551996],
+  [49.26730945, -123.1551872],
+  [49.26716797, -123.1455727],
+  [49.27178137, -123.1455341],
+  [49.27301074, -123.1445816],
+  [49.27720716, -123.1325947],
+  [49.27826737, -123.1344236],
+  [49.27901129, -123.1333431],
+];
+
+const routeSixWaypoints = routeSixPath.map((coord, index) => ({
+  pathIndex: index + 1,
+  latitude: coord[0],
+  longitude: coord[1],
+  routeId: 6,
+}));
+
 module.exports = {
   runs,
   users,
@@ -282,4 +314,5 @@ module.exports = {
   routeThreeWaypoints,
   routeFourWaypoints,
   routeFiveWaypoints,
+  routeSixWaypoints,
 };
