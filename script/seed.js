@@ -7,6 +7,7 @@ const {
 const {
   users,
   runs,
+  routes,
   routeOneWaypoints,
   routeTwoWaypoints,
   routeThreeWaypoints,
@@ -25,10 +26,24 @@ async function seed() {
   console.log('db synced!');
 
   // Creating Users
-  await Promise.all(users.map((user) => User.create(user)));
+  for (let i = 0; i < users.length; i++) {
+    await User.create(users[i]);
+  }
 
-  // Create Runs and include creation of / association to an empty Route
-  await Promise.all(runs.map((run) => Run.create(run, { include: [Route] })));
+  // Creating Routes
+  for (let i = 0; i < routes.length; i++) {
+    await Route.create(routes[i]);
+  }
+
+  // Create Runs
+  for (let i = 0; i < runs.length; i++) {
+    await Run.create(runs[i]);
+  }
+
+  // Associate Routes to Runs
+  const allRoutes = await Route.findAll();
+  const allRuns = await Run.findAll();
+  await Promise.all(allRuns.map((run, idx) => run.setRoute(allRoutes[idx])));
 
   // Creating Waypoints with Route associations
   await Promise.all(
@@ -51,8 +66,7 @@ async function seed() {
   );
 
   // Trigger Route beforeUpdate hook to calculate route distances
-  const routes = await Route.findAll();
-  await routes.forEach((route) => route.update({}));
+  await allRoutes.forEach((route) => route.update({}));
 
   // Associate some Runs with some Users
   const runOne = await Run.findByPk(1);

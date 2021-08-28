@@ -25,13 +25,13 @@ router.post('/', async (req, res, next) => {
 
     // Create each waypoint in the DB
     // First, make an array to hold all waypoint instances in the DB
-    const waypointsForRoute=[]
+    const waypointsForRoute = [];
     // Loop over the waypointArr to create each waypoint instance,
     // then push that instance to the waypointsForRoute array
     // (to be used later upon Route creation)
     for (let i = 0; i < waypointsArr.length; i++) {
       const currWaypoint = await Waypoint.create(waypointsArr[i]);
-      waypointsForRoute.push(currWaypoint)
+      waypointsForRoute.push(currWaypoint);
     }
 
     // Create the new route, with just the name info for now

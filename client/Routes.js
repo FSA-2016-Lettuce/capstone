@@ -27,7 +27,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/runs/:id" component={SingleRunView} />
-            <Route path="/createroute" component={CreateRoute} />
+            <Route path="/routes/create" component={CreateRoute} />
             <Redirect to="/home" />
           </Switch>
         ) : (

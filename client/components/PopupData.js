@@ -3,7 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { displayKm } from '../utils';
+import { displayMiles } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
@@ -20,13 +20,13 @@ const PopupData = (props) => {
   const classes = useStyles();
   const displayPace = moment.utc(pace * 1000).format('m:ss');
   const displayDate = moment(startDate).format('ddd, MMM Do YYYY, h:mm a');
-  const displayDistance = displayKm(route.distance);
+  const displayDistance = displayMiles(route.distance);
 
   return (
     <div>
       <h2>{route.name}</h2>
-      <p>Pace: {displayPace}</p>
-      <p>Distance: {displayDistance}</p>
+      <p>Pace: {displayPace} min/mile</p>
+      <p>Distance: {displayDistance} miles</p>
       <p>Run Start: {displayDate}</p>
       <div className={classes.buttonFlex}>
         <Link to={`/runs/${id}`}>
