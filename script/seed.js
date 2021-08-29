@@ -14,6 +14,11 @@ const {
   routeFourWaypoints,
   routeFiveWaypoints,
   routeSixWaypoints,
+  routeSevenWaypoints,
+  routeEightWaypoints,
+  routeNineWaypoints,
+  routeTenWaypoints,
+  routeElevenWaypoints,
 } = require('./seedData');
 
 /**
@@ -63,6 +68,21 @@ async function seed() {
   );
   await Promise.all(
     routeSixWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeSevenWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeEightWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeNineWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeTenWaypoints.map((waypoint) => Waypoint.create(waypoint))
+  );
+  await Promise.all(
+    routeElevenWaypoints.map((waypoint) => Waypoint.create(waypoint))
   );
 
   // Trigger Route beforeUpdate hook to calculate route distances
