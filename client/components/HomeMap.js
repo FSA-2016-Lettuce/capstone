@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeMap = (props) => {
   const classes = useStyles();
-  const user = useSelector((state) => state.auth);
+  const user = props.user;
 
   console.log('HomeMap props: ', props);
 
