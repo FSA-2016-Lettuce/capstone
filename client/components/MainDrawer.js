@@ -94,8 +94,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainDrawer = (props) => {
-  console.log('MainDrawer props: ', props);
-  // const { user } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -170,7 +168,7 @@ const MainDrawer = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            Flock Of Lettuce
+            flock Of Lettuce
           </Typography>
 
           <Typography variant="h6" noWrap className={classes.welcomeText}>
@@ -203,7 +201,6 @@ const MainDrawer = (props) => {
         <List>
           {menuItemList.map((menuItem, index) => (
             <div key={menuItem.label}>
-              {console.log('Path in Main Drawer', menuItem.path)}
               <Link to={menuItem.path}>
                 <ListItem button onClick={menuItem.clickHandler}>
                   <ListItemIcon>
