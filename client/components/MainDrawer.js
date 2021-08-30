@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -45,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   hide: {
     display: 'none',
   },
@@ -82,18 +78,16 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  title: {
-    flexGrow: 1,
-  },
   welcomeText: {
     marginRight: '.5em',
   },
   toolbar: {
     minHeight: 56,
+    justifyContent: 'space-between',
   },
 }));
 
-const MainDrawer = (props) => {
+const MainDrawer = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -142,7 +136,6 @@ const MainDrawer = (props) => {
       clickHandler: () => {
         dispatch(logout());
         handleDrawerClose();
-        // history.push('/login');
       },
       path: '/login',
     },
@@ -163,19 +156,16 @@ const MainDrawer = (props) => {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap className={classes.title}>
-            flock Of Lettuce
+          <Typography variant="h6" noWrap>
+            flock
           </Typography>
 
-          <Typography variant="h6" noWrap className={classes.welcomeText}>
-            {user.firstName}
-          </Typography>
           <Link to={`/users/${user.id}/profile`}>
-            <img id="lettuce-logo" src="/lettuce-logo.png"></img>
+            <img id="profile-img" src={user.profileImg}></img>
           </Link>
         </Toolbar>
       </AppBar>
@@ -222,15 +212,9 @@ const MainDrawer = (props) => {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
-      >
-        {/* <div className={classes.drawerHeader} /> */}
-      </main>
+      ></main>
     </div>
   );
 };
-
-// const mapState = (state) => ({
-//   user: state.auth,
-// });
 
 export default withRouter(MainDrawer);
