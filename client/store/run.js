@@ -1,17 +1,23 @@
 import axios from 'axios';
 
-const initialState = [{ route: { distance: 0 }, users: [] }];
+const initialState = {
+  singleRun: {},
+  allRuns: [],
+};
 
 /**
  * ACTION TYPES
  */
 const GET_RUN = 'GET_RUN';
+const REMOVE_RUN = 'REMOVE_RUN';
 const GET_RUNS = 'GET_RUNS';
 
 /**
  * ACTION CREATORS
  */
 const getRun = (run) => ({ type: GET_RUN, run });
+
+export const removeRun = () => ({ type: REMOVE_RUN, run: {} });
 
 const getRuns = (runs) => ({ type: GET_RUNS, runs });
 
@@ -46,9 +52,11 @@ export const _getRuns = () => {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_RUN:
-      return [action.run];
+      return { ...state, singleRun: action.run };
+    case REMOVE_RUN:
+      return { ...state, singleRun: action.run };
     case GET_RUNS:
-      return [...action.runs];
+      return { ...state, allRuns: action.runs };
     default:
       return state;
   }
