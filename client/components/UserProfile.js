@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { deepPurple } from '@material-ui/core/colors';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { displayKm, displayPace } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,21 +31,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
-  buttonContainer: {
-    textAlign: 'center',
-  },
   buttonWidth: {
     width: '90%',
   },
-  avatarContainer: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-    height: 200,
-    width: 200,
-  },
   profileContainer: {
     textAlign: 'center',
+  },
+  imageDiv: {
+    margin: '10px',
   },
 }));
 
@@ -54,15 +48,19 @@ const UserProfile = () => {
   const distance = displayKm(user.distance);
   const pace = displayPace(user.pace);
 
+  console.log('user from user profile: ', user);
+
   return (
     <Container className={classes.profileContainer} maxWidth="sm">
-      <Box className={classes.avatarContainer}>
-        <Avatar
-          className={classes.avatar}
-          id="avatar"
-          alt={`${user.username}`}
-          src={`${user.profileImg}`}
-        />
+      <Box>
+        <div className={classes.imageDiv}>
+          <Avatar
+            className={classes.avatar}
+            id="avatar"
+            alt={`${user.username}`}
+            src={`${user.profileImg}`}
+          />
+        </div>
       </Box>
       <Button className={classes.button} variant="outlined" color="primary">
         Add/Edit Photo
@@ -104,13 +102,15 @@ const UserProfile = () => {
         </ListItem>
       </List>
       <div className={classes.buttonContainer}>
-        <Button
-          className={classes.buttonWidth}
-          variant="contained"
-          color="primary"
-        >
-          Edit Profile
-        </Button>
+        <Link to={`/users/${user.id}/profile/edit`}>
+          <Button
+            className={classes.buttonWidth}
+            variant="contained"
+            color="primary"
+          >
+            Edit Profile
+          </Button>
+        </Link>
       </div>
     </Container>
   );

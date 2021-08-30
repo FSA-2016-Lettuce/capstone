@@ -170,7 +170,7 @@ const MainDrawer = (props) => {
           <Typography variant="h6" noWrap className={classes.welcomeText}>
             {user.firstName}
           </Typography>
-          <Link to="/profile">
+          <Link to={`/users/${user.id}/profile`}>
             <img id="lettuce-logo" src="/lettuce-logo.png"></img>
           </Link>
         </Toolbar>
