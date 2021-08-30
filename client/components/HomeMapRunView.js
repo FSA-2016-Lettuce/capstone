@@ -7,18 +7,17 @@ import { _getRuns } from '../store/run';
 const HomeMapRunView = (props) => {
   console.log('HomeMapRunView props: ', props);
   const dispatch = useDispatch();
-  const runs = useSelector((state) => state.run);
+  const runs = useSelector((state) => state.run.allRuns);
   console.log("runs y'all", runs);
-  useEffect(() => {
-    async function loadRuns() {
-      await dispatch(_getRuns());
-    }
-    if (runs.length === 1) loadRuns();
-  }),
-    [];
+  // useEffect(() => {
+  //   async function loadRuns() {
+  //     await dispatch(_getRuns());
+  //   }
+  //   if (runs.length === 1) loadRuns();
+  // }, []);
   return (
     <div>
-      {runs[0].id &&
+      {runs[0] &&
         runs.map((run) => (
           <Marker
             key={run.id}

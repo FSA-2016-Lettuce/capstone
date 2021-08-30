@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { _getRun } from '../store/run';
+import { _getRun, removeRun } from '../store/run';
 import { displayMiles } from '../utils';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
@@ -36,7 +36,7 @@ const SingleRunView = (props) => {
   const runId = props.match.params.id;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const run = useSelector((state) => state.run[0]);
+  const run = useSelector((state) => state.run.singleRun);
 
   console.log('SingleRunView run: ', run);
 
@@ -46,19 +46,24 @@ const SingleRunView = (props) => {
     }
     console.log('loading runs for SingleRunView');
     loadRun();
-  }, [props.location]);
+    return () => {
+      dispatch(removeRun());
+    };
+  }, []);
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
-  const displayDistance = displayMiles(run.route.distance);
-  // TODO: THIS COMPONENT WILL RENDER THE LAST VIEWED RUN BRIEFLY BEFORE GETTING THE NEW RUN AND RE-RENDERING. NEED TO USE HOOKS TO RESET STATE UPON UNMOUNT FOR CLEANUP
+  const displayDistance = run.id ? displayMiles(run.route.distance) : 0;
+
+  const waypoints = run.id ? run.route.waypoints : [];
+  const numRunners = run.id ? run.users.length : 0;
 
   return (
     <div>
       <Typography className={classes.runDetail}>
         Run Details for Run #{run.id}
       </Typography>
-      <SingleRunMap waypoints={run.route.waypoints} />
+      <SingleRunMap waypoints={waypoints} />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
@@ -96,7 +101,7 @@ const SingleRunView = (props) => {
               <img src="/runners.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="# OF RUNNERS" secondary={run.users.length} />
+          <ListItemText primary="# OF RUNNERS" secondary={numRunners} />
         </ListItem>
       </List>
       {/* TODO: To be changed after Hookup */}
