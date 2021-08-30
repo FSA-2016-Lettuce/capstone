@@ -1,8 +1,8 @@
 import React, { Component, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { getRunThunk } from '../store/run';
-import { displayKm } from '../utils';
+import { _getRun } from '../store/run';
+import { displayMiles } from '../utils';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
@@ -36,21 +36,22 @@ const SingleRunView = (props) => {
   const runId = props.match.params.id;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const run = useSelector((state) => state.run);
+  const run = useSelector((state) => state.run[0]);
 
-  console.log('SingleRunView props: ', props);
+  console.log('SingleRunView run: ', run);
 
   useEffect(() => {
     async function loadRun() {
-      await dispatch(getRunThunk(runId));
+      await dispatch(_getRun(runId));
     }
-
+    console.log('loading runs for SingleRunView');
     loadRun();
   }, [props.location]);
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
-  const displayDistance = displayKm(run.route.distance);
+  const displayDistance = displayMiles(run.route.distance);
+  // TODO: THIS COMPONENT WILL RENDER THE LAST VIEWED RUN BRIEFLY BEFORE GETTING THE NEW RUN AND RE-RENDERING. NEED TO USE HOOKS TO RESET STATE UPON UNMOUNT FOR CLEANUP
 
   return (
     <div>
@@ -74,7 +75,7 @@ const SingleRunView = (props) => {
               <img src="/clock.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="PACE" secondary={`${displayPace} min/km`} />
+          <ListItemText primary="PACE" secondary={`${displayPace} min/mile`} />
         </ListItem>
         <Divider />
         <ListItem>
@@ -85,7 +86,7 @@ const SingleRunView = (props) => {
           </ListItemAvatar>
           <ListItemText
             primary="DISTANCE"
-            secondary={`${displayDistance} km`}
+            secondary={`${displayDistance} miles`}
           />
         </ListItem>
         <Divider />

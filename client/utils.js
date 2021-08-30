@@ -1,5 +1,5 @@
-export const displayKm = (meterDistance) => {
-  return (meterDistance / 1000).toFixed(2);
+export const displayMiles = (feetDistance) => {
+  return (feetDistance / 5280).toFixed(2);
 };
 
 export const displayPace = (seconds) => {

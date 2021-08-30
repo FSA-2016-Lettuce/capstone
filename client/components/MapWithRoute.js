@@ -13,6 +13,7 @@ const MapWithRoute = (props) => {
   // Child component of MapContainer inherits props from MapContainer
   const map = useMap();
   const routeStart = props.routePath[0];
+  console.log('MapWithRoute props: ', props);
   // Center map view at the beginning of the Route
   map.setView(routeStart, 13.5);
 
