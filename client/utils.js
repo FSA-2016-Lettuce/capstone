@@ -26,30 +26,3 @@ export const getCoords = async (address) => {
     coord.results[0].geometry.location.lng,
   ];
 };
-
-// const getStaticCoordinate = async () => {
-//   const address = formState.address.split(' ').join('+');
-//   console.log('USERPROFILEFORM ADDRESS >>>', address);
-
-//   const res = await fetch(
-//     `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAz-9KJeJV25jg2jZVZZ9GHcJC_aI9hwME`
-//   );
-//   let coord = await res.json();
-//   console.log(
-//     'USERPROFILEFORM COORD Lat >>>',
-//     coord.results[0].geometry.location.lat
-//   );
-//   console.log(
-//     'USERPROFILEFORM COORD Lng >>>',
-//     coord.results[0].geometry.location.lng
-//   );
-//   setFormState({
-//     ...formState,
-//     homeLat: coord.results[0].geometry.location.lat,
-//   });
-//   setFormState({
-//     ...formState,
-//     homeLng: coord.results[0].geometry.location.lng,
-//   });
-//   console.log('FormState in the end', formState);
-// };

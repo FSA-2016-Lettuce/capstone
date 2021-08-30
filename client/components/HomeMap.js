@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import { makeStyles } from '@material-ui/core/styles';
 import PopupData from './PopupData';
 import HomeMapRunView from './HomeMapRunView';

@@ -61,7 +61,7 @@ export default function UserProfileForm() {
   };
 
   return (
-    <Container className={classes.container} maxWidth="sm">
+    <Container maxWidth="sm">
       <form className={classes.root} noValidate autoComplete="off">
         <TextField
           required

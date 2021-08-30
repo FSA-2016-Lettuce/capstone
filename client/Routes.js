@@ -8,6 +8,7 @@ import UserProfile from './components/UserProfile';
 import UserProfileForm from './components/UserProfileForm';
 import CreateRoute from './components/CreateRoute';
 import { me } from './store';
+import CreateRun from './components/CreateRun';
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/users/:id/profile/" component={UserProfile} />
+            <Route exact path="/runs/create" component={CreateRun} />
             <Route path="/runs/:id" component={SingleRunView} />
             <Route
               exact
