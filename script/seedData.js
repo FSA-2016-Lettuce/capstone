@@ -11,6 +11,7 @@ const users = [
     runningStyle: 'HOBBY',
     homeLat: 48.85837,
     homeLng: 2.294481,
+    profileImg: '/cody.png',
   },
   {
     id: 2,

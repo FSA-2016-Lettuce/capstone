@@ -41,3 +41,12 @@ form div {
 .leaflet-container {
   height: 55vh;
 }
+
+#avatar {
+  border: 2px solid black;
+}
+
+#avatar-container{
+  text-align: center;
+  justify-content: center;
+}
