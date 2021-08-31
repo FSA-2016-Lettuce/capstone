@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import { deepPurple } from '@material-ui/core/colors';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { displayKm, displayPace } from '../utils';
+import { distanceConverter, displayPace } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const UserProfile = () => {
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
-  const distance = displayKm(user.distance);
+  const distance = distanceConverter(user.distance, 'ft');
   const pace = displayPace(user.pace);
 
   console.log('user from user profile: ', user);
@@ -86,7 +86,7 @@ const UserProfile = () => {
           </ListItemAvatar>
           <ListItemText
             primary=" Preferred Pace"
-            secondary={`${pace} min/km`}
+            secondary={`${pace} min/mi`}
           />
         </ListItem>
         <ListItem>
@@ -97,7 +97,7 @@ const UserProfile = () => {
           </ListItemAvatar>
           <ListItemText
             primary="Preferred Distance"
-            secondary={`${distance} km`}
+            secondary={`${distance} mi`}
           />
         </ListItem>
       </List>
