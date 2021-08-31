@@ -144,7 +144,7 @@ const MainDrawer = (props) => {
       clickHandler: () => {
         handleDrawerClose();
       },
-      path: '/login',
+      path: user ? '/' : '/login',
     },
     {
       label: 'Logout',
