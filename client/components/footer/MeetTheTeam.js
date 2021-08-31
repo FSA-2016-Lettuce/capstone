@@ -20,9 +20,6 @@ const teamInfo = [
 // }
 
 const MeetTheTeam = () => {
-  useEffect(() => {
-    window.location.href = 'https://google.com/contact';
-  }, []);
 
   const useStyles = makeStyles(() => ({
     spacing: 1,
@@ -36,7 +33,7 @@ const MeetTheTeam = () => {
   const classes = useStyles();
   return teamInfo.map((dev, idx) => (
     <div className={classes.root} key={idx}>
-      <MemberCard dev={dev}  />
+      <MemberCard dev={dev} />
     </div>
   ));
 };
