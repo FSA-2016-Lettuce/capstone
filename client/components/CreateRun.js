@@ -19,12 +19,13 @@ import { distanceConverter } from '../utils';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import { TimePicker } from '@material-ui/pickers';
+import { DateTimePicker } from '@material-ui/pickers';
 import { _getRoutes } from '../store/route';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { getPaceList } from '../utils';
+import MapWithRoute from './MapWithRoute';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,14 +66,19 @@ const CreateRun = () => {
   const [selectedRoute, setSelectedRoute] = useState({
     name: '',
     distance: 0,
+    waypoints: [],
   });
   const [selectedDate, handleDateChange] = useState(moment());
   const [formState, setFormState] = useState({
-    pace: moment.duration(user.pace * 1000).asMinutes(),
+    pace: moment.utc(user.pace * 1000).format('m:ss'),
     date: moment(),
   });
   const displayDistance = distanceConverter(selectedRoute.distance, 'ft');
   const paceList = getPaceList();
+  const routePath = selectedRoute.waypoints.map((waypoint) => [
+    waypoint.latitude,
+    waypoint.longitude,
+  ]);
 
   console.log('routes in CreateRun:', routes);
   console.log('selected route', selectedRoute);
@@ -100,7 +106,7 @@ const CreateRun = () => {
   };
 
   return (
-    user.homeLat !== 0 && (
+    user !== undefined && (
       <div>
         <Typography variant="h5" className={classes.runDetail}>
           Create A Run
@@ -114,6 +120,7 @@ const CreateRun = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
+          {selectedRoute.distance > 0 && <MapWithRoute routePath={routePath} />}
         </MapContainer>
         <Container className={classes.container} maxWidth="sm">
           <form className={classes.root} noValidate autoComplete="off">
@@ -157,19 +164,11 @@ const CreateRun = () => {
             >
               {paceList.map((pace, index) => (
                 <MenuItem key={index} value={pace}>
-                  {pace}
+                  {`${pace} min/mile`}
                 </MenuItem>
               ))}
             </Select>
-            <TextField
-              className={classes.formField}
-              name="pace"
-              label="Preferred Pace min/mi"
-              value={formState.pace}
-              variant="outlined"
-              onChange={handleChange}
-            />
-            <TimePicker
+            <DateTimePicker
               className={classes.formField}
               margin="normal"
               id="time-picker"
