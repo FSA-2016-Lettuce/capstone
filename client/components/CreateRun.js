@@ -38,11 +38,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '8px',
   },
   button: {
-    margin: theme.spacing(1),
+    margin: 'auto',
     width: '45%',
   },
   container: {
-    marginTop: 15,
+    margin: '16px auto',
     width: '100%',
   },
   timePickerContainer: {
@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   formField: {
-    margin: 'auto',
+    margin: '16px auto',
     width: '80%',
-    // flexGrow: 1,
+    minHeight: 50,
   },
 }));
 
@@ -61,15 +61,19 @@ const CreateRun = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth, shallowEqual);
   const routes = useSelector((state) => state.route.allRoutes);
+  const [selectedRoute, setSelectedRoute] = useState({
+    name: '',
+    distance: 0,
+  });
   const [selectedDate, handleDateChange] = useState(moment());
   const [formState, setFormState] = useState({
     pace: moment.duration(user.pace * 1000).asMinutes(),
     date: moment(),
-    route: routes.length ? routes[0].name : '',
-    distance: routes.length ? distanceConverter(routes[0].distance, 'ft') : '',
   });
+  const displayDistance = distanceConverter(selectedRoute.distance, 'ft');
 
   console.log('routes in CreateRun:', routes);
+  console.log('selected route', selectedRoute);
 
   useEffect(() => {
     async function loadRoutes() {
@@ -78,11 +82,18 @@ const CreateRun = () => {
     if (user.homeLat !== 0) loadRoutes();
   }, []);
 
-  const changeHandler = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    if (e.target.name === 'route') {
+      const newSelectedRoute = routes.filter(
+        (route) => route.name === e.target.value
+      )[0];
+      setSelectedRoute(newSelectedRoute);
+    } else {
+      setFormState({ ...formState, [e.target.name]: e.target.value });
+    }
   };
 
-  const submitHandler = async () => {
+  const handleSubmit = async () => {
     //send run to db
   };
 
@@ -104,21 +115,23 @@ const CreateRun = () => {
         </MapContainer>
         <Container className={classes.container} maxWidth="sm">
           <form className={classes.root} noValidate autoComplete="off">
-            <InputLabel id="route-selector-label">
-              Select an existing route
+            <InputLabel
+              id="route-selector-label"
+              sx={{
+                float: 'left',
+              }}
+            >
+              Select a local route
             </InputLabel>
             <Select
               className={classes.formField}
-              name="route"
               labelId="route-selector-label"
+              name="route"
               id="route-selector"
-              value={formState.route}
-              onChange={changeHandler}
-              label="Select An Existing Route"
+              value={selectedRoute.name}
+              onChange={handleChange}
+              label="Route"
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
               {routes.map((route) => (
                 <MenuItem key={route.id} value={route.name}>
                   {route.name}
@@ -130,18 +143,18 @@ const CreateRun = () => {
               id="outlined"
               disabled
               name="distance"
-              label="Distance (miles)"
-              defaultValue={formState.distance}
+              label="Distance"
+              value={`${displayDistance} miles`}
               variant="outlined"
-              onChange={changeHandler}
+              onChange={handleChange}
             />
             <TextField
               className={classes.formField}
               name="pace"
               label="Preferred Pace min/mi"
-              defaultValue={formState.pace}
+              value={formState.pace}
               variant="outlined"
-              onChange={changeHandler}
+              onChange={handleChange}
             />
             <TimePicker
               className={classes.formField}
@@ -153,15 +166,15 @@ const CreateRun = () => {
               value={selectedDate}
               onChange={handleDateChange}
             />
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit}
+            >
+              Create Run
+            </Button>
           </form>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={submitHandler}
-          >
-            Create Run
-          </Button>
         </Container>
       </div>
     )
