@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
-import { authenticate } from '../store';
+import { authenticateSignUp } from '../store';
 import { Link } from 'react-router-dom';
 
 function Copyright() {
@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const { name, displayName, handleSubmit, error } = props;
   const classes = useStyles();
-  console.log('auth display name', displayName);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -92,7 +91,24 @@ export default function SignIn(props) {
             type="password"
             id="password"
             autoComplete="current-password"
-            name="password"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            name="firstName"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Last Name"
+            id="lastName"
+            name="lastName"
           />
           <Button
             type="submit"
@@ -105,15 +121,9 @@ export default function SignIn(props) {
           </Button>
           <Grid container>
             <Grid item>
-              {displayName === 'Sign Up' ? (
-                <Link to="/login" variant="body2">
-                  Already have an account? Sign In
-                </Link>
-              ) : (
-                <Link to="/signup" variant="body2">
-                  Don't have an account? Sign Up
-                </Link>
-              )}
+              <Link to="/login" variant="body2">
+                Already have an account? Sign In
+              </Link>
             </Grid>
           </Grid>
           {error && error.response && <div> {error.response.data} </div>}
@@ -133,13 +143,6 @@ export default function SignIn(props) {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
-const mapLogin = (state) => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.auth.error,
-  };
-};
 
 const mapSignup = (state) => {
   return {
@@ -156,10 +159,13 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName));
+      const firstName = evt.target.firstName.value;
+      const lastName = evt.target.lastName.value;
+      dispatch(
+        authenticateSignUp(username, password, formName, firstName, lastName)
+      );
     },
   };
 };
 
-export const Login = connect(mapLogin, mapDispatch)(SignIn);
 export const Signup = connect(mapSignup, mapDispatch)(SignIn);

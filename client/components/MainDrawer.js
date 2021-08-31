@@ -152,28 +152,7 @@ const MainDrawer = () => {
       ]
     : [
         {
-          label: 'Find Run',
-          clickHandler: () => {
-            handleDrawerClose();
-          },
-          path: '/',
-        },
-        {
-          label: 'Create Run',
-          clickHandler: () => {
-            handleDrawerClose();
-          },
-          path: '/',
-        },
-        {
-          label: 'Create Route',
-          clickHandler: () => {
-            handleDrawerClose();
-          },
-          path: '/routes/create',
-        },
-        {
-          label: 'View Stats',
+          label: 'Home',
           clickHandler: () => {
             handleDrawerClose();
           },
