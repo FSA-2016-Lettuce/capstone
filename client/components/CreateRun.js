@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   runDetail: {
     padding: '6px',
@@ -40,26 +43,27 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     marginTop: 15,
+    width: '100%',
   },
   timePickerContainer: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
+  formField: {
+    margin: 'auto',
+    width: '80%',
+    // flexGrow: 1,
   },
 }));
 
 const CreateRun = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const run = useSelector((state) => state.run.singleRun);
   const user = useSelector((state) => state.auth, shallowEqual);
   const routes = useSelector((state) => state.route.allRoutes);
+  const [selectedDate, handleDateChange] = useState(moment());
   const [formState, setFormState] = useState({
-    pace: user.pace * 1,
+    pace: moment.duration(user.pace * 1000).asMinutes(),
     date: moment(),
     route: routes.length ? routes[0].name : '',
     distance: routes.length ? distanceConverter(routes[0].distance, 'ft') : '',
@@ -79,10 +83,8 @@ const CreateRun = () => {
   };
 
   const submitHandler = async () => {
-    //do stuff
+    //send run to db
   };
-
-  const [selectedDate, handleDateChange] = useState(moment());
 
   return (
     user.homeLat !== 0 && (
@@ -106,12 +108,12 @@ const CreateRun = () => {
               Select an existing route
             </InputLabel>
             <Select
+              className={classes.formField}
               name="route"
-              labelId="demo-simple-select-autowidth-label"
+              labelId="route-selector-label"
               id="route-selector"
               value={formState.route}
               onChange={changeHandler}
-              autoWidth
               label="Select An Existing Route"
             >
               <MenuItem value="">
@@ -124,13 +126,25 @@ const CreateRun = () => {
               ))}
             </Select>
             <TextField
+              className={classes.formField}
+              id="outlined"
+              disabled
+              name="distance"
+              label="Distance (miles)"
+              defaultValue={formState.distance}
+              variant="outlined"
+              onChange={changeHandler}
+            />
+            <TextField
+              className={classes.formField}
               name="pace"
               label="Preferred Pace min/mi"
-              defaultValue={user.pace}
+              defaultValue={formState.pace}
               variant="outlined"
               onChange={changeHandler}
             />
             <TimePicker
+              className={classes.formField}
               margin="normal"
               id="time-picker"
               label="Start Time"
@@ -139,15 +153,6 @@ const CreateRun = () => {
               value={selectedDate}
               onChange={handleDateChange}
             />
-
-            <TextField
-              id="outlined"
-              name="distance"
-              label="Distance (miles)"
-              defaultValue={formState.distance}
-              variant="outlined"
-              onChange={changeHandler}
-            />
           </form>
           <Button
             className={classes.button}
@@ -155,26 +160,9 @@ const CreateRun = () => {
             color="primary"
             onClick={submitHandler}
           >
-            Save Changes
+            Create Run
           </Button>
         </Container>
-        {/* TODO: To be changed after Hookup */}
-        <div className="singlePageButtons">
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-          >
-            JOIN THIS RUN
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-          >
-            BACK
-          </Button>
-        </div>
       </div>
     )
   );

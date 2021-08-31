@@ -36,7 +36,6 @@ export const _createRoute = (routeObj) => async (dispatch) => {
 export const _getRoutes = (lat, lng) => {
   return async (dispatch) => {
     try {
-      console.log('lat long in reducer: ', lat, lng);
       const { data: routes } = await axios.get(
         `/api/routes/?lat=${lat}&lng=${lng}`
       );
