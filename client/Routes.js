@@ -6,6 +6,7 @@ import Home from './components/Home';
 import SingleRunView from './components/SingleRunView';
 import CreateRoute from './components/CreateRoute';
 import { me } from './store';
+import MeetTheTeam from './components/footer/MeetTheTeam';
 
 /**
  * COMPONENT
@@ -28,6 +29,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/runs/:id" component={SingleRunView} />
             <Route path="/createroute" component={CreateRoute} />
+            <Route path="/meet-the-team" component={MeetTheTeam} />
             <Redirect to="/home" />
           </Switch>
         ) : (

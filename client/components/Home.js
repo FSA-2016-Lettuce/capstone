@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import HomeMap from './HomeMap';
 import FilterRuns from './FilterRuns';
-import Footer from './Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { CallMissedSharp } from '@material-ui/icons';
@@ -29,7 +28,6 @@ export const Home = (props) => {
       </h2>
       <HomeMap />
       <FilterRuns />
-      <Footer />
     </div>
   );
 };
