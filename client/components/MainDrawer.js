@@ -132,6 +132,13 @@ const MainDrawer = () => {
       path: '/',
     },
     {
+      label: 'Meet the Team',
+      clickHandler: () => {
+        handleDrawerClose();
+      },
+      path: '/meet-the-team'
+    },
+    {
       label: 'Logout',
       clickHandler: () => {
         dispatch(logout());

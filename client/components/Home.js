@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import HomeMap from './HomeMap';
+import { useSelector } from 'react-redux';
 import FilterRuns from './FilterRuns';
-import Footer from './Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { CallMissedSharp } from '@material-ui/icons';
@@ -17,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Home = (props) => {
+const Home = (props) => {
   const classes = useStyles();
-  let { user } = props;
+  const user = useSelector((state) => state.auth);
   console.log('user: ', user);
 
   return (
@@ -27,20 +25,9 @@ export const Home = (props) => {
       <h2 className={classes.banner}>
         Welcome to flock! The runs in your area are shown below:{' '}
       </h2>
-      <HomeMap />
-      <FilterRuns />
-      <Footer />
+      <FilterRuns user={user} />
     </div>
   );
 };
 
-/**
- * CONTAINER
- */
-const mapState = (state) => {
-  return {
-    user: state.auth,
-  };
-};
-
-export default connect(mapState)(Home);
+export default Home;
