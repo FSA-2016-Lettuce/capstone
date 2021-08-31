@@ -36,16 +36,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FilterRuns = (props) => {
-  const classes = useStyles();
-  const user = useSelector((state) => state.auth);
-  const [pace, setPace] = useState(0);
-  const [distance, setDistance] = useState(0);
-  const [runStart, setRunStart] = useState('');
-  const runs = useSelector((state) => state.run.allRuns);
-  const dispatch = useDispatch();
-
   let dateNow = moment().format('YYYY-MM-DDTHH:mm');
   console.log('WHAT IS dateNow?', dateNow);
+  const classes = useStyles();
+  const user = props.user;
+  const [pace, setPace] = useState(0);
+  const [distance, setDistance] = useState(0);
+  const [runStart, setRunStart] = useState(dateNow);
+  const runs = useSelector((state) => state.run.allRuns);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadRuns() {
@@ -56,21 +55,24 @@ const FilterRuns = (props) => {
     loadRuns();
   }, []);
 
+  useEffect(() => {
+    console.log('WHAT IS STATE IN USEEFFECT?', { pace, distance, runStart });
+  }, [pace, distance, runStart]);
+
   const handleChange = (event) => {
     console.log('Event.target: ', event.target);
     if (event.target.name === 'pace') {
       setPace(event.target.value);
+      console.log('NEW PACE AFTER CHANGING DROPDOWN:', event.target.value);
     }
     if (event.target.name === 'distance') {
       setDistance(event.target.value);
     }
     if (event.target.name === 'runStart') {
       setRunStart(event.target.value);
-      console.log(
-        'NEW DATE AFTER CHANGING TEXTFIELD AAAAAAAAA:',
-        event.target.value
-      );
+      console.log('NEW DATE AFTER CHANGING TEXTFIELD:', event.target.value);
     }
+    console.log('WHAT IS FORM STATE?', { pace, distance, runStart });
   };
 
   return (
@@ -82,9 +84,9 @@ const FilterRuns = (props) => {
           <Select
             labelId="demo-simple-select-outlined-label"
             value={pace}
-            // defaultValue={0}
+            defaultValue={0}
             onChange={handleChange}
-            label="Pace"
+            label="pace"
             name="pace"
           >
             <MenuItem value={0}>
@@ -105,6 +107,7 @@ const FilterRuns = (props) => {
             <MenuItem value={660}>11:00</MenuItem>
             <MenuItem value={690}>11:30</MenuItem>
             <MenuItem value={720}>12:00</MenuItem>
+            <MenuItem value={1000}>12:00+</MenuItem>
           </Select>
         </FormControl>
 
@@ -116,7 +119,8 @@ const FilterRuns = (props) => {
           </InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
-            value={distance}
+            // value={distance}
+            defaultValue={0}
             onChange={handleChange}
             label="distance"
             name="distance"
@@ -136,6 +140,7 @@ const FilterRuns = (props) => {
             <MenuItem value={10 * 5280}>10 miles</MenuItem>
             <MenuItem value={11 * 5280}>11 miles</MenuItem>
             <MenuItem value={12 * 5280}>12 miles</MenuItem>
+            <MenuItem value={1000 * 5280}>12+ miles</MenuItem>
           </Select>
         </FormControl>
 
@@ -149,7 +154,7 @@ const FilterRuns = (props) => {
             label="Start"
             type="datetime-local"
             name="runStart"
-            defaultValue={dateNow}
+            defaultValue={runStart}
             className={classes.textField}
             onChange={handleChange}
             InputLabelProps={{
