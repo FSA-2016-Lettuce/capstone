@@ -1,6 +1,5 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import MemberCard from './MemberCard';
 
 const teamInfo = [
@@ -13,11 +12,6 @@ const teamInfo = [
     image: 'https://avatars.githubusercontent.com/u/75868864?v=4',
   },
 ];
-
-// const redirectToExt = (teamMember) => {
-//   console.log('teamMember in onclick: ', teamMember)
-//   window.location.href = teamInfo[teamMember].linkedIn;
-// }
 
 const MeetTheTeam = () => {
 
