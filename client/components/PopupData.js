@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { displayMiles } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
@@ -14,24 +16,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PopupData = (props) => {
-  const { pace, distance, name, date } = props.data;
+  const { pace, route, name, startDate, id } = props.run;
   const classes = useStyles();
+  const displayPace = moment.utc(pace * 1000).format('m:ss');
+  const displayDate = moment(startDate).format('ddd, MMM Do YYYY, h:mm a');
+  const displayDistance = displayMiles(route.distance);
+
   return (
     <div>
-      <h2>{name}</h2>
-      <p>Pace: {pace}</p>
-      <p>Distance: {distance}</p>
-      <p>Run Start: {date}</p>
+      <h2>{route.name}</h2>
+      <p>Pace: {displayPace} min/mile</p>
+      <p>Distance: {displayDistance} miles</p>
+      <p>Run Start: {displayDate}</p>
       <div className={classes.buttonFlex}>
-        <Link to={'/runs/1'} >
-        <Button
-          type="button"
-          variant="contained"
-          color="primary"
-          onClick={() => console.log('hello from: details')}
-        >
-          Details
-        </Button>
+        <Link to={`/runs/${id}`}>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            onClick={() => console.log('hello from: details')}
+          >
+            Details
+          </Button>
         </Link>
         <Button
           type="button"
@@ -47,39 +53,3 @@ const PopupData = (props) => {
 };
 
 export default PopupData;
-
-/*
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
-export default function ContainedButtons() {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <Button variant="contained">Default</Button>
-      <Button variant="contained" color="primary">
-        Primary
-      </Button>
-      <Button variant="contained" color="secondary">
-        Secondary
-      </Button>
-      <Button variant="contained" disabled>
-        Disabled
-      </Button>
-      <Button variant="contained" color="primary" href="#contained-buttons">
-        Link
-      </Button>
-    </div>
-  );
-}
-*/

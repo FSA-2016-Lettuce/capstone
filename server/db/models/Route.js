@@ -33,7 +33,7 @@ Route.prototype.getDistance = async function () {
 module.exports = Route;
 
 function getDistanceHelper(origin, destination) {
-  // return distance in meters
+  // return distance in feet
   let lon1 = toRadian(origin[1]),
     lat1 = toRadian(origin[0]),
     lon2 = toRadian(destination[1]),
@@ -45,9 +45,9 @@ function getDistanceHelper(origin, destination) {
   let a =
     Math.pow(Math.sin(deltaLat / 2), 2) +
     Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon / 2), 2);
-  let c = 2 * Math.asin(Math.sqrt(a));
-  const EARTH_RADIUS = 6371;
-  return Math.round(c * EARTH_RADIUS * 1000);
+  const EARTH_RADIUS = 6371; // in km
+  let d = 2 * EARTH_RADIUS * Math.asin(Math.sqrt(a)); // in km
+  return Math.round(d * 3280.84); // return feet
 }
 
 function toRadian(degree) {

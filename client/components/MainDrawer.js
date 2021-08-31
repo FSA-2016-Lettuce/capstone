@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   spacing: 1,
   root: {
     display: 'flex',
+    minHeight: 56,
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -87,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
   welcomeText: {
     marginRight: '.5em',
   },
+  toolbar: {
+    minHeight: 56,
+  },
 }));
 
 const MainDrawer = (props) => {
@@ -126,7 +130,7 @@ const MainDrawer = (props) => {
       clickHandler: () => {
         handleDrawerClose();
       },
-      path: '/createroute',
+      path: '/routes/create',
     },
     {
       label: 'View Stats',
@@ -162,7 +166,7 @@ const MainDrawer = (props) => {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -179,8 +183,9 @@ const MainDrawer = (props) => {
           <Typography variant="h6" noWrap className={classes.welcomeText}>
             {user.firstName}
           </Typography>
-
-          <img id="lettuce-logo" src="/lettuce-logo.png"></img>
+          <Link to={`/users/${user.id}/profile`}>
+            <img id="lettuce-logo" src="/lettuce-logo.png"></img>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer

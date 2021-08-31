@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { _getRuns } from '../store/run';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -7,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { FullscreenExit, InfoOutlined } from '@material-ui/icons';
 import Box from '@material-ui/core/Box';
+import HomeMap from './HomeMap';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -22,9 +25,19 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterRuns = (props) => {
   const classes = useStyles();
-  const [pace, setPace] = React.useState('');
-  const [distance, setDistance] = React.useState('');
-  const [runStart, setRunStart] = React.useState('');
+  const user = useSelector((state) => state.auth);
+  const [pace, setPace] = useState(user.pace);
+  const [distance, setDistance] = useState(user.distance);
+  const [runStart, setRunStart] = useState('');
+  const runs = useSelector((state) => state.run.allRuns);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function loadRuns() {
+      await dispatch(_getRuns());
+    }
+    loadRuns();
+  }, []);
 
   const handleChange = (event) => {
     console.log('Event.target: ', event.target);
@@ -52,7 +65,7 @@ const FilterRuns = (props) => {
             label="Pace"
             name="pace"
           >
-            <MenuItem value="">
+            <MenuItem value={0}>
               <em>None</em>
             </MenuItem>
             <MenuItem value={12}>12:00</MenuItem>
@@ -103,6 +116,7 @@ const FilterRuns = (props) => {
           </Select>
         </FormControl>
       </Box>
+      <HomeMap user={user} />
     </div>
   );
 };

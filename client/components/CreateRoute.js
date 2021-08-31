@@ -172,6 +172,10 @@ const CreateRoute = () => {
               circlemarker: false,
               marker: false,
               polygon: false,
+              polyline: {
+                metric: false,
+                feet: false,
+              },
             }}
           />
         </FeatureGroup>

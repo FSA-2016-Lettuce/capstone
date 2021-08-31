@@ -4,6 +4,8 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import SingleRunView from './components/SingleRunView';
+import UserProfile from './components/UserProfile';
+import UserProfileForm from './components/UserProfileForm';
 import CreateRoute from './components/CreateRoute';
 import { me } from './store';
 import MeetTheTeam from './components/footer/MeetTheTeam';
@@ -27,9 +29,15 @@ class Routes extends Component {
             <Route path="/" exact component={Home} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route exact path="/users/:id/profile/" component={UserProfile} />
             <Route path="/runs/:id" component={SingleRunView} />
-            <Route path="/createroute" component={CreateRoute} />
             <Route path="/meet-the-team" component={MeetTheTeam} />
+            <Route
+              exact
+              path="/users/:id/profile/edit"
+              component={UserProfileForm}
+            />
+            <Route path="/routes/create" component={CreateRoute} />
             <Redirect to="/home" />
           </Switch>
         ) : (

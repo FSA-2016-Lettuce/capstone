@@ -1,8 +1,8 @@
 import React, { Component, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { getRunThunk } from '../store/run';
-import { displayKm } from '../utils';
+import { _getRun, removeRun } from '../store/run';
+import { displayMiles } from '../utils';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
@@ -20,7 +20,6 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   runDetail: {
@@ -37,28 +36,34 @@ const SingleRunView = (props) => {
   const runId = props.match.params.id;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const run = useSelector((state) => state.run);
+  const run = useSelector((state) => state.run.singleRun);
 
-  console.log('SingleRunView props: ', props);
+  console.log('SingleRunView run: ', run);
 
   useEffect(() => {
     async function loadRun() {
-      await dispatch(getRunThunk(runId));
+      await dispatch(_getRun(runId));
     }
-
+    console.log('loading runs for SingleRunView');
     loadRun();
-  }, [props.location]);
+    return () => {
+      dispatch(removeRun());
+    };
+  }, []);
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
-  const displayDistance = displayKm(run.route.distance);
+  const displayDistance = run.id ? displayMiles(run.route.distance) : 0;
+
+  const waypoints = run.id ? run.route.waypoints : [];
+  const numRunners = run.id ? run.users.length : 0;
 
   return (
     <div>
       <Typography className={classes.runDetail}>
         Run Details for Run #{run.id}
       </Typography>
-      <SingleRunMap waypoints={run.route.waypoints} />
+      <SingleRunMap waypoints={waypoints} />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
@@ -75,7 +80,7 @@ const SingleRunView = (props) => {
               <img src="/clock.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="PACE" secondary={`${displayPace} min/km`} />
+          <ListItemText primary="PACE" secondary={`${displayPace} min/mile`} />
         </ListItem>
         <Divider />
         <ListItem>
@@ -86,7 +91,7 @@ const SingleRunView = (props) => {
           </ListItemAvatar>
           <ListItemText
             primary="DISTANCE"
-            secondary={`${displayDistance} km`}
+            secondary={`${displayDistance} miles`}
           />
         </ListItem>
         <Divider />
@@ -96,7 +101,7 @@ const SingleRunView = (props) => {
               <img src="/runners.png" className="singleViewIcon" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="# OF RUNNERS" secondary={run.users.length} />
+          <ListItemText primary="# OF RUNNERS" secondary={numRunners} />
         </ListItem>
       </List>
       {/* TODO: To be changed after Hookup */}
