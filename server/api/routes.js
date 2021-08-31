@@ -2,12 +2,28 @@ const router = require('express').Router();
 const {
   models: { Route, Waypoint },
 } = require('../db');
+const { pointToPointDistance } = require('../utils');
 module.exports = router;
 
-// this route is not being used. needs to be updated when used
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    res.json('hello');
+    // grab user home location from query parameters
+    const homeLat = req.query.lat;
+    const homeLng = req.query.lng;
+    // get all routes from database
+    const routes = await Route.findAll({
+      include: [Waypoint],
+      order: [[Waypoint, 'pathIndex', 'ASC']],
+    });
+    // filter routes to only those with starting point within 5 miles of user home location
+    const localRoutes = routes.filter((route) => {
+      const distanceFromHome = pointToPointDistance(
+        [homeLat, homeLng],
+        [route.waypoints[0].latitude, route.waypoints[0].longitude]
+      );
+      return distanceFromHome <= 26400;
+    });
+    res.json(localRoutes);
   } catch (err) {
     next(err);
   }

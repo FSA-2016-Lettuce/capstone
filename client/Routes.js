@@ -9,6 +9,7 @@ import UserProfileForm from './components/UserProfileForm';
 import CreateRoute from './components/CreateRoute';
 import LandingPage from './components/LandingPage';
 import { me } from './store';
+import CreateRun from './components/CreateRun';
 import MeetTheTeam from './components/footer/MeetTheTeam';
 
 /**
@@ -31,6 +32,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/users/:id/profile/" component={UserProfile} />
+            <Route exact path="/runs/create" component={CreateRun} />
             <Route path="/runs/:id" component={SingleRunView} />
             <Route path="/meet-the-team" component={MeetTheTeam} />
             <Route
@@ -46,7 +48,6 @@ class Routes extends Component {
             <Route path="/" exact component={LandingPage} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/runs/:id" component={SingleRunView} />
           </Switch>
         )}
       </div>

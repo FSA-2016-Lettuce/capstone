@@ -4,6 +4,14 @@ const {
 } = require('../db');
 module.exports = router;
 
+router.get('/create', async (req, res, next) => {
+  try {
+    res.json({ message: 'hello' });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   try {
     const run = await Run.findByPk(req.params.id, {
@@ -34,7 +42,6 @@ router.get('/', async (req, res, next) => {
       ],
       order: [[Route, Waypoint, 'pathIndex', 'ASC']],
     });
-    console.log('runs from server:', runs);
     res.json(runs);
   } catch (err) {
     next(err);

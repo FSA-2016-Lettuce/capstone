@@ -11,6 +11,7 @@ const initialState = {
 const GET_RUN = 'GET_RUN';
 const REMOVE_RUN = 'REMOVE_RUN';
 const GET_RUNS = 'GET_RUNS';
+const CREATE_RUN = 'CREATE_RUN';
 
 /**
  * ACTION CREATORS
@@ -40,6 +41,17 @@ export const _getRuns = () => {
     try {
       const { data: runs } = await axios.get(`/api/runs/`);
       dispatch(getRuns(runs));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const _createRun = () => {
+  return async (dispatch) => {
+    try {
+      // const { data: runs } = await axios.get(`/api/runs/`);
+      // dispatch(getRuns(runs));
     } catch (e) {
       console.log(e);
     }
