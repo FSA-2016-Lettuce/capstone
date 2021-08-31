@@ -43,35 +43,49 @@ router.get('/', async (req, res, next) => {
     const whereClauseRoute = {};
 
     if (pace > 0 && pace < 1000) {
-      whereClauseRun[Op.and] = [
-        {
-          pace: {
-            [Op.between]: [pace - 61, pace + 61],
-          },
-        },
-      ];
+      whereClauseRun.pace = {
+        [Op.between]: [pace - 61, pace + 61],
+      };
+
+      // whereClauseRun[Op.and] = [
+      //   {
+      //     pace: {
+      //       [Op.between]: [pace - 61, pace + 61],
+      //     },
+      //   },
+      // ];
     }
 
     if (pace === 10000) {
-      whereClauseRun[Op.and] = [
-        {
-          pace: {
-            [Op.gte]: 12 * 60,
-          },
-        },
-      ];
+      whereClauseRun.pace = {
+        [Op.gte]: 12 * 60,
+      };
+      // whereClauseRun[Op.and] = [
+      //   {
+      //     pace: {
+      //       [Op.gte]: 12 * 60,
+      //     },
+      //   },
+      // ];
     }
 
-    whereClauseRun[Op.and] = [
-      {
-        startDate: {
-          [Op.between]: [
-            moment(runStart).subtract(1, 'hours'),
-            moment(runStart).add(1, 'hours'),
-          ],
-        },
-      },
-    ];
+    whereClauseRun.startDate = {
+      [Op.between]: [
+        moment(runStart).subtract(1, 'hours'),
+        moment(runStart).add(1, 'hours'),
+      ],
+    };
+
+    // whereClauseRun[Op.and] = [
+    //   {
+    //     startDate: {
+    //       [Op.between]: [
+    //         moment(runStart).subtract(1, 'hours'),
+    //         moment(runStart).add(1, 'hours'),
+    //       ],
+    //     },
+    //   },
+    // ];
 
     if (distance > 0 && distance < 10000 * 5280) {
       whereClauseRoute.distance = {
