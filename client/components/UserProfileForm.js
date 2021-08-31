@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserThunk } from '../store/auth';
 import { useHistory } from 'react-router-dom';
+import { distanceConverter, getCoords } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,13 +31,33 @@ export default function UserProfileForm() {
     firstName: user.firstName,
     lastName: user.lastName,
     password: user.password,
-    pace: user.pace,
+    pace: user.pace * 1,
     distance: user.distance,
     id: user.id,
+    address: user.address,
+    homeLat: user.homeLat,
+    homeLng: user.homeLng,
   });
 
   const changeHandler = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
+    console.log(formState);
+  };
+
+  const submitHandler = async () => {
+    const newDistance = distanceConverter(formState.distance, 'mi');
+    const newCoord = await getCoords(formState.address);
+    console.log('newCoord in submit handler', newCoord);
+
+    dispatch(
+      updateUserThunk({
+        ...formState,
+        distance: newDistance,
+        homeLat: newCoord[0],
+        homeLng: newCoord[1],
+      })
+    );
+    history.push(`/users/${user.id}/profile`);
   };
 
   return (
@@ -68,8 +89,15 @@ export default function UserProfileForm() {
           onChange={changeHandler}
         />
         <TextField
+          name="address"
+          label="Address"
+          defaultValue="1600 Amphitheatre Morning View CA"
+          variant="outlined"
+          onChange={changeHandler}
+        />
+        <TextField
           name="pace"
-          label="Preferred Pace sec/km"
+          label="Preferred Pace sec/mi"
           defaultValue={user.pace}
           variant="outlined"
           onChange={changeHandler}
@@ -77,7 +105,7 @@ export default function UserProfileForm() {
         <TextField
           id="outlined"
           name="distance"
-          label="Distance (meters)"
+          label="Distance (miles)"
           defaultValue={user.distance}
           variant="outlined"
           onChange={changeHandler}
@@ -87,10 +115,7 @@ export default function UserProfileForm() {
         className={classes.button}
         variant="contained"
         color="primary"
-        onClick={() => {
-          dispatch(updateUserThunk(formState));
-          history.push(`/users/${user.id}/profile`);
-        }}
+        onClick={submitHandler}
       >
         Save Changes
       </Button>

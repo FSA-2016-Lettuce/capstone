@@ -55,6 +55,7 @@ export const authenticate =
   };
 
 export const updateUserThunk = (user) => {
+  console.log('updateUsertThunk param user: ', user);
   return async (dispatch) => {
     try {
       const { data: updatedUser } = await axios.put(

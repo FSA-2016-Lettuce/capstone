@@ -34,7 +34,7 @@ const User = db.define('user', {
   },
   distance: {
     type: Sequelize.INTEGER,
-    defaultValue: 5000,
+    defaultValue: 15840,
   },
   runningStyle: {
     type: Sequelize.ENUM('HOBBY', 'IMPROVEMENT'),
@@ -53,6 +53,10 @@ const User = db.define('user', {
     type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 2.294481,
+  },
+  address: {
+    type: Sequelize.STRING,
+    defaultValue: 'London SW1A 0AA, UK',
   },
 });
 
