@@ -140,6 +140,13 @@ const MainDrawer = (props) => {
       path: '/',
     },
     {
+      label: 'Login/Sign Up',
+      clickHandler: () => {
+        handleDrawerClose();
+      },
+      path: '/login',
+    },
+    {
       label: 'Logout',
       clickHandler: () => {
         dispatch(logout());
