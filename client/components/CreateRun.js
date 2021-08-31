@@ -24,6 +24,7 @@ import { _getRoutes } from '../store/route';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import { getPaceList } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +72,7 @@ const CreateRun = () => {
     date: moment(),
   });
   const displayDistance = distanceConverter(selectedRoute.distance, 'ft');
+  const paceList = getPaceList();
 
   console.log('routes in CreateRun:', routes);
   console.log('selected route', selectedRoute);
@@ -115,12 +117,7 @@ const CreateRun = () => {
         </MapContainer>
         <Container className={classes.container} maxWidth="sm">
           <form className={classes.root} noValidate autoComplete="off">
-            <InputLabel
-              id="route-selector-label"
-              sx={{
-                float: 'left',
-              }}
-            >
+            <InputLabel id="route-selector-label">
               Select a local route
             </InputLabel>
             <Select
@@ -148,6 +145,22 @@ const CreateRun = () => {
               variant="outlined"
               onChange={handleChange}
             />
+            <InputLabel id="pace-selector-label">Pace</InputLabel>
+            <Select
+              className={classes.formField}
+              labelId="pace-selector-label"
+              name="pace"
+              id="pace-selector"
+              value={formState.pace}
+              onChange={handleChange}
+              label="Pace"
+            >
+              {paceList.map((pace, index) => (
+                <MenuItem key={index} value={pace}>
+                  {pace}
+                </MenuItem>
+              ))}
+            </Select>
             <TextField
               className={classes.formField}
               name="pace"

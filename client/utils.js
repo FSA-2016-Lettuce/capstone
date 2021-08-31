@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const displayMiles = (feetDistance) => {
   return (feetDistance / 5280).toFixed(2);
 };
@@ -25,4 +27,15 @@ export const getCoords = async (address) => {
     coord.results[0].geometry.location.lat,
     coord.results[0].geometry.location.lng,
   ];
+};
+
+export const getPaceList = () => {
+  let minPace = moment('2021-09-10 05:04:00');
+  let paceList = Array(21).fill('');
+  const paceStep = 30;
+  paceList = paceList.map((pace, index) => {
+    const paceJump = paceStep * index;
+    return moment(minPace).add(paceJump, 'seconds').format('m:ss');
+  });
+  return paceList;
 };

@@ -1,6 +1,4 @@
 const pointToPointDistance = (origin, destination) => {
-  console.log('distance inputs: ', origin, destination);
-
   // return distance in feet
   let lon1 = toRadian(origin[1]),
     lat1 = toRadian(origin[0]),
