@@ -45,7 +45,6 @@ class Routes extends Component {
             <Route path="/" exact component={Home} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/runs/:id" component={SingleRunView} />
           </Switch>
         )}
       </div>

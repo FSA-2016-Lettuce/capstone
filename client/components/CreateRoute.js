@@ -19,7 +19,7 @@ import {
   Divider,
   Typography,
 } from '@material-ui/core';
-import { createRouteThunk } from '../store/route';
+import { _createRoute } from '../store/route';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -132,7 +132,7 @@ const CreateRoute = () => {
       };
 
       // Dispatch thunk to create the route and push back to the home page
-      dispatch(createRouteThunk(routeDetails));
+      dispatch(_createRoute(routeDetails));
       history.push('/');
     } else {
       // Otherwise, do nothing but show error message

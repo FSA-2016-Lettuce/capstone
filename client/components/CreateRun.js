@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { _createRun } from '../store/run';
 import SingleRunMap from './SingleRunMap';
@@ -19,12 +19,11 @@ import { distanceConverter } from '../utils';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import { TimePicker } from '@material-ui/pickers';
+import { _getRoutes } from '../store/route';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,25 +56,37 @@ const CreateRun = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const run = useSelector((state) => state.run.singleRun);
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth, shallowEqual);
+  const routes = useSelector((state) => state.route.allRoutes);
 
   const displayPace = moment.utc(run.pace * 1000).format('m:ss');
   const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
   const displayDistance = distanceConverter(5000, 'ft');
-  console.log('hello from create run component');
+  console.log('routes in CreateRun:', routes);
+
+  useEffect(() => {
+    async function loadRoutes() {
+      await dispatch(_getRoutes(user.homeLat, user.homeLng));
+    }
+    if (user.homeLat !== 0) loadRoutes();
+  }, []);
 
   const [formState, setFormState] = useState({
     pace: user.pace * 1,
+    date: moment(),
     // distance: user.distance,
   });
 
   const changeHandler = (e) => {
+    console.log(e);
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   const submitHandler = async () => {
     //do stuff
   };
+
+  const [selectedDate, handleDateChange] = useState(moment());
 
   return (
     user.homeLat !== 0 && (
@@ -95,26 +106,38 @@ const CreateRun = () => {
         </MapContainer>
         <Container className={classes.container} maxWidth="sm">
           <form className={classes.root} noValidate autoComplete="off">
+            <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth"
+              value={routes[0]}
+              onChange={changeHandler}
+              autoWidth
+              label="Age"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {routes.map((route) => (
+                <MenuItem value={route.name}>{route.name}</MenuItem>
+              ))}
+            </Select>
             <TextField
               name="pace"
-              label="Preferred Pace sec/mi"
+              label="Preferred Pace min/mi"
               defaultValue={user.pace}
               variant="outlined"
               onChange={changeHandler}
             />
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <KeyboardTimePicker
-                margin="normal"
-                id="time-picker"
-                label="Time picker"
-                ampm="false"
-                defaultValue={user.pace}
-                onChange={changeHandler}
-                KeyboardButtonProps={{
-                  'aria-label': 'change time',
-                }}
-              />
-            </MuiPickersUtilsProvider>
+            <TimePicker
+              margin="normal"
+              id="time-picker"
+              label="Start Time"
+              minutesStep={15}
+              variant="outlined"
+              value={selectedDate}
+              onChange={handleDateChange}
+            />
 
             <TextField
               id="outlined"
