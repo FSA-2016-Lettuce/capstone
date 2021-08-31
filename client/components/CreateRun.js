@@ -58,10 +58,13 @@ const CreateRun = () => {
   const run = useSelector((state) => state.run.singleRun);
   const user = useSelector((state) => state.auth, shallowEqual);
   const routes = useSelector((state) => state.route.allRoutes);
+  const [formState, setFormState] = useState({
+    pace: user.pace * 1,
+    date: moment(),
+    route: routes.length ? routes[0].name : '',
+    distance: routes.length ? distanceConverter(routes[0].distance, 'ft') : '',
+  });
 
-  const displayPace = moment.utc(run.pace * 1000).format('m:ss');
-  const displayDate = moment(run.startDate).format('ddd, MMM Do YYYY, h:mm a');
-  const displayDistance = distanceConverter(5000, 'ft');
   console.log('routes in CreateRun:', routes);
 
   useEffect(() => {
@@ -71,14 +74,7 @@ const CreateRun = () => {
     if (user.homeLat !== 0) loadRoutes();
   }, []);
 
-  const [formState, setFormState] = useState({
-    pace: user.pace * 1,
-    date: moment(),
-    // distance: user.distance,
-  });
-
   const changeHandler = (e) => {
-    console.log(e);
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
@@ -106,20 +102,25 @@ const CreateRun = () => {
         </MapContainer>
         <Container className={classes.container} maxWidth="sm">
           <form className={classes.root} noValidate autoComplete="off">
-            <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
+            <InputLabel id="route-selector-label">
+              Select an existing route
+            </InputLabel>
             <Select
+              name="route"
               labelId="demo-simple-select-autowidth-label"
-              id="demo-simple-select-autowidth"
-              value={routes[0]}
+              id="route-selector"
+              value={formState.route}
               onChange={changeHandler}
               autoWidth
-              label="Age"
+              label="Select An Existing Route"
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
               {routes.map((route) => (
-                <MenuItem value={route.name}>{route.name}</MenuItem>
+                <MenuItem key={route.id} value={route.name}>
+                  {route.name}
+                </MenuItem>
               ))}
             </Select>
             <TextField
@@ -143,7 +144,7 @@ const CreateRun = () => {
               id="outlined"
               name="distance"
               label="Distance (miles)"
-              defaultValue={user.distance}
+              defaultValue={formState.distance}
               variant="outlined"
               onChange={changeHandler}
             />
