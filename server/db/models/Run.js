@@ -5,6 +5,11 @@ const moment = require('moment');
 const Route = require('./Route');
 
 const Run = db.define('run', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   startDate: {
     type: Sequelize.DATE,
     allowNull: false,
