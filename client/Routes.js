@@ -7,6 +7,7 @@ import SingleRunView from './components/SingleRunView';
 import UserProfile from './components/UserProfile';
 import UserProfileForm from './components/UserProfileForm';
 import CreateRoute from './components/CreateRoute';
+import LandingPage from './components/LandingPage';
 import { me } from './store';
 import MeetTheTeam from './components/footer/MeetTheTeam';
 
@@ -42,7 +43,7 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact component={LandingPage} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/runs/:id" component={SingleRunView} />
