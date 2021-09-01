@@ -47,32 +47,23 @@ const FilterRuns = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('WHAT IS STATE IN USEEFFECT?', { pace, distance, runStart });
-
     async function loadRuns() {
       await dispatch(_getRuns(pace, distance, runStart));
     }
     loadRuns();
   }, [pace, distance, runStart]);
 
-  // useEffect(() => {
-  //   console.log('WHAT IS STATE IN USEEFFECT?', { pace, distance, runStart });
-  // }, [pace, distance, runStart]);
-
   const handleChange = (event) => {
     console.log('Event.target: ', event.target);
     if (event.target.name === 'pace') {
       setPace(event.target.value);
-      // console.log('NEW PACE AFTER CHANGING DROPDOWN:', event.target.value);
     }
     if (event.target.name === 'distance') {
       setDistance(event.target.value);
     }
     if (event.target.name === 'runStart') {
       setRunStart(event.target.value);
-      // console.log('NEW DATE AFTER CHANGING TEXTFIELD:', event.target.value);
     }
-    // console.log('WHAT IS FORM STATE?', { pace, distance, runStart });
   };
 
   return (
@@ -83,7 +74,6 @@ const FilterRuns = (props) => {
           <InputLabel id="demo-simple-select-outlined-label">Pace</InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
-            value={pace}
             defaultValue={0}
             onChange={handleChange}
             label="pace"
@@ -113,15 +103,12 @@ const FilterRuns = (props) => {
           </Select>
         </FormControl>
 
-        {/* second button below */}
-
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="demo-simple-select-outlined-label">
             Distance
           </InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
-            // value={distance}
             defaultValue={0}
             onChange={handleChange}
             label="distance"
@@ -145,11 +132,7 @@ const FilterRuns = (props) => {
             <MenuItem value={10000 * 5280}>12+ miles</MenuItem>
           </Select>
         </FormControl>
-
-        {/* third button below */}
-
         <FormControl className={classes.date}>
-          {/* <InputLabel id="demo-simple-select-outlined-label">Start</InputLabel> */}
           <TextField
             variant="outlined"
             id="datetime-local"
