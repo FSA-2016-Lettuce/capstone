@@ -26,6 +26,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { getPaceList } from '../utils';
 import MapWithRoute from './MapWithRoute';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,6 +81,7 @@ const CreateRun = () => {
     waypoint.latitude,
     waypoint.longitude,
   ]);
+  const history = useHistory();
 
   console.log('routes in CreateRun:', routes);
   console.log('selected route', selectedRoute);
@@ -113,7 +115,7 @@ const CreateRun = () => {
     };
     console.log('new run: ', newRun);
     await dispatch(_createRun(newRun));
-    @material-ui/core/styles
+    history.push('/');
   };
 
   return (
