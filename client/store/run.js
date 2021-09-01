@@ -12,6 +12,8 @@ const GET_RUN = 'GET_RUN';
 const REMOVE_RUN = 'REMOVE_RUN';
 const GET_RUNS = 'GET_RUNS';
 const CREATE_RUN = 'CREATE_RUN';
+const JOIN_RUN = 'JOIN_RUN';
+const LEAVE_RUN = 'LEAVE_RUN';
 
 /**
  * ACTION CREATORS
@@ -21,6 +23,10 @@ const getRun = (run) => ({ type: GET_RUN, run });
 export const removeRun = () => ({ type: REMOVE_RUN, run: {} });
 
 const getRuns = (runs) => ({ type: GET_RUNS, runs });
+
+const joinRun = (run) => ({ type: JOIN_RUN, run });
+
+const leaveRun = (run) => ({ type: LEAVE_RUN, run });
 
 const createRun = (run) => ({ type: CREATE_RUN, run });
 
@@ -68,6 +74,34 @@ export const _createRun = (run) => {
   };
 };
 
+export const _joinRun = (userId, runId) => {
+  return async (dispatch) => {
+    try {
+      const { data: run } = await axios.put(`/api/runs/${runId}`, {
+        userId: userId,
+        action: 'join',
+      });
+      dispatch(joinRun(run));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const _leaveRun = (userId, runId) => {
+  return async (dispatch) => {
+    try {
+      const { data: run } = await axios.put(`/api/runs/${runId}`, {
+        userId: userId,
+        action: 'leave',
+      });
+      dispatch(leaveRun(run));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
 /**
  * REDUCER
  */
@@ -79,6 +113,10 @@ export default function (state = initialState, action) {
       return { ...state, singleRun: action.run };
     case GET_RUNS:
       return { ...state, allRuns: action.runs };
+    case JOIN_RUN:
+      return { ...state, singleRun: action.run };
+    case LEAVE_RUN:
+      return { ...state, singleRun: action.run };
     case CREATE_RUN:
       return { ...state, allRuns: [] };
     default:

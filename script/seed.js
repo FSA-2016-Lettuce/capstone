@@ -96,6 +96,7 @@ async function seed() {
   await runTwo.addUser(4);
   await runTwo.addUser(5);
   await runTwo.addUser(6);
+  await runTwo.addUser(2);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
