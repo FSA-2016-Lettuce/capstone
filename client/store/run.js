@@ -22,6 +22,8 @@ export const removeRun = () => ({ type: REMOVE_RUN, run: {} });
 
 const getRuns = (runs) => ({ type: GET_RUNS, runs });
 
+const createRun = (run) => ({ type: CREATE_RUN, run });
+
 /**
  * THUNK CREATORS
  */
@@ -49,11 +51,17 @@ export const _getRuns = (pace, distance, runStart) => {
   };
 };
 
-export const _createRun = () => {
+export const _createRun = (run) => {
   return async (dispatch) => {
     try {
-      // const { data: runs } = await axios.get(`/api/runs/`);
-      // dispatch(getRuns(runs));
+      const token = window.localStorage.getItem('token');
+      const { data: newRun } = await axios.post('/api/runs/', run, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log('new run created: ', newRun);
+      dispatch(createRun(newRun));
     } catch (e) {
       console.log(e);
     }
@@ -71,6 +79,8 @@ export default function (state = initialState, action) {
       return { ...state, singleRun: action.run };
     case GET_RUNS:
       return { ...state, allRuns: action.runs };
+    case CREATE_RUN:
+      return { ...state, allRuns: [] };
     default:
       return state;
   }
