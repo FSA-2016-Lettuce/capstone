@@ -97,7 +97,7 @@ const UserProfile = () => {
           </ListItemAvatar>
           <ListItemText
             primary="Preferred Distance"
-            secondary={`${distance} mi`}
+            secondary={`${distance}`}
           />
         </ListItem>
         <ListItem>
