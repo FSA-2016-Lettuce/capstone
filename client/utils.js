@@ -16,6 +16,10 @@ export const distanceConverter = (dis, label) => {
   }
 };
 
+export const timeConverter = (seconds) => {
+  return (seconds / 60).toFixed(2);
+};
+
 export const getCoords = async (address) => {
   const formattedAddress = address.split(' ').join('+');
 

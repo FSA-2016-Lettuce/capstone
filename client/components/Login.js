@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const { name, displayName, handleSubmit, error } = props;
   const classes = useStyles();
-  console.log('auth display name', displayName);
+  console.log('display name from authForm', displayName);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -92,8 +92,8 @@ export default function SignIn(props) {
             type="password"
             id="password"
             autoComplete="current-password"
-            name="password"
           />
+
           <Button
             type="submit"
             fullWidth
@@ -105,15 +105,9 @@ export default function SignIn(props) {
           </Button>
           <Grid container>
             <Grid item>
-              {displayName === 'Sign Up' ? (
-                <Link to="/login" variant="body2">
-                  Already have an account? Sign In
-                </Link>
-              ) : (
-                <Link to="/signup" variant="body2">
-                  Don't have an account? Sign Up
-                </Link>
-              )}
+              <Link to="/signup" variant="body2">
+                Don't have an account? Sign Up
+              </Link>
             </Grid>
           </Grid>
           {error && error.response && <div> {error.response.data} </div>}
@@ -141,14 +135,6 @@ const mapLogin = (state) => {
   };
 };
 
-const mapSignup = (state) => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.auth.error,
-  };
-};
-
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
@@ -162,4 +148,3 @@ const mapDispatch = (dispatch) => {
 };
 
 export const Login = connect(mapLogin, mapDispatch)(SignIn);
-export const Signup = connect(mapSignup, mapDispatch)(SignIn);

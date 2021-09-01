@@ -94,6 +94,8 @@ const MainDrawer = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
 
+  console.log('user from drawer', user);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -102,58 +104,75 @@ const MainDrawer = () => {
     setOpen(false);
   };
 
-  const menuItemList = [
-    {
-      label: 'Find Run',
-      clickHandler: () => {
-        handleDrawerClose();
-      },
-      path: '/',
-    },
-    {
-      label: 'Create Run',
-      clickHandler: () => {
-        handleDrawerClose();
-      },
-      path: '/runs/create',
-    },
-    {
-      label: 'Create Route',
-      clickHandler: () => {
-        handleDrawerClose();
-      },
-      path: '/routes/create',
-    },
-    {
-      label: 'View Stats',
-      clickHandler: () => {
-        handleDrawerClose();
-      },
-      path: '/',
-    },
-    {
-      label: 'Login/Sign Up',
-      clickHandler: () => {
-        handleDrawerClose();
-      },
-      path: user ? '/' : '/login',
-    },
-    {
-      label: 'Meet the Team',
-      clickHandler: () => {
-        handleDrawerClose();
-      },
-      path: '/meet-the-team',
-    },
-    {
-      label: 'Logout',
-      clickHandler: () => {
-        dispatch(logout());
-        handleDrawerClose();
-      },
-      path: '/login',
-    },
-  ];
+  const menuItemList = user.username
+    ? [
+        {
+          label: 'Find Run',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/',
+        },
+        {
+          label: 'Create Run Event',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/runs/create',
+        },
+        {
+          label: 'Create Route Path',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/routes/create',
+        },
+        {
+          label: 'View Stats',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/',
+        },
+        {
+          label: 'Meet the Team',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/meet-the-team',
+        },
+        {
+          label: 'Logout',
+          clickHandler: () => {
+            dispatch(logout());
+            handleDrawerClose();
+          },
+          path: '/',
+        },
+      ]
+    : [
+        {
+          label: 'Home',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/',
+        },
+        {
+          label: 'Login/Sign Up',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/login',
+        },
+        {
+          label: 'Meet the Team',
+          clickHandler: () => {
+            handleDrawerClose();
+          },
+          path: '/meet-the-team',
+        },
+      ];
 
   return (
     <div className={classes.root}>
@@ -177,10 +196,13 @@ const MainDrawer = () => {
           <Typography variant="h6" noWrap>
             flock
           </Typography>
-
-          <Link to={`/users/${user.id}/profile`}>
-            <img id="profile-img" src={user.profileImg}></img>
-          </Link>
+          {user.username ? (
+            <Link to={`/users/${user.id}/profile`}>
+              <img id="profile-img" src={user.profileImg}></img>
+            </Link>
+          ) : (
+            <img src="/lettuce-logo.png" id="profile-img" />
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
