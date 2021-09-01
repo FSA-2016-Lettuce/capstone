@@ -51,7 +51,7 @@ const CreateRoute = () => {
   const [formName, setFormName] = useState('');
   // Local state for visibility of error message
   const [errorVis, setErrorVis] = useState('hidden');
-  const zoomLevel = 13;
+  const zoomLevel = 13.5;
   // Save map ref to pass into mapContainer
   const mapRef = useRef();
 
