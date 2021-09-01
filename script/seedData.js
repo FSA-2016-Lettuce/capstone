@@ -2,7 +2,6 @@ const moment = require('moment');
 
 const users = [
   {
-    id: 1,
     username: 'cody@gmail.com',
     firstName: 'Cody',
     lastName: 'Coder',
@@ -14,7 +13,6 @@ const users = [
     profileImg: '/cody.png',
   },
   {
-    id: 2,
     username: 'sarah@gmail.com',
     password: 'sarah123',
     firstName: 'Sarah',
@@ -25,7 +23,6 @@ const users = [
     homeLng: 30.308611,
   },
   {
-    id: 3,
     username: 'nicole@gmail.com',
     password: 'nicole123',
     firstName: 'Nicole',
@@ -36,7 +33,6 @@ const users = [
     homeLng: -151.7415,
   },
   {
-    id: 4,
     username: 'matt@gmail.com',
     password: 'matt123',
     firstName: 'Matt',
@@ -47,7 +43,6 @@ const users = [
     homeLng: -0.120395,
   },
   {
-    id: 5,
     username: 'gary@gmail.com',
     password: 'gary123',
     firstName: 'Gary',
@@ -58,7 +53,6 @@ const users = [
     homeLng: 100.523186,
   },
   {
-    id: 6,
     username: 'meredith@gmail.com',
     password: 'meredith123',
     firstName: 'Meredith',
@@ -76,57 +70,46 @@ const now = moment();
 
 const runs = [
   {
-    id: 1,
     startDate: futureDate,
     pace: 300,
   },
   {
-    id: 2,
     startDate: futureDate,
     pace: 510,
   },
   {
-    id: 3,
     startDate: pastDate,
     pace: 510,
   },
   {
-    id: 4,
     startDate: pastDate,
     pace: 450,
   },
   {
-    id: 5,
     startDate: now,
     pace: 480,
   },
   {
-    id: 6,
     startDate: now,
     pace: 540,
   },
   {
-    id: 7,
     startDate: futureDate,
     pace: 540,
   },
   {
-    id: 8,
     startDate: futureDate,
     pace: 510,
   },
   {
-    id: 9,
     startDate: futureDate,
     pace: 450,
   },
   {
-    id: 10,
     startDate: now,
     pace: 480,
   },
   {
-    id: 11,
     startDate: pastDate,
     pace: 420,
   },

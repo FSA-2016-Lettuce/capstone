@@ -78,7 +78,7 @@ export default function (state = initialState, action) {
     case GET_RUNS:
       return { ...state, allRuns: action.runs };
     case CREATE_RUN:
-      return { ...state, allRuns: [...state.allRuns, action.run] };
+      return { ...state, allRuns: [] };
     default:
       return state;
   }
