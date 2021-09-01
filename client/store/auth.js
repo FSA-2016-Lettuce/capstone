@@ -67,8 +67,8 @@ export const authenticateSignUp =
         lastName,
       });
       window.localStorage.setItem(TOKEN, res.data.token);
-      dispatch(me());
-      history.push(`/`);
+      await dispatch(me());
+      history.push('/users/signupWaiting');
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));
     }

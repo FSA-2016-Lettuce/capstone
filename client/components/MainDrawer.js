@@ -114,14 +114,14 @@ const MainDrawer = () => {
           path: '/',
         },
         {
-          label: 'Create Run',
+          label: 'Create Run Event',
           clickHandler: () => {
             handleDrawerClose();
           },
           path: '/',
         },
         {
-          label: 'Create Route',
+          label: 'Create Route Path',
           clickHandler: () => {
             handleDrawerClose();
           },

@@ -11,6 +11,7 @@ import CreateRoute from './components/CreateRoute';
 import LandingPage from './components/LandingPage';
 import { me } from './store';
 import MeetTheTeam from './components/footer/MeetTheTeam';
+import SignupWaiting from './components/SignupWaiting';
 
 /**
  * COMPONENT
@@ -27,13 +28,17 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={Home} />
             <Route path="/" exact component={Home} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/users/:id/profile/" component={UserProfile} />
             <Route path="/runs/:id" component={SingleRunView} />
             <Route path="/meet-the-team" component={MeetTheTeam} />
+            <Route
+              exact
+              path="/users/signupWaiting"
+              component={SignupWaiting}
+            />
             <Route
               exact
               path="/users/:id/profile/edit"
@@ -47,7 +52,12 @@ class Routes extends Component {
             <Route path="/" exact component={LandingPage} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/runs/:id" component={SingleRunView} />
+            <Route path="/meet-the-team" component={MeetTheTeam} />
+            <Route
+              exact
+              path="/users/signupWaiting"
+              component={SignupWaiting}
+            />
           </Switch>
         )}
       </div>

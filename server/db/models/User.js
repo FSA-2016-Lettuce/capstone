@@ -58,6 +58,10 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     defaultValue: 'London SW1A 0AA, UK',
   },
+  newProfile: {
+    type: Sequelize.ENUM('YES', 'NO'),
+    defaultValue: 'YES',
+  },
 });
 
 module.exports = User;

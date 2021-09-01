@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 import { authenticateSignUp } from '../store';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -50,7 +50,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn(props) {
-  const { name, displayName, handleSubmit, error } = props;
+  const { name, displayName, handleSubmit, error, user } = props;
+  const history = useHistory();
+
   const classes = useStyles();
 
   return (
@@ -149,10 +151,11 @@ const mapSignup = (state) => {
     name: 'signup',
     displayName: 'Sign Up',
     error: state.auth.error,
+    user: state.auth,
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
