@@ -100,6 +100,14 @@ const UserProfile = () => {
             secondary={`${distance} mi`}
           />
         </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <img className="singleViewIcon" src="/pin.png" />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Address" secondary={`${user.address} mi`} />
+        </ListItem>
       </List>
       <div className={classes.buttonContainer}>
         <Link to={`/users/${user.id}/profile/edit`}>
