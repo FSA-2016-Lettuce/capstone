@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const displayMiles = (feetDistance) => {
   return (feetDistance / 5280).toFixed(2);
 };
@@ -31,29 +33,13 @@ export const getCoords = async (address) => {
   ];
 };
 
-// const getStaticCoordinate = async () => {
-//   const address = formState.address.split(' ').join('+');
-//   console.log('USERPROFILEFORM ADDRESS >>>', address);
-
-//   const res = await fetch(
-//     `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAz-9KJeJV25jg2jZVZZ9GHcJC_aI9hwME`
-//   );
-//   let coord = await res.json();
-//   console.log(
-//     'USERPROFILEFORM COORD Lat >>>',
-//     coord.results[0].geometry.location.lat
-//   );
-//   console.log(
-//     'USERPROFILEFORM COORD Lng >>>',
-//     coord.results[0].geometry.location.lng
-//   );
-//   setFormState({
-//     ...formState,
-//     homeLat: coord.results[0].geometry.location.lat,
-//   });
-//   setFormState({
-//     ...formState,
-//     homeLng: coord.results[0].geometry.location.lng,
-//   });
-//   console.log('FormState in the end', formState);
-// };
+export const getPaceList = () => {
+  let minPace = moment('2021-09-10 05:04:00');
+  let paceList = Array(21).fill('');
+  const paceStep = 30;
+  paceList = paceList.map((pace, index) => {
+    const paceJump = paceStep * index;
+    return moment(minPace).add(paceJump, 'seconds').format('m:ss');
+  });
+  return paceList;
+};

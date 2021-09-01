@@ -11,6 +11,7 @@ const initialState = {
 const GET_RUN = 'GET_RUN';
 const REMOVE_RUN = 'REMOVE_RUN';
 const GET_RUNS = 'GET_RUNS';
+const CREATE_RUN = 'CREATE_RUN';
 
 /**
  * ACTION CREATORS
@@ -35,11 +36,24 @@ export const _getRun = (runId) => {
   };
 };
 
-export const _getRuns = () => {
+export const _getRuns = (pace, distance, runStart) => {
   return async (dispatch) => {
     try {
-      const { data: runs } = await axios.get(`/api/runs/`);
+      const { data: runs } = await axios.get(
+        `/api/runs/?pace=${pace}&distance=${distance}&runStart=${runStart}`
+      );
       dispatch(getRuns(runs));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const _createRun = () => {
+  return async (dispatch) => {
+    try {
+      // const { data: runs } = await axios.get(`/api/runs/`);
+      // dispatch(getRuns(runs));
     } catch (e) {
       console.log(e);
     }

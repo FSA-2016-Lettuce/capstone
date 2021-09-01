@@ -30,7 +30,7 @@ const Home = (props) => {
       <h2 className={classes.banner}>
         Welcome to flock! The runs in your area are shown below:{' '}
       </h2>
-      <FilterRuns user={user} />
+      <FilterRuns />
     </div>
   );
 };

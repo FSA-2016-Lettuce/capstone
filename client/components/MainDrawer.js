@@ -118,7 +118,7 @@ const MainDrawer = () => {
           clickHandler: () => {
             handleDrawerClose();
           },
-          path: '/',
+          path: '/runs/create',
         },
         {
           label: 'Create Route Path',
@@ -147,7 +147,7 @@ const MainDrawer = () => {
             dispatch(logout());
             handleDrawerClose();
           },
-          path: '/login',
+          path: '/',
         },
       ]
     : [
