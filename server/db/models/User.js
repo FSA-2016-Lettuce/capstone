@@ -30,7 +30,7 @@ const User = db.define('user', {
   pace: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 360,
+    defaultValue: 480,
   },
   distance: {
     type: Sequelize.INTEGER,
