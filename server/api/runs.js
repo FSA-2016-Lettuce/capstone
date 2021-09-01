@@ -60,8 +60,8 @@ router.get('/', async (req, res, next) => {
 
     whereClauseRun.startDate = {
       [Op.between]: [
-        moment(runStart).subtract(1, 'hours'),
-        moment(runStart).add(1, 'hours'),
+        moment(runStart).subtract(1, 'days'),
+        moment(runStart).add(14, 'days'),
       ],
     };
 
