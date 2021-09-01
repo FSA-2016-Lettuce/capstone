@@ -4,15 +4,8 @@ const {
   models: { Run, Route, Waypoint, User },
 } = require('../db');
 const moment = require('moment');
+const { requireToken } = require('./utils');
 module.exports = router;
-
-router.get('/create', async (req, res, next) => {
-  try {
-    res.json({ message: 'hello' });
-  } catch (err) {
-    next(err);
-  }
-});
 
 router.get('/:id', async (req, res, next) => {
   try {
@@ -116,6 +109,15 @@ router.put('/:id', async (req, res, next) => {
       order: [[Route, Waypoint, 'pathIndex', 'ASC']],
     });
     res.json(updatedRun);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/', requireToken, async (req, res, next) => {
+  try {
+    const newRun = await Run.create(req.body);
+    res.json(newRun);
   } catch (err) {
     next(err);
   }

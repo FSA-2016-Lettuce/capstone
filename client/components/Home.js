@@ -20,12 +20,17 @@ const Home = (props) => {
   const user = useSelector((state) => state.auth);
   console.log('user: ', user);
 
+  //  cannot redirect from the backend, this was my only thought
+  // if (user.newProfile === 'YES') {
+  //   history.push(`/users/${user.id}/profile/edit`);
+  // }
+
   return (
     <div>
       <h2 className={classes.banner}>
         Welcome to flock! The runs in your area are shown below:{' '}
       </h2>
-      <FilterRuns user={user} />
+      <FilterRuns />
     </div>
   );
 };

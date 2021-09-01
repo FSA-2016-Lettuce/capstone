@@ -19,12 +19,14 @@ import { distanceConverter } from '../utils';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import { TimePicker } from '@material-ui/pickers';
+import { DateTimePicker } from '@material-ui/pickers';
 import { _getRoutes } from '../store/route';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { getPaceList } from '../utils';
+import MapWithRoute from './MapWithRoute';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,16 +65,23 @@ const CreateRun = () => {
   const user = useSelector((state) => state.auth, shallowEqual);
   const routes = useSelector((state) => state.route.allRoutes);
   const [selectedRoute, setSelectedRoute] = useState({
-    name: '',
+    name: 'Select a local route',
     distance: 0,
+    waypoints: [],
   });
-  const [selectedDate, handleDateChange] = useState(moment());
+  const [selectedDate, handleDateChange] = useState(
+    moment().startOf('hour').add(1, 'hour')
+  );
   const [formState, setFormState] = useState({
-    pace: moment.duration(user.pace * 1000).asMinutes(),
-    date: moment(),
+    pace: moment.utc(user.pace * 1000).format('m:ss'),
   });
   const displayDistance = distanceConverter(selectedRoute.distance, 'ft');
   const paceList = getPaceList();
+  const routePath = selectedRoute.waypoints.map((waypoint) => [
+    waypoint.latitude,
+    waypoint.longitude,
+  ]);
+  const history = useHistory();
 
   console.log('routes in CreateRun:', routes);
   console.log('selected route', selectedRoute);
@@ -96,11 +105,21 @@ const CreateRun = () => {
   };
 
   const handleSubmit = async () => {
-    //send run to db
+    //create new run object
+    const parsedPace = String(formState.pace).split(':');
+    const newPace = parsedPace[0] * 60 + parsedPace[1] * 1;
+    const newRun = {
+      routeId: selectedRoute.id,
+      startDate: moment(selectedDate).format(),
+      pace: newPace,
+    };
+    console.log('new run: ', newRun);
+    await dispatch(_createRun(newRun));
+    history.push('/');
   };
 
   return (
-    user.homeLat !== 0 && (
+    user !== undefined && (
       <div>
         <Typography variant="h5" className={classes.runDetail}>
           Create A Run
@@ -114,21 +133,21 @@ const CreateRun = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
+          {selectedRoute.distance > 0 && <MapWithRoute routePath={routePath} />}
         </MapContainer>
         <Container className={classes.container} maxWidth="sm">
           <form className={classes.root} noValidate autoComplete="off">
-            <InputLabel id="route-selector-label">
-              Select a local route
-            </InputLabel>
             <Select
               className={classes.formField}
-              labelId="route-selector-label"
               name="route"
               id="route-selector"
               value={selectedRoute.name}
               onChange={handleChange}
               label="Route"
             >
+              <MenuItem value={'Select a local route'}>
+                <em>Select a local route</em>
+              </MenuItem>
               {routes.map((route) => (
                 <MenuItem key={route.id} value={route.name}>
                   {route.name}
@@ -140,40 +159,31 @@ const CreateRun = () => {
               id="outlined"
               disabled
               name="distance"
-              label="Distance"
+              label="Distance of selected route"
               value={`${displayDistance} miles`}
               variant="outlined"
               onChange={handleChange}
             />
-            <InputLabel id="pace-selector-label">Pace</InputLabel>
-            <Select
-              className={classes.formField}
-              labelId="pace-selector-label"
-              name="pace"
-              id="pace-selector"
-              value={formState.pace}
-              onChange={handleChange}
-              label="Pace"
-            >
-              {paceList.map((pace, index) => (
-                <MenuItem key={index} value={pace}>
-                  {pace}
-                </MenuItem>
-              ))}
-            </Select>
             <TextField
               className={classes.formField}
+              id="outlined"
+              select
               name="pace"
-              label="Preferred Pace min/mi"
+              label="Set a target pace for this run"
               value={formState.pace}
               variant="outlined"
               onChange={handleChange}
-            />
-            <TimePicker
+            >
+              {paceList.map((pace, index) => (
+                <MenuItem key={index} value={pace}>
+                  {`${pace} min/mile`}
+                </MenuItem>
+              ))}
+            </TextField>
+            <DateTimePicker
               className={classes.formField}
-              margin="normal"
               id="time-picker"
-              label="Start Time"
+              label="Pick a date and time for your run"
               minutesStep={15}
               variant="outlined"
               value={selectedDate}

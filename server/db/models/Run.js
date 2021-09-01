@@ -1,4 +1,3 @@
-// const { Runner } = require('mocha');
 const Sequelize = require('sequelize');
 const db = require('../db');
 const moment = require('moment');

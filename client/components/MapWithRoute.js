@@ -23,7 +23,7 @@ const MapWithRoute = (props) => {
         {/* Popup creates the popup you see when you click on the parent
         component (in this case, marker). Note that within the popup, you can
         use HTML tags to style the popup. Or you can just include text like you see here. See Run component for example of using HTML tags */}
-        <Popup>Starting point for the awesome run!</Popup>
+        <Popup>Starting point for an awesome run!</Popup>
       </Marker>
       {/* Polyline takes in the array of points and makes the path! */}
       <Polyline pathOptions={{ color: 'blue' }} positions={props.routePath} />

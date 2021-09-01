@@ -28,6 +28,8 @@ const joinRun = (run) => ({ type: JOIN_RUN, run });
 
 const leaveRun = (run) => ({ type: LEAVE_RUN, run });
 
+const createRun = (run) => ({ type: CREATE_RUN, run });
+
 /**
  * THUNK CREATORS
  */
@@ -55,11 +57,17 @@ export const _getRuns = (pace, distance, runStart) => {
   };
 };
 
-export const _createRun = () => {
+export const _createRun = (run) => {
   return async (dispatch) => {
     try {
-      // const { data: runs } = await axios.get(`/api/runs/`);
-      // dispatch(getRuns(runs));
+      const token = window.localStorage.getItem('token');
+      const { data: newRun } = await axios.post('/api/runs/', run, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log('new run created: ', newRun);
+      dispatch(createRun(newRun));
     } catch (e) {
       console.log(e);
     }
@@ -109,6 +117,8 @@ export default function (state = initialState, action) {
       return { ...state, singleRun: action.run };
     case LEAVE_RUN:
       return { ...state, singleRun: action.run };
+    case CREATE_RUN:
+      return { ...state, allRuns: [] };
     default:
       return state;
   }
