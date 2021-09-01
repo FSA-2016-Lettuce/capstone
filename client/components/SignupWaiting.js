@@ -38,7 +38,7 @@ const SignupWaiting = () => {
   useEffect(() => {
     setTimeout(() => {
       history.push(`/users/${user.id}/profile/edit`);
-    }, 1000);
+    }, 5000);
   }, []);
 
   return (
@@ -47,6 +47,10 @@ const SignupWaiting = () => {
       <Container className={classes.container} maxWidth="sm">
         <Typography className={classes.banner} variant="h4" component="h4">
           Redirecting To Your User Profile!!!
+        </Typography>
+        <Typography className={classes.banner} variant="h4" component="h4">
+          Please Edit Your Profile So That You May See Runs Around Your Home
+          Location!
         </Typography>
         <div className={classes.imageContainer}>
           <img className={classes.image} src="/clock.png" />
