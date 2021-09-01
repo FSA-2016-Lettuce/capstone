@@ -4,6 +4,11 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { displayMiles } from '../utils';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
@@ -13,22 +18,45 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
   },
+  listItemText: {
+    margin: 0,
+  },
 }));
 
 const PopupData = (props) => {
   const { pace, route, name, startDate, id } = props.run;
   const classes = useStyles();
-  const displayPace = moment.utc(pace * 1000).format('m:ss');
+  const displayPace = moment.utc(pace * 1000).format('m:ss') + ' min/mile';
   const displayDate = moment(startDate).format('ddd, MMM Do YYYY, h:mm a');
-  const displayDistance = displayMiles(route.distance);
+  const displayDistance = String(displayMiles(route.distance)) + ' miles';
 
   return (
     <div>
-      <h2>{route.name}</h2>
-      <p>Pace: {displayPace} min/mile</p>
-      <p>Distance: {displayDistance} miles</p>
-      <p>Run Start: {displayDate}</p>
-      <div className={classes.buttonFlex}>
+      <Typography variant="h6">{route.name}</Typography>
+      <List>
+        <ListItem>
+          <ListItemText
+            className={classes.listItemText}
+            primary="Start Time"
+            secondary={displayDate}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            className={classes.listItemText}
+            primary="Pace"
+            secondary={displayPace}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            className={classes.listItemText}
+            primary="Distance"
+            secondary={displayDistance}
+          />
+        </ListItem>
+      </List>
+      <Box className={classes.buttonFlex}>
         <Link to={`/runs/${id}`}>
           <Button
             type="button"
@@ -36,18 +64,10 @@ const PopupData = (props) => {
             color="primary"
             onClick={() => console.log('hello from: details')}
           >
-            Details
+            View Run Details
           </Button>
         </Link>
-        <Button
-          type="button"
-          variant="outlined"
-          color="secondary"
-          onClick={() => console.log('hello from join')}
-        >
-          Join Run
-        </Button>
-      </div>
+      </Box>
     </div>
   );
 };

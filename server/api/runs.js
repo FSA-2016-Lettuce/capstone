@@ -95,3 +95,28 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const { userId, action } = req.body;
+    const run = await Run.findByPk(req.params.id);
+    if (action === 'join') {
+      await run.addUser(userId);
+    } else if (action === 'leave') {
+      await run.removeUser(userId);
+    }
+    const updatedRun = await Run.findByPk(req.params.id, {
+      include: [
+        {
+          model: Route,
+          include: [Waypoint],
+        },
+        { model: User },
+      ],
+      order: [[Route, Waypoint, 'pathIndex', 'ASC']],
+    });
+    res.json(updatedRun);
+  } catch (err) {
+    next(err);
+  }
+});
