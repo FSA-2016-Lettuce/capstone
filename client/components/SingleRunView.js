@@ -17,6 +17,7 @@ import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SingleRunView = (props) => {
   const runId = props.match.params.id;
+  const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
   const run = useSelector((state) => state.run.singleRun);
@@ -73,6 +75,10 @@ const SingleRunView = (props) => {
     } else {
       dispatch(_leaveRun(user.id, run.id));
     }
+  };
+
+  const handleBack = async () => {
+    history.push('/');
   };
 
   return (
@@ -139,6 +145,7 @@ const SingleRunView = (props) => {
             variant="contained"
             color="secondary"
             className={classes.button}
+            onClick={handleBack}
           >
             BACK
           </Button>

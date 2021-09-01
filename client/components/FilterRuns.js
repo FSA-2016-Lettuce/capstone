@@ -68,7 +68,7 @@ const FilterRuns = () => {
   return (
     <div>
       <div>Filter By: </div>
-      <Box display="flex" justifyContent="space-around">
+      <Box display="flex" justifyContent="space-around" flexWrap="wrap">
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="demo-simple-select-outlined-label">Pace</InputLabel>
           <Select
