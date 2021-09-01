@@ -35,15 +35,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterRuns = (props) => {
+const FilterRuns = () => {
   let dateNow = moment().format('YYYY-MM-DDTHH:mm');
   console.log('WHAT IS dateNow?', dateNow);
   const classes = useStyles();
-  const user = props.user;
-  const [pace, setPace] = useState(0);
-  const [distance, setDistance] = useState(0);
+  const user = useSelector((state) => state.auth);
+  const [pace, setPace] = useState(user.pace);
+  const [distance, setDistance] = useState(user.distance);
   const [runStart, setRunStart] = useState(dateNow);
-  const runs = useSelector((state) => state.run.allRuns);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const FilterRuns = (props) => {
           <InputLabel id="demo-simple-select-outlined-label">Pace</InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
-            defaultValue={0}
+            value={pace}
             onChange={handleChange}
             label="pace"
             name="pace"
@@ -109,7 +108,7 @@ const FilterRuns = (props) => {
           </InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
-            defaultValue={0}
+            value={distance}
             onChange={handleChange}
             label="distance"
             name="distance"
