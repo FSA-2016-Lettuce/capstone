@@ -49,7 +49,7 @@ const SignupWaiting = () => {
           Redirecting To Your User Profile!!!
         </Typography>
         <Typography className={classes.banner} variant="h4" component="h4">
-          Please Edit Youre Profile So That You May See Runs Around Your Home
+          Please Edit Your Profile So That You May See Runs Around Your Home
           Location!
         </Typography>
         <div className={classes.imageContainer}>
