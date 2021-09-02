@@ -6,6 +6,7 @@ import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
+import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -40,9 +41,12 @@ const useStyles = makeStyles((theme) => ({
     padding: '6px',
     marginTop: '8px',
   },
-  button: {
+  submitButton: {
     margin: 'auto',
     width: '45%',
+  },
+  routeButton: {
+    margin: 'auto',
   },
   container: {
     margin: '16px auto',
@@ -57,6 +61,12 @@ const useStyles = makeStyles((theme) => ({
     width: '80%',
     minHeight: 50,
   },
+  box: {
+    display: 'flex',
+    margin: '16px auto',
+    justifyContent: 'space-between',
+    width: '80%',
+  },
 }));
 
 const CreateRun = () => {
@@ -65,7 +75,7 @@ const CreateRun = () => {
   const user = useSelector((state) => state.auth, shallowEqual);
   const routes = useSelector((state) => state.route.allRoutes);
   const [selectedRoute, setSelectedRoute] = useState({
-    name: 'Select a local route',
+    name: 'Select a local route or create your own',
     distance: 0,
     waypoints: [],
   });
@@ -101,7 +111,7 @@ const CreateRun = () => {
       )[0];
       if (newSelectedRoute === undefined) {
         newSelectedRoute = {
-          name: 'Select a local route',
+          name: 'Select a local route or create your own',
           distance: 0,
           waypoints: [],
         };
@@ -112,6 +122,10 @@ const CreateRun = () => {
     } else {
       setFormState({ ...formState, [e.target.name]: e.target.value });
     }
+  };
+
+  const handleCreateRoute = () => {
+    history.push('/routes/create');
   };
 
   const handleSubmit = async () => {
@@ -160,8 +174,8 @@ const CreateRun = () => {
               onChange={handleChange}
               label="Route"
             >
-              <MenuItem value={'Select a local route'}>
-                <em>Select a local route</em>
+              <MenuItem value={'Select a local route or create your own'}>
+                <em>Select a local route or create your own</em>
               </MenuItem>
               {routes.map((route) => (
                 <MenuItem key={route.id} value={route.name}>
@@ -174,16 +188,26 @@ const CreateRun = () => {
                 You must select a route
               </Typography>
             )}
-            <TextField
-              className={classes.formField}
-              id="outlined"
-              disabled
-              name="distance"
-              label="Distance of selected route"
-              value={`${displayDistance} miles`}
-              variant="outlined"
-              onChange={handleChange}
-            />
+            <Box className={classes.box}>
+              <TextField
+                className={classes.formField}
+                id="outlined"
+                disabled
+                name="distance"
+                label="Distance of selected route"
+                value={`${displayDistance} miles`}
+                variant="outlined"
+                onChange={handleChange}
+              />
+              <Button
+                className={classes.routeButton}
+                variant="outlined"
+                color="secondary"
+                onClick={handleCreateRoute}
+              >
+                Create A Route
+              </Button>
+            </Box>
             <TextField
               className={classes.formField}
               id="outlined"
@@ -210,7 +234,7 @@ const CreateRun = () => {
               onChange={handleDateChange}
             />
             <Button
-              className={classes.button}
+              className={classes.submitButton}
               variant="contained"
               color="primary"
               onClick={handleSubmit}
