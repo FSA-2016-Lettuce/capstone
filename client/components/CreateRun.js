@@ -95,9 +95,16 @@ const CreateRun = () => {
 
   const handleChange = (e) => {
     if (e.target.name === 'route') {
-      const newSelectedRoute = routes.filter(
+      let newSelectedRoute = routes.filter(
         (route) => route.name === e.target.value
       )[0];
+      if (newSelectedRoute === undefined) {
+        newSelectedRoute = {
+          name: 'Select a local route',
+          distance: 0,
+          waypoints: [],
+        };
+      }
       setSelectedRoute(newSelectedRoute);
     } else {
       setFormState({ ...formState, [e.target.name]: e.target.value });
