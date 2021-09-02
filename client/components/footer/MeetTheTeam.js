@@ -22,6 +22,16 @@ const teamInfo = [
     gitHub: 'https://github.com/jared-melnyk',
     image: 'https://avatars.githubusercontent.com/u/12187087?v=4',
   },
+  {
+    name: 'Scott Scheine',
+    role: 'Developer',
+    focus:
+      'Designed vertical slices of the application, such as Create Route Path and Find Run.',
+    linkedIn: 'https://www.linkedin.com/in/scott-scheine/',
+    gitHub: 'https://github.com/SRScheine',
+    image:
+      'https://avatars.githubusercontent.com/u/83229726?s=400&u=b1b150461011fd99ec68fb37f58c6a8132a0945e&v=4',
+  },
 ];
 
 const MeetTheTeam = () => {
@@ -37,7 +47,7 @@ const MeetTheTeam = () => {
 
   const classes = useStyles();
   return (
-    <Container>
+    <Container className={classes.root}>
       {teamInfo.map((dev, idx) => (
         <div className={classes.root} key={idx}>
           <MemberCard dev={dev} />
