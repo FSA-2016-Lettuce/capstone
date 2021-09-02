@@ -20,9 +20,8 @@ const useStyles = makeStyles((theme) => ({
   },
   modal: {
     display: 'flex',
-    alignSelf: 'flex-end',
     position: 'relative',
-    left: '85%',
+    left: '88vw',
     margin: '.5em',
   },
 }));
