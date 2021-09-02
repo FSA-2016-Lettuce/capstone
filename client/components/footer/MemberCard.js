@@ -9,32 +9,35 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { FullscreenExit } from '@material-ui/icons';
 
-export default function MediaCard(props) {
-  const useStyles = makeStyles({
-    root: {
-      maxWidth: 345,
-    },
-    media: {
-      borderRadius: '50%',
-      height: '4em',
-      width: '4em',
-    },
-  });
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    backgroundColor: '#f5f5f5',
+  },
+  media: {
+    borderRadius: '50%',
+    height: '4em',
+    width: '4em',
+    marginLeft: '1em',
+    marginTop: '1em',
+  },
+}));
 
+export default function MediaCard(props) {
   const classes = useStyles();
 
   const redirectoToLinkedIn = (e) => {
-    window.location.href = props.dev.linkedIn
+    window.location.href = props.dev.linkedIn;
   };
 
   const redirectToGithub = (e) => {
-    window.location.href = props.dev.gitHub
-  }
+    window.location.href = props.dev.gitHub;
+  };
 
   const { name, role, focus, linkedIn, gitHub, image } = props.dev;
   console.log('props in membercard', props);
   return (
-    <Card className={classes.root}>
+    <Card variant="outlined" className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image={image} />
         <CardContent>
