@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,6 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { Typography } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import PolylineHelp from './PolylineHelp';
+import EditControl from './EditControl';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'flex-end',
     position: 'relative',
     left: '85%',
-    margin: '.5em'
+    margin: '.5em',
   },
 }));
 
@@ -30,7 +32,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function InstructionalModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [topic, setTopic] = useState('polyline');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,6 +42,18 @@ export default function InstructionalModal() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleNext = () => {
+    setTopic(null)
+    handleClose();
+    setTimeout(() => handleClickOpen(), 100);
+  };
+
+  const resetTopic = () => {
+    setTopic('polyline');
+    handleClose()
+  }
+
   const classes = useStyles();
   return (
     <div>
@@ -58,24 +73,37 @@ export default function InstructionalModal() {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">
-          {'How to Create a Route'}
-        </DialogTitle>
-        {/* <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            To get started, click the "Draw a polyline" button in the top right
-            corner of the map. Note: The first point created for the Route will
-            be assumed to be the starting location.
-          </DialogContentText>
-        </DialogContent> */}
-
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" variant="outlined">
-            What else ya' got?
-          </Button>
-          <Button onClick={handleClose} color="primary" variant="outlined">
+        {' '}
+        {topic === 'polyline' ? (
+          <>
+            <DialogTitle id="alert-dialog-slide-title">
+              {'How to Create a Route'}
+            </DialogTitle>
+            <PolylineHelp />
+          </>
+        ) : (
+          <>
+          <DialogTitle id="alert-dialog-slide-title">
+              {'How to Edit a Route'}
+          <EditControl />
+          <Button onClick={resetTopic} color="primary" variant="outlined">
             Ready to Create
           </Button>
+          </DialogTitle>
+          </>
+        )}
+        <DialogActions>
+          {topic === 'polyline' ? (
+            <>
+            <Button onClick={handleNext} color="primary" variant="outlined">
+              What else ya' got?
+            </Button>
+            <Button onClick={resetTopic} color="primary" variant="outlined">
+            Ready to Create
+          </Button>
+          </>
+          ) : null}
+
         </DialogActions>
       </Dialog>
     </div>
