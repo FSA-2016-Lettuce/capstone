@@ -3,23 +3,23 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   image: {
-    width: '187px',
-    height: '354px',
-  },
-  banner: {
-    margin: '15px',
+    maxWidth: '100%',
+    height: 'auto',
+    opacity: '0.8',
   },
   imageContainer: {
     textAlign: 'center',
   },
   container: {
     textAlign: 'center',
+    marginTop: '10px',
   },
   button: {
     width: '85%',
@@ -34,13 +34,12 @@ const LandingPage = () => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <Container className={classes.container} maxWidth="sm">
-        <Typography className={classes.banner} variant="h4" component="h4">
-          Come join the flock!
+      <Container className={classes.container} maxWidth="xs">
+        <Typography variant="h4" component="h4">
+          The #1 app for finding your next run group
         </Typography>
         <div className={classes.imageContainer}>
-          <img className={classes.image} src="/flock_home.png" />
+          <img className={classes.image} src="/landing-page-mobile.png" />
         </div>
         <div className={classes.buttonContainer}>
           <Link to="/signup">
@@ -65,6 +64,14 @@ const LandingPage = () => {
             </Button>
           </Link>
         </div>
+        <Typography variant="h5" component="h5">
+          About flock
+        </Typography>
+        <Typography>
+          flock is a collaboative app made by runners, for runners. It connects
+          like-minded runners who want to create, join, and search for group run
+          events in their neighborhood.
+        </Typography>
       </Container>
     </React.Fragment>
   );
