@@ -20,6 +20,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { _createRoute } from '../store/route';
+import InstructionalModal from './modal-instructions/InstructionalModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -142,17 +143,7 @@ const CreateRoute = () => {
 
   return (
     <div>
-      <Typography className={classes.title} variant="h5">
-        Welcome to Create-A-Route!
-      </Typography>
-      <Typography className={classes.subtitle} variant="subtitle1">
-        To get started, click the "Draw a polyline" button in the top right
-        corner of the map.
-      </Typography>
-      <Typography className={classes.subtitle} variant="subtitle1">
-        Note: The first point created for the Route will be assumed to be the
-        starting location.
-      </Typography>
+      <InstructionalModal />
 
       {/* space for modal */}
       <MapContainer
