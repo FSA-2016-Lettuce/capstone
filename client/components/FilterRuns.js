@@ -12,6 +12,7 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import HomeMap from './HomeMap';
 import moment from 'moment';
+import InstructionalModal from './modal-instructions/InstructionalModal'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
