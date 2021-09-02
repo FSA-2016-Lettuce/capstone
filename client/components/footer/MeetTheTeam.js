@@ -22,6 +22,16 @@ const teamInfo = [
     gitHub: 'https://github.com/jared-melnyk',
     image: 'https://avatars.githubusercontent.com/u/12187087?v=4',
   },
+  {
+    name: 'Chris Nieves',
+    role: 'Developer',
+    focus:
+      'Co-creator of many components with the use of many lines of code which consist of many characters',
+    linkedIn: 'https://www.linkedin.com/in/christophernieves20/',
+    gitHub: 'https://github.com/Nievescs20',
+    image:
+      'https://media-exp1.licdn.com/dms/image/C4E03AQGNqwS2buXonA/profile-displayphoto-shrink_800_800/0/1629979232073?e=1635984000&v=beta&t=1Ou09S9qRChQ9yp9xwuSpBM_5emPoNBc8lAVbQwjntg',
+  },
 ];
 
 const MeetTheTeam = () => {

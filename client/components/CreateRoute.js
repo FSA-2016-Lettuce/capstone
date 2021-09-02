@@ -134,7 +134,7 @@ const CreateRoute = () => {
 
       // Dispatch thunk to create the route and push back to the home page
       dispatch(_createRoute(routeDetails));
-      history.push('/');
+      history.push('/runs/create');
     } else {
       // Otherwise, do nothing but show error message
       setErrorVis('visible');

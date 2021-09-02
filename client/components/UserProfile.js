@@ -12,6 +12,7 @@ import { deepPurple } from '@material-ui/core/colors';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { distanceConverter, displayPace } from '../utils';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +47,7 @@ const UserProfile = () => {
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   const distance = distanceConverter(user.distance, 'ft');
-  const pace = displayPace(user.pace);
+  const pace = moment.utc(user.pace * 1000).format('m:ss');
 
   console.log('user from user profile: ', user);
 
@@ -97,7 +98,7 @@ const UserProfile = () => {
           </ListItemAvatar>
           <ListItemText
             primary="Preferred Distance"
-            secondary={`${distance}`}
+            secondary={`${distance} mi`}
           />
         </ListItem>
         <ListItem>
