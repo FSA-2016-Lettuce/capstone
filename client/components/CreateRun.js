@@ -74,6 +74,7 @@ const CreateRun = () => {
   );
   const [formState, setFormState] = useState({
     pace: moment.utc(user.pace * 1000).format('m:ss'),
+    valid: true,
   });
   const displayDistance = distanceConverter(selectedRoute.distance, 'ft');
   const paceList = getPaceList();
@@ -104,6 +105,8 @@ const CreateRun = () => {
           distance: 0,
           waypoints: [],
         };
+      } else {
+        setFormState({ ...formState, valid: true });
       }
       setSelectedRoute(newSelectedRoute);
     } else {
@@ -112,17 +115,22 @@ const CreateRun = () => {
   };
 
   const handleSubmit = async () => {
-    //create new run object
-    const parsedPace = String(formState.pace).split(':');
-    const newPace = parsedPace[0] * 60 + parsedPace[1] * 1;
-    const newRun = {
-      routeId: selectedRoute.id,
-      startDate: moment(selectedDate).format(),
-      pace: newPace,
-    };
-    console.log('new run: ', newRun);
-    await dispatch(_createRun(newRun));
-    history.push('/');
+    //validate that Route has been selected
+    if (!selectedRoute.id) {
+      setFormState({ ...formState, valid: false });
+    } else {
+      //create new run object
+      const parsedPace = String(formState.pace).split(':');
+      const newPace = parsedPace[0] * 60 + parsedPace[1] * 1;
+      const newRun = {
+        routeId: selectedRoute.id,
+        startDate: moment(selectedDate).format(),
+        pace: newPace,
+      };
+      console.log('new run: ', newRun);
+      await dispatch(_createRun(newRun));
+      history.push('/');
+    }
   };
 
   return (
@@ -161,6 +169,11 @@ const CreateRun = () => {
                 </MenuItem>
               ))}
             </Select>
+            {!formState.valid && (
+              <Typography variant="subtitle1" color="error">
+                You must select a route
+              </Typography>
+            )}
             <TextField
               className={classes.formField}
               id="outlined"
