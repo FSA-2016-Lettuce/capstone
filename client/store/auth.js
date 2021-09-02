@@ -84,6 +84,7 @@ export const updateUserThunk = (user) => {
       );
       dispatch(updateUser(updatedUser));
     } catch (error) {
+      // return dispatch(updateUser({ error: updateError }));
       console.log(error);
     }
   };

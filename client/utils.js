@@ -27,10 +27,13 @@ export const getCoords = async (address) => {
     `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedAddress}&key=AIzaSyAz-9KJeJV25jg2jZVZZ9GHcJC_aI9hwME`
   );
   let coord = await res.json();
-  return [
-    coord.results[0].geometry.location.lat,
-    coord.results[0].geometry.location.lng,
-  ];
+  console.log('what is coord from utils', coord);
+  return coord.results.length
+    ? [
+        coord.results[0].geometry.location.lat,
+        coord.results[0].geometry.location.lng,
+      ]
+    : 'error';
 };
 
 export const getPaceList = () => {
