@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core';
 import { _createRoute } from '../store/route';
 import InstructionalModal from './modal-instructions/InstructionalModal';
+import { FullscreenExit } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitle: {
     paddingLeft: '6px',
+  },
+  modal: {
+    display: 'flex',
+    alignSelf: 'center',
   },
 }));
 
@@ -143,7 +148,7 @@ const CreateRoute = () => {
 
   return (
     <div>
-      <InstructionalModal />
+      <InstructionalModal className={classes.modal} />
 
       {/* space for modal */}
       <MapContainer
