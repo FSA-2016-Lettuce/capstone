@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 56,
     justifyContent: 'space-between',
   },
+  link: {
+    color: 'white',
+  },
 }));
 
 const MainDrawer = () => {
@@ -193,9 +196,11 @@ const MainDrawer = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            flock
-          </Typography>
+          <Link to="/">
+            <Typography variant="h6" noWrap className={classes.link}>
+              flock
+            </Typography>
+          </Link>
           {user.username ? (
             <Link to={`/users/${user.id}/profile`}>
               <img id="profile-img" src={user.profileImg}></img>

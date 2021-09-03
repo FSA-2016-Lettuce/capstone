@@ -107,7 +107,7 @@ const UserProfile = () => {
               <img className="singleViewIcon" src="/pin.png" />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Address" secondary={`${user.address} mi`} />
+          <ListItemText primary="Address" secondary={`${user.address}`} />
         </ListItem>
       </List>
       <div className={classes.buttonContainer}>

@@ -43,8 +43,8 @@ export default function UserProfileForm() {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
-  const distance = distanceConverter(user.distance, 'ft');
-  const time = timeConverter(user.pace);
+
+  const [errorVis, setErrorVis] = useState('hidden');
 
   const [formState, setFormState] = useState({
     firstName: user.firstName,
@@ -65,19 +65,21 @@ export default function UserProfileForm() {
   };
 
   const submitHandler = async () => {
-    // const newDistance = distanceConverter(formState.distance, 'mi');
     const newCoord = await getCoords(formState.address);
     console.log('newCoord in submit handler', newCoord);
 
-    dispatch(
-      updateUserThunk({
-        ...formState,
-        // distance: newDistance,
-        homeLat: newCoord[0],
-        homeLng: newCoord[1],
-      })
-    );
-    history.push(`/users/${user.id}/profile`);
+    if (newCoord === 'error') {
+      setErrorVis('visible');
+    } else {
+      dispatch(
+        updateUserThunk({
+          ...formState,
+          homeLat: newCoord[0],
+          homeLng: newCoord[1],
+        })
+      );
+      history.push(`/users/${user.id}/profile`);
+    }
   };
 
   return (
@@ -120,6 +122,14 @@ export default function UserProfileForm() {
               variant="outlined"
               onChange={changeHandler}
             />
+            {errorVis === 'visible' ? (
+              <Box component="div" color="red" fontWeight="fontWeightBold">
+                Unfortunately we are unable find this address. Please enter a
+                new address
+              </Box>
+            ) : (
+              ''
+            )}
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="demo-simple-select-outlined-label">
                 Preferred Pace
