@@ -20,13 +20,17 @@ import {
   Typography,
 } from '@material-ui/core';
 import { _createRoute } from '../store/route';
-import InstructionalModal from './modal-instructions/InstructionalModal';
+import InstructionalModal, {
+  Transition,
+} from './modal-instructions/InstructionalModal';
+import { FullscreenExit } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
       width: '95%',
+      display: 'flex',
     },
   },
   textField: {
@@ -41,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     paddingLeft: '6px',
   },
+  modal: {
+    justifyContent:'flex-end'
+  },
+  test: {
+    display: 'grid'
+  }
 }));
 
 const CreateRoute = () => {
@@ -143,9 +153,9 @@ const CreateRoute = () => {
 
   return (
     <div>
-      <InstructionalModal />
-
-      {/* space for modal */}
+      <div className='test'>
+        <InstructionalModal className={classes.modal} />
+      </div>
       <MapContainer
         center={[user.homeLat, user.homeLng]}
         zoom={zoomLevel}
