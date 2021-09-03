@@ -4,22 +4,8 @@ const {
   db,
   models: { User, Run, Waypoint, Route },
 } = require('../server/db');
-const {
-  users,
-  runs,
-  routes,
-  routeOneWaypoints,
-  routeTwoWaypoints,
-  routeThreeWaypoints,
-  routeFourWaypoints,
-  routeFiveWaypoints,
-  routeSixWaypoints,
-  routeSevenWaypoints,
-  routeEightWaypoints,
-  routeNineWaypoints,
-  routeTenWaypoints,
-  routeElevenWaypoints,
-} = require('./seedData');
+const { users, runs, routes } = require('./seedData');
+const allRoutesWaypoints = require('./seedDataWaypoints');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -51,39 +37,11 @@ async function seed() {
   await Promise.all(allRuns.map((run, idx) => run.setRoute(allRoutes[idx])));
 
   // Creating Waypoints with Route associations
-  await Promise.all(
-    routeOneWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeTwoWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeThreeWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeFourWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeFiveWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeSixWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeSevenWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeEightWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeNineWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeTenWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
-  await Promise.all(
-    routeElevenWaypoints.map((waypoint) => Waypoint.create(waypoint))
-  );
+  for (let i = 0; i < allRoutesWaypoints.length; i++) {
+    await Promise.all(
+      allRoutesWaypoints[i].map((waypoint) => Waypoint.create(waypoint))
+    );
+  }
 
   // Trigger Route beforeUpdate hook to calculate route distances
   await allRoutes.forEach((route) => route.update({}));
@@ -97,6 +55,16 @@ async function seed() {
   await runTwo.addUser(5);
   await runTwo.addUser(6);
   await runTwo.addUser(2);
+  for (let i = 10; i < allRuns.length; i++) {
+    let currRun = allRuns[i];
+    let randomRunner1 = Math.floor(Math.random() * 6) + 1;
+    let randomRunner2 = Math.floor(Math.random() * 6) + 1;
+    while (randomRunner1 === randomRunner2) {
+      randomRunner2 = Math.floor(Math.random() * 6) + 1;
+    }
+    const randomRunners = [randomRunner1, randomRunner2];
+    await currRun.addUser(randomRunners);
+  }
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
