@@ -1,5 +1,0 @@
-Client ID
-256829829337-d58dkc2uo97gsc138f3trcsc1h3s2irj.apps.googleusercontent.com
-
-CLient Secret
-dTjUBezkWm0EOQRXwhSC8HGI
