@@ -135,7 +135,7 @@ const MainDrawer = () => {
           clickHandler: () => {
             handleDrawerClose();
           },
-          path: '/',
+          path: `/users/stats/${user.id}`,
         },
         {
           label: 'Meet the Team',
