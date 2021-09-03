@@ -18,6 +18,10 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +72,9 @@ const SingleRunView = (props) => {
 
   const waypoints = run.id ? run.route.waypoints : [];
   const numRunners = run.id ? run.users.length : 0;
+  const runnerNames = run.id
+    ? run.users.map((user) => `${user.firstName} ${user.lastName}`)
+    : [];
 
   const handleJoin = async () => {
     if (!userJoined) {
@@ -88,15 +95,15 @@ const SingleRunView = (props) => {
       </Typography>
       <SingleRunMap waypoints={waypoints} />
       <Container maxWidth="sm">
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <img src="/calendar.png" className="singleViewIcon" />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="START DATE" secondary={`${displayDate}`} />
-        </ListItem>
         <List className={classes.root}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <img src="/calendar.png" className="singleViewIcon" />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="START DATE" secondary={`${displayDate}`} />
+          </ListItem>
           <Divider />
           <ListItem>
             <ListItemAvatar>
@@ -122,14 +129,34 @@ const SingleRunView = (props) => {
             />
           </ListItem>
           <Divider />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <img src="/runners.png" className="singleViewIcon" />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="# OF RUNNERS" secondary={numRunners} />
-          </ListItem>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <ListItem disableGutters={true}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <img src="/runners.png" className="singleViewIcon" />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="# OF RUNNERS" secondary={numRunners} />
+              </ListItem>
+            </AccordionSummary>
+            <AccordionDetails>
+              <List className={classes.root}>
+                {runnerNames.map((name, idx) => (
+                  <div key={idx}>
+                    <ListItem>
+                      <ListItemText primary={name} />
+                    </ListItem>
+                    <Divider />
+                  </div>
+                ))}
+              </List>
+            </AccordionDetails>
+          </Accordion>
         </List>
         {/* TODO: To be changed after Hookup */}
         <div className="singlePageButtons">
