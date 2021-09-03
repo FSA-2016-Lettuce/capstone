@@ -16,17 +16,17 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
       width: '95%',
+      display: 'flex'
     },
   },
   modal: {
     display: 'flex',
-    position: 'relative',
-    left: '88vw',
+    justifySelf: 'end',
     margin: '.5em',
   },
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
+export const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
@@ -52,10 +52,13 @@ export default function InstructionalModal() {
     setTopic('polyline');
     handleClose()
   }
+  const divStyle = {
+    display: 'grid'
+  }
 
   const classes = useStyles();
   return (
-    <div>
+    <div style= {divStyle}>
       <Button
         variant="outlined"
         color="primary"
