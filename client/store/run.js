@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import User from '../../server/db/models/User';
 
 const initialState = {
   singleRun: {},
@@ -14,6 +15,7 @@ const GET_RUNS = 'GET_RUNS';
 const CREATE_RUN = 'CREATE_RUN';
 const JOIN_RUN = 'JOIN_RUN';
 const LEAVE_RUN = 'LEAVE_RUN';
+const GET_STATS = 'GET_STATS';
 
 /**
  * ACTION CREATORS
@@ -29,6 +31,8 @@ const joinRun = (run) => ({ type: JOIN_RUN, run });
 const leaveRun = (run) => ({ type: LEAVE_RUN, run });
 
 const createRun = (run) => ({ type: CREATE_RUN, run });
+
+const getStats = (runs) => ({type: GET_STATS, runs})
 
 /**
  * THUNK CREATORS
@@ -56,6 +60,17 @@ export const _getRuns = (pace, distance, runStart) => {
     }
   };
 };
+
+export const _getStats = (runId) => {
+  return async (dispatch) => {
+    try {
+      const {data: runs} = await axios.get(`api/runs/${runId}/complete`);
+      dispatch(getStats(runs));
+    } catch(error) {
+      console.log(error);
+    }
+  }
+}
 
 export const _createRun = (run) => {
   return async (dispatch) => {

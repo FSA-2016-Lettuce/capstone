@@ -97,7 +97,7 @@ const MainDrawer = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
 
-  console.log('user from drawer', user);
+  // console.log('user from drawer', user);
 
   const handleDrawerOpen = () => {
     setOpen(true);

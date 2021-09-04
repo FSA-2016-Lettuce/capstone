@@ -15,6 +15,7 @@ router.get('/', async (req, res, next) => {
       include: [Waypoint],
       order: [[Waypoint, 'pathIndex', 'ASC']],
     });
+
     // filter routes to only those with starting point within 5 miles of user home location
     const localRoutes = routes.filter((route) => {
       const distanceFromHome = pointToPointDistance(
