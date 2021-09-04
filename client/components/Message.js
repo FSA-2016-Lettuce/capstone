@@ -27,18 +27,15 @@ const useStyles = makeStyles((theme) => ({
 export default function Message(props) {
   const classes = useStyles();
   const message = props.message;
-  const displayDate = moment(message.createdAt).format(
-    'ddd, MMM Do YYYY, h:mm a'
-  );
+  const displayDate = moment(message.createdAt).format('MMM Do YYYY, h:mm a');
+  const displayMessage = `${message.user.firstName}: ${message.content}`;
 
   return (
     <ListItem>
       <ListItemAvatar>
-        <Avatar>
-          <ImageIcon />
-        </Avatar>
+        <Avatar src={message.user.profileImg} />
       </ListItemAvatar>
-      <ListItemText primary={message.content} secondary={displayDate} />
+      <ListItemText primary={displayMessage} secondary={displayDate} />
     </ListItem>
   );
 }

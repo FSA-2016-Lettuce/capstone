@@ -4,6 +4,7 @@ import { _getRun, removeRun, _joinRun, _leaveRun } from '../store/run';
 import { _getMessages, removeMessages } from '../store/messages';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from './Message';
+import NewMessageEntry from './NewMessageEntry';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     textAlign: 'center',
+    minHeight: '80vh',
   },
 }));
 
@@ -51,15 +53,18 @@ export default function MessagesList(props) {
   }, []);
 
   return (
-    <Container className={classes.container} maxWidth="sm">
-      <Typography variant="h5" className={classes.header}>
-        Chat for {routeName}
-      </Typography>
-      <List className={classes.root}>
-        {messages.map((message) => (
-          <Message message={message} key={message.id} />
-        ))}
-      </List>
-    </Container>
+    <>
+      <Container className={classes.container} maxWidth="sm">
+        <Typography variant="h5" className={classes.header}>
+          Chat for {routeName}
+        </Typography>
+        <List className={classes.root}>
+          {messages.map((message) => (
+            <Message message={message} key={message.id} />
+          ))}
+        </List>
+      </Container>
+      <NewMessageEntry />
+    </>
   );
 }

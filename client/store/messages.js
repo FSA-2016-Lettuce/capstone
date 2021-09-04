@@ -8,7 +8,7 @@ const initialState = [];
 
 // Action types
 const GET_MESSAGES = 'GET_MESSAGES';
-const NEW_MESSAGE = 'NEW_MESSAGE';
+const POST_MESSAGE = 'POST_MESSAGE';
 const REMOVE_MESSAGES = 'REMOVE_MESSAGES';
 
 // Action Creators
@@ -17,8 +17,8 @@ export const getMessages = (messages) => ({
   messages,
 });
 
-export const newMessage = (message) => ({
-  type: NEW_MESSAGE,
+export const postMessage = (message) => ({
+  type: POST_MESSAGE,
   message,
 });
 
@@ -44,19 +44,36 @@ export const _getMessages = (runId) => {
   };
 };
 
-export const postMessage = (message) => {
+export const _postMessage = (content) => {
   return async (dispatch, getState) => {
     try {
-      // Big thing in line below!
-      // Using getState() parameter to grab the user off of the current state when
-      // we are executing this thunk (aka the user who is posting the message!)
-      message.name = getState().user;
-      const response = await axios.post('/api/messages', message);
-      const newMessage = response.data;
-      dispatch(gotNewMessageFromServer(newMessage));
-      // After posting message, emit event back to the server with the new message
-      // as the payload
-      socket.emit('new-message', newMessage);
+      const token = window.localStorage.getItem(TOKEN);
+      // Using getState() parameter to grab the user&run off the current state when
+      // we are executing this thunk
+      const messageInfo = {
+        content,
+        user: getState().auth,
+        run: getState().run.singleRun,
+      };
+
+      const { data: newMessage } = await axios.post(
+        `/api/messages/${messageInfo.run.id}`,
+        messageInfo,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      dispatch(postMessage(newMessage));
+
+      // message.name = getState().user;
+      // const response = await axios.post('/api/messages', message);
+      // const newMessage = response.data;
+      // dispatch(gotNewMessageFromServer(newMessage));
+      // // After posting message, emit event back to the server with the new message
+      // // as the payload
+      // socket.emit('new-message', newMessage);
     } catch (err) {
       console.error(err);
     }
@@ -68,7 +85,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MESSAGES:
       return action.messages;
-    case NEW_MESSAGE:
+    case POST_MESSAGE:
       return [...state, action.message];
     case REMOVE_MESSAGES:
       return action.messages;
