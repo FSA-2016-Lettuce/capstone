@@ -2,9 +2,9 @@
 
 const {
   db,
-  models: { User, Run, Waypoint, Route },
+  models: { User, Run, Waypoint, Route, Message },
 } = require('../server/db');
-const { users, runs, routes } = require('./seedData');
+const { users, runs, routes, messages } = require('./seedData');
 const allRoutesWaypoints = require('./seedDataWaypoints');
 
 /**
@@ -64,6 +64,12 @@ async function seed() {
     }
     const randomRunners = [randomRunner1, randomRunner2];
     await currRun.addUser(randomRunners);
+    // Also create same two Messages in each Run
+    for (let j = 0; j < messages.length; j++) {
+      const currMessage = await Message.create(messages[j]);
+      await currMessage.setRun(currRun);
+      await currMessage.setUser(randomRunners[j]);
+    }
   }
 
   console.log(`seeded ${users.length} users`);

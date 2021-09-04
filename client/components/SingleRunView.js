@@ -2,6 +2,7 @@ import React, { Component, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { _getRun, removeRun, _joinRun, _leaveRun } from '../store/run';
+import { _getMessages } from '../store/messages';
 import { displayMiles } from '../utils';
 import SingleRunMap from './SingleRunMap';
 import moment from 'moment';
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
-    width: '45%',
+    width: '30%',
   },
 }));
 
@@ -86,6 +87,10 @@ const SingleRunView = (props) => {
 
   const handleBack = async () => {
     history.push('/');
+  };
+
+  const handleChat = async () => {
+    history.push(`/runs/${run.id}/messages`);
   };
 
   return (
@@ -175,6 +180,14 @@ const SingleRunView = (props) => {
             onClick={handleBack}
           >
             BACK
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            onClick={handleChat}
+          >
+            CHAT
           </Button>
         </div>
       </Container>
