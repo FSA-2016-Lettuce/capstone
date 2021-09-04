@@ -22,6 +22,7 @@ router.get('/', async (req, res, next) => {
         [homeLat, homeLng],
         [route.waypoints[0].latitude, route.waypoints[0].longitude]
       );
+
       return distanceFromHome <= 26400;
     });
     res.json(localRoutes);

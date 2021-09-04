@@ -21,7 +21,9 @@ router.get(`/complete/:userId`, async (req, res, next) => {
         }
       }
     })
-    res.send(runs);
+
+    console.log('WHAT ARE RUNS: ', runs)
+    res.status(200).json(runs);
   } catch (error) {
     next(error);
   }
