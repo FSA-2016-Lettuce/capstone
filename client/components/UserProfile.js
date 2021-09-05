@@ -14,6 +14,8 @@ import { Link } from 'react-router-dom';
 import { distanceConverter, displayPace } from '../utils';
 import moment from 'moment';
 
+import Image from './Image'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -62,6 +64,7 @@ const UserProfile = () => {
             src={`${user.profileImg}`}
           />
         </div>
+        <Image />
       </Box>
       <Button className={classes.button} variant="outlined" color="primary">
         Add/Edit Photo
