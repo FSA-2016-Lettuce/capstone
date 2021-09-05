@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Run, Waypoint, Route },
+  models: { User, Run, Waypoint, Route,  },
 } = require('../server/db');
 const {
   users,

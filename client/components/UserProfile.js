@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { distanceConverter, displayPace } from '../utils';
 import moment from 'moment';
+import ProfileAvatar from './ProfileAvatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +64,7 @@ const UserProfile = () => {
           />
         </div>
       </Box>
+      <ProfileAvatar />
       <Button className={classes.button} variant="outlined" color="primary">
         Add/Edit Photo
       </Button>
