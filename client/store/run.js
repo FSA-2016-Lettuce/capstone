@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import User from '../../server/db/models/User';
 
 const initialState = {
   singleRun: {},
