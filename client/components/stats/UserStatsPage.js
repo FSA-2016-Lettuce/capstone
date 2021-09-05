@@ -44,10 +44,8 @@ export default function UserStats(props) {
   const userId = props.match.params.id;
   const user = useSelector((state) => state.auth);
 
-  // console.log('what is user.id', user.id);
 
   const runs = useSelector((state) => state.run.allRuns);
-  // console.log('runs in stats:', runs);
 
   const dispatch = useDispatch();
 
@@ -56,7 +54,6 @@ export default function UserStats(props) {
       await dispatch(_getStats(userId));
     }
     loadStats();
-    console.log('info in runs:', runs);
   }, []);
 
   return (
