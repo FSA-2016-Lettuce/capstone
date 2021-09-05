@@ -68,8 +68,8 @@ export default function UserStats(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {runs.map((run) => (
-            <StyledTableRow key={user.name}>
+          {runs.map((run,idx) => (
+            <StyledTableRow key={idx}>
               <StyledTableCell component="th" scope="row">
                 {run.route.name}
               </StyledTableCell>
