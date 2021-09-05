@@ -7,23 +7,25 @@ const moment = require('moment');
 const { requireToken } = require('./utils');
 module.exports = router;
 
-// joined Runs
+//userStats GET w/runName
 router.get(`/complete/:userId`, async (req, res, next) => {
   try {
     let runs = await Run.findAll({
+      include: [
+        { model: Route },
+        {
+          model: User,
+          where: {
+            id: req.params.userId,
+          },
+        },
+      ],
       where: {
-        status: 'COMPLETED',
-      },
-      include: {
-        model: User,
-        where: {
-          id: req.params.userId
-        }
+        status: 'COMPLETED'
       }
-    })
-
-    console.log('WHAT ARE RUNS: ', runs)
-    res.status(200).json(runs);
+    });
+    console.log('what are routes and users', runs);
+    res.send(runs)
   } catch (error) {
     next(error);
   }
