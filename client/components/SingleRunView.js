@@ -53,14 +53,13 @@ const SingleRunView = (props) => {
   const headerText = run.id
     ? run.route.name + (userJoined ? ' (you are registered)' : '')
     : '';
-
-  console.log('SingleRunView run: ', run);
+  const chatButtonText = userJoined ? 'CHAT' : 'JOIN RUN TO CHAT';
+  const chatButtonDisabled = !userJoined;
 
   useEffect(() => {
     async function loadRun() {
       await dispatch(_getRun(runId));
     }
-    console.log('loading runs for SingleRunView');
     loadRun();
     return () => {
       dispatch(removeRun());
@@ -163,7 +162,6 @@ const SingleRunView = (props) => {
             </AccordionDetails>
           </Accordion>
         </List>
-        {/* TODO: To be changed after Hookup */}
         <div className="singlePageButtons">
           <Button
             variant="contained"
@@ -184,10 +182,11 @@ const SingleRunView = (props) => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={chatButtonDisabled}
             className={classes.button}
             onClick={handleChat}
           >
-            CHAT
+            {chatButtonText}
           </Button>
         </div>
       </Container>

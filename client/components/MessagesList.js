@@ -1,20 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { _getRun, removeRun, _joinRun, _leaveRun } from '../store/run';
+import { useHistory } from 'react-router-dom';
+import { _getRun, removeRun } from '../store/run';
 import { _getMessages, removeMessages } from '../store/messages';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     textAlign: 'center',
-    minHeight: '80vh',
+    minHeight: '75vh',
   },
   noChat: {
     marginTop: '10px',
@@ -35,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MessagesList(props) {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
   const run = useSelector((state) => state.run.singleRun);
   const messages = useSelector((state) => state.messages);
@@ -54,8 +50,21 @@ export default function MessagesList(props) {
     };
   }, []);
 
+  const handleBack = () => {
+    history.push(`/runs/${runId}`);
+  };
+
   return (
     <>
+      <Button
+        className={classes.button}
+        type="submit"
+        variant="contained"
+        color="secondary"
+        onClick={handleBack}
+      >
+        Back
+      </Button>
       <Container className={classes.container} maxWidth="sm">
         <Typography variant="h5" className={classes.header}>
           Chat for {routeName}
