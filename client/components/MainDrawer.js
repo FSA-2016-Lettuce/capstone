@@ -131,7 +131,7 @@ const MainDrawer = () => {
           path: '/routes/create',
         },
         {
-          label: 'View Stats',
+          label: 'My Stats',
           clickHandler: () => {
             handleDrawerClose();
           },

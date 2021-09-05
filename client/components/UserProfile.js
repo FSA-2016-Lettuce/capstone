@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { distanceConverter, displayPace } from '../utils';
 import moment from 'moment';
-
+import ImageCapture from './ImageCapture';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -53,6 +53,7 @@ const UserProfile = () => {
 
   return (
     <Container className={classes.profileContainer} maxWidth="sm">
+      <ImageCapture />
       <Box>
         <div className={classes.imageDiv}>
           <Avatar

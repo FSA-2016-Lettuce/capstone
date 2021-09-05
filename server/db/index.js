@@ -4,6 +4,8 @@ const User = require('./models/User');
 const Run = require('./models/Run');
 const Route = require('./models/Route');
 const Waypoint = require('./models/Waypoint');
+const Image = require('./models/Image');
+const { useDateRangeValidation } = require('@material-ui/lab/internal/pickers/hooks/useValidation');
 
 //associations could go here!
 
@@ -14,6 +16,7 @@ module.exports = {
     Run,
     Route,
     Waypoint,
+    Image
   },
 };
 
@@ -26,3 +29,9 @@ Run.belongsTo(Route);
 
 Route.hasMany(Waypoint);
 Waypoint.belongsTo(Route);
+
+Image.belongsTo(User);
+User.belongsTo(Image)
+
+Image.belongsTo(Run);
+Run.hasMany(Image);
