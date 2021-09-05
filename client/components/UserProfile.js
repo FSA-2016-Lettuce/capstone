@@ -64,10 +64,10 @@ const UserProfile = () => {
           />
         </div>
       </Box>
-      <ProfileAvatar />
       <Button className={classes.button} variant="outlined" color="primary">
         Add/Edit Photo
       </Button>
+      <ProfileAvatar />
       <List className={classes.root}>
         <ListItem>
           <ListItemAvatar>

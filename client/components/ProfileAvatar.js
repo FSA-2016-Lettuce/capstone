@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Avatar, makeStyles, List, ListItem } from '@material-ui/core';
 import { ImageList, ImageListItem } from '@material-ui/core';
-
 import { avatarList } from '../../script/seedData';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,23 +14,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-console.log(avatarList);
 const ProfileAvatar = (props) => {
   const classes = useStyles();
+  console.log('image in avatarList:', avatarList[0].src)
   return (
-    <Fragment>
-      <ImageList rowHeight={160} className={classes.imageList} cols={3}>
-        {avatarList.map((item, idx) => (
-          <ImageListItem
-            key={idx}
-            cols={item.cols || 1}
-            src={item.name}
-            alt={item.idx}
-          ></ImageListItem>
-        ))}
-      </ImageList>
-      ;
-    </Fragment>
+    <ImageList rowHeight={160} className={classes.imageList} cols={3}>
+  {avatarList.map((item, idx) => (
+    <ImageListItem key={item.idx} cols={item.cols || 1}>
+      <img src={item.src} alt={idx} onClick={() =>console.log(idx)}/>
+    </ImageListItem>
+  ))}
+</ImageList>
   );
 };
 
