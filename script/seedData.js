@@ -1,5 +1,13 @@
 const moment = require('moment');
 
+const images =
+  {
+  imageType: 'JPEG',
+  imageName: 'Practice_Pic',
+  imageData: '123',
+  userId: 2
+  };
+
 const users = [
   {
     username: 'cody@gmail.com',
@@ -580,6 +588,7 @@ const routeElevenWaypoints = routeElevenPath.map((coord, index) => ({
 }));
 
 module.exports = {
+  images,
   runs,
   users,
   routes,

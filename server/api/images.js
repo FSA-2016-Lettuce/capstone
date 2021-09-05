@@ -5,14 +5,14 @@ const {
 
 module.exports = router;
 
-// router.get('/:userId', async (req, res, next) => {
-//   try {
-//     const profileImage = await Image.findAll();
-//     res.status(200).send(profileImage);
-//   } catch (e) {
-//     next(e);
-//   }
-// });
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const profileImage = await Image.findAll();
+    res.status(200).send(profileImage);
+  } catch (e) {
+    next(e);
+  }
+});
 
 router.post('/:userId', async (req, res, next) => {
   try {

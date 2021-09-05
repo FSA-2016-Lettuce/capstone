@@ -4,6 +4,7 @@ const User = require('./models/User');
 const Run = require('./models/Run');
 const Route = require('./models/Route');
 const Waypoint = require('./models/Waypoint');
+const Image = require('./models/Image')
 
 //associations could go here!
 
@@ -14,6 +15,7 @@ module.exports = {
     Run,
     Route,
     Waypoint,
+    Image
   },
 };
 
@@ -26,3 +28,6 @@ Run.belongsTo(Route);
 
 Route.hasMany(Waypoint);
 Waypoint.belongsTo(Route);
+
+User.hasMany(Image);
+Image.belongsTo(User);

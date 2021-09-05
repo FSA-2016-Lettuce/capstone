@@ -2,9 +2,10 @@
 
 const {
   db,
-  models: { User, Run, Waypoint, Route },
+  models: { User, Run, Waypoint, Route, Image },
 } = require('../server/db');
 const {
+  images,
   users,
   runs,
   routes,
@@ -45,6 +46,9 @@ async function seed() {
     await Run.create(runs[i]);
   }
 
+  // Create a Practice Profile Pic
+  await Image.create(images)
+
   // Associate Routes to Runs
   const allRoutes = await Route.findAll();
   const allRuns = await Run.findAll();
@@ -84,6 +88,7 @@ async function seed() {
   await Promise.all(
     routeElevenWaypoints.map((waypoint) => Waypoint.create(waypoint))
   );
+
 
   // Trigger Route beforeUpdate hook to calculate route distances
   await allRoutes.forEach((route) => route.update({}));

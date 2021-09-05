@@ -3,11 +3,18 @@ const db = require('../db');
 
 const Image = db.define('image', {
   //the below keys are needed to satisfy Postgres format
-    imageType: Sequelize.STRING,
-    imageName: Sequelize.STRING,
-    imageData: Sequelize.BLOB('long')
+    imageType: {
+      type: Sequelize.STRING,
+    },
+    imageName: {
+      type: Sequelize.TEXT,
+      defaultValue: 'Profile Image'
+    },
+    imageData: {
+      type: Sequelize.BLOB
+    }
 
-})
+});
 
 module.exports = Image;
 
