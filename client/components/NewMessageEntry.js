@@ -29,7 +29,7 @@ export default function NewMessageEntry() {
 
   // Update state of form as user updated text field
   const handleInput = (evt) => {
-    const newValue = evt.target.value.trim();
+    const newValue = evt.target.value;
     setContent(newValue);
   };
   // What to do when a user hits the "CHAT!" button:

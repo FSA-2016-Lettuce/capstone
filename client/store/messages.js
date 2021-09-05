@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import socket from '../socket';
+import socket from '../socket';
 
 const TOKEN = 'token';
 
@@ -65,15 +65,11 @@ export const _postMessage = (content) => {
           },
         }
       );
-      dispatch(postMessage(newMessage));
 
-      // message.name = getState().user;
-      // const response = await axios.post('/api/messages', message);
-      // const newMessage = response.data;
-      // dispatch(gotNewMessageFromServer(newMessage));
-      // // After posting message, emit event back to the server with the new message
-      // // as the payload
-      // socket.emit('new-message', newMessage);
+      dispatch(postMessage(newMessage));
+      // After posting message, emit event back to the server with the new message
+      // as the payload
+      socket.emit('new-message', newMessage);
     } catch (err) {
       console.error(err);
     }

@@ -19,7 +19,6 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   header: {
@@ -28,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     textAlign: 'center',
     minHeight: '80vh',
+  },
+  noChat: {
+    marginTop: '10px',
   },
 }));
 
@@ -58,11 +60,17 @@ export default function MessagesList(props) {
         <Typography variant="h5" className={classes.header}>
           Chat for {routeName}
         </Typography>
-        <List className={classes.root}>
-          {messages.map((message) => (
-            <Message message={message} key={message.id} />
-          ))}
-        </List>
+        {messages.length ? (
+          <List className={classes.root}>
+            {messages.map((message) => (
+              <Message message={message} key={message.id} />
+            ))}
+          </List>
+        ) : (
+          <Typography variant="body1" className={classes.noChat}>
+            Be the first to chat on this Run!
+          </Typography>
+        )}
       </Container>
       <NewMessageEntry />
     </>
