@@ -4,6 +4,7 @@ import axios from 'axios';
 const initialState = {
   singleRun: {},
   allRuns: [],
+  stats: []
 };
 
 /**
@@ -32,7 +33,7 @@ const leaveRun = (run) => ({ type: LEAVE_RUN, run });
 
 const createRun = (run) => ({ type: CREATE_RUN, run });
 
-const getStats = (runs) => ({ type: GET_STATS, runs });
+const getStats = (stats) => ({ type: GET_STATS, stats });
 
 /**
  * THUNK CREATORS
@@ -97,8 +98,9 @@ export const _joinRun = (userId, runId) => {
 export const _getStats = (userId) => {
   return async (dispatch) => {
    try {
-     const {data: runs}  = await axios.get(`/api/runs/complete/${userId}`);
-     dispatch(getStats(runs));
+     const {data: stats}  = await axios.get(`/api/runs/complete/${userId}`);
+     dispatch(getStats(stats));
+     console.log(stats)
    } catch (error) {
      console.log(error);
    }
@@ -131,7 +133,7 @@ export default function (state = initialState, action) {
     case GET_RUNS:
       return { ...state, allRuns: action.runs };
     case GET_STATS:
-      return {...state, allRuns: action.runs };
+      return {...state, stats: action.stats };
     case JOIN_RUN:
       return { ...state, singleRun: action.run };
     case LEAVE_RUN:

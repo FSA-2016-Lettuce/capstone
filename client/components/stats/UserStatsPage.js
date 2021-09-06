@@ -45,6 +45,7 @@ export default function UserStats(props) {
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   const runs = useSelector((state) => state.run.allRuns);
+  const stats = useSelector((state) => state.stats)
 
   //was in userStats previously
   const userId = props.match.params.id;
