@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
+  box: {
+    justifySelf: 'center',
+  },
   button: {
     margin: theme.spacing(1),
   },
@@ -41,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
   },
   imageDiv: {
     margin: '10px',
+    justifySelf: 'flex-end',
+  },
+  profilePic: {
+    justifyContent: 'center'
   },
 }));
 
@@ -50,11 +57,24 @@ const UserProfile = () => {
   const distance = distanceConverter(user.distance, 'ft');
   const pace = moment.utc(user.pace * 1000).format('m:ss');
 
-  console.log('user from user profile: ', user);
+  // console.log('user from user profile: ', user);
 
   return (
     <Container className={classes.profileContainer} maxWidth="sm">
       <List className={classes.root}>
+        <ListItem className={classes.profilePic}>
+          <Box className={classes.box}>
+            <div className={classes.imageDiv}>
+              <Avatar
+                className={classes.avatar}
+                id="avatar"
+                alt={`${user.username}`}
+                src={`${user.profileImg}`}
+
+              />
+            </div>
+          </Box>
+        </ListItem>
         <ListItem>
           <ListItemAvatar>
             <Avatar className={classes.purple}>FN</Avatar>

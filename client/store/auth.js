@@ -75,15 +75,13 @@ export const authenticateSignUp =
   };
 
 export const updateUserThunk = (user) => {
-  console.log('updateUsertThunk param user: ', user);
   return async (dispatch) => {
     try {
-      console.log('user in api:', user)
       const { data: updatedUser } = await axios.put(
         `/api/users/${user.id}`, user
       );
       dispatch(updateUser(updatedUser));
-      console.log(updatedUser)
+      // console.log(updatedUser)
     } catch (error) {
       console.log(error);
     }
