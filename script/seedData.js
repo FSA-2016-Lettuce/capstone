@@ -206,9 +206,15 @@ const routes = [
   { name: 'DUMBO Loop' },
 ];
 
+const messages = [
+  { content: 'Hello everyone!' },
+  { content: 'Looking forward to the run!' },
+];
+
 module.exports = {
   avatarList,
   runs,
   users,
   routes,
+  messages,
 };

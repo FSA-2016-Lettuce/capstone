@@ -13,6 +13,7 @@ import { me } from './store';
 import CreateRun from './components/CreateRun';
 import MeetTheTeam from './components/footer/MeetTheTeam';
 import SignupWaiting from './components/SignupWaiting';
+import MessagesList from './components/MessagesList';
 import LandingPageWaiting from './components/LandingPageWaiting';
 import UserStats from './components/stats/UserStatsPage';
 
@@ -36,9 +37,11 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/users/:id/profile/" component={UserProfile} />
+
             <Route exact path="/runs/create" component={CreateRun} />
-            <Route path="/runs/:id" component={SingleRunView} />
-            <Route path="/users/stats/:id" component={UserStats} />
+            <Route exact path="/runs/:id/messages" component={MessagesList} />
+            <Route exact path="/runs/:id" component={SingleRunView} />
+            <Route path="/users/stats/:id" component={UserStats} /
             <Route path="/meet-the-team" component={MeetTheTeam} />
             <Route
               exact
