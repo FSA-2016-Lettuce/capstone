@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterRuns = () => {
   let dateNow = moment().format('YYYY-MM-DDTHH:mm');
-  console.log('WHAT IS dateNow?', dateNow);
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   const [pace, setPace] = useState(user.pace);

@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const { name, displayName, handleSubmit, error } = props;
   const classes = useStyles();
-  console.log('display name from authForm', displayName);
 
   return (
     <Container component="main" maxWidth="xs">

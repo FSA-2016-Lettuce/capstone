@@ -34,3 +34,4 @@ Message.belongsTo(User);
 
 Run.hasMany(Message);
 Message.belongsTo(Run);
+

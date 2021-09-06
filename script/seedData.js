@@ -1,5 +1,26 @@
 const moment = require('moment');
 
+const avatarList = [
+  { src: '/avatarImages/girl_blueShirt_brownHair.jpeg' },
+  { src: '/avatarImages/girl_brownShirt_redHair.jpeg' },
+  { src: '/avatarImages/girl_purpleShirt_blueHair.jpeg' },
+  { src: '/avatarImages/girl_redShirt_blonde.png' },
+  { src: '/avatarImages/girl_redShirt_brownHair.jpeg' },
+  { src: '/avatarImages/girl_redShirt_lightBrownHair.jpeg' },
+  { src: '/avatarImages/guy_burgundyShirt_brownHair.jpeg' },
+  { src: '/avatarImages/guy_greenShirt_brownHair.jpeg' },
+  { src: '/avatarImages/guy_greyShirt_brownHair.jpeg' },
+  { src: '/avatarImages/guy_yellopwShirt_brownHair.jpeg' },
+  { src: '/avatarImages/guy_yellowShirt_blackHair.jpeg' },
+  { src: '/avatarImages/guy_yellowShirt_brownHair.jpeg' },
+  { src: '/avatarImages/lady_yellowShirtVest_greyHair.jpeg' },
+  { src: '/avatarImages/oldGuy_greenShirt_greyHair.jpeg' },
+  { src: '/avatarImages/YoungGirl_purpleShirt_blueHair.jpeg' },
+  { src: '/avatarImages/youngGuy_redShirt_brownHair.jpeg' },
+  { src: '/avatarImages/guy_burgundyShirt_blondeHair.jpeg' },
+  { src: '/avatarImages/youngGirl_business_blonde.jpeg' },
+];
+
 const users = [
   {
     username: 'cody@gmail.com',
@@ -191,6 +212,7 @@ const messages = [
 ];
 
 module.exports = {
+  avatarList,
   runs,
   users,
   routes,
