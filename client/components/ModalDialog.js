@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,6 +15,7 @@ import { ImageList, ImageListItem, Divider, Avatar } from '@material-ui/core';
 import { avatarList, users } from '../../script/seedData';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserThunk } from '../store/auth';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -30,9 +31,14 @@ const useStyles = makeStyles((theme) => ({
   imageList: {
     color: theme.pr,
     display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
     wrap: 'flex-wrap',
   },
-  image: {},
+  image: {
+    height: 300,
+    width: 300,
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -41,10 +47,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ModalDialog() {
   const classes = useStyles();
+
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const [open, setOpen] = React.useState(false);
 
   const user = useSelector((state) => state.auth);
-  const [avatarPreview, SetAvatarPreview] = useState(user.profileImg)
+  const [avatarPreview, SetAvatarPreview] = useState(user.profileImg);
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
@@ -56,15 +64,13 @@ export default function ModalDialog() {
   };
 
   const imageClickHandler = (e) => {
-    SetAvatarPreview(e.target.src)
+    SetAvatarPreview(e.target.src);
   };
 
   const updateUser = async () => {
-    const updatedUser = {...user,
-      profileImg: avatarPreview
-    };
-    await dispatch(updateUserThunk(updatedUser))
-  }
+    const updatedUser = { ...user, profileImg: avatarPreview };
+    await dispatch(updateUserThunk(updatedUser));
+  };
 
   return (
     <div>
@@ -102,13 +108,13 @@ export default function ModalDialog() {
         </AppBar>
 
         <div className={classes.imageDiv}>
-                <Avatar
-                  className={classes.avatar}
-                  id="avatar"
-                  alt={`${user.username}`}
-                  src={`${avatarPreview}`}
-                />
-              </div>
+          <Avatar
+            className={classes.avatar}
+            id="avatar"
+            alt={`${user.username}`}
+            src={`${avatarPreview}`}
+          />
+        </div>
 
         <ImageList
           variant="round"

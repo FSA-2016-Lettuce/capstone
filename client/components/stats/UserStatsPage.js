@@ -13,7 +13,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment-timezone';
 
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -36,6 +35,10 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  dialog: {
+    fontWeight: '900',
+    fontSize: '3em'
+  },
 });
 
 export default function UserStats(props) {
@@ -45,9 +48,6 @@ export default function UserStats(props) {
 
   //was in userStats previously
   const userId = props.match.params.id;
-
-
-
 
   const dispatch = useDispatch();
 
@@ -70,16 +70,27 @@ export default function UserStats(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {runs.map((run,idx) => (
-            <StyledTableRow key={idx}>
-              <StyledTableCell component="th" scope="row">
-                {run.route.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{run.startDate}</StyledTableCell>
-              <StyledTableCell align="right">{(run.pace / 60) + ' min/mile'}</StyledTableCell>
-              <StyledTableCell align="right">{run.status}</StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {runs.length === 0 ? (
+            <TableRow className={classes.dialog}>
+              <StyledTableCell align="right"></StyledTableCell>
+
+              <StyledTableCell align="right">No Data</StyledTableCell>
+
+            </TableRow>
+          ) : (
+            runs.map((run, idx) => (
+              <StyledTableRow key={idx}>
+                <StyledTableCell component="th" scope="row">
+                  {run.route.name}
+                </StyledTableCell>
+                <StyledTableCell align="right">{run.startDate}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {run.pace / 60 + ' min/mile'}
+                </StyledTableCell>
+                <StyledTableCell align="right">{run.status}</StyledTableCell>
+              </StyledTableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>

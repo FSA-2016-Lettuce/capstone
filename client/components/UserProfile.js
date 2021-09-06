@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { distanceConverter, displayPace } from '../utils';
 import moment from 'moment';
-// import ProfileAvatar from './ProfileAvatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   avatar: {
-    height: 200,
-    width: 200,
+    height: 250,
+    width: 250,
     margin: 'auto',
   },
   purple: {
@@ -47,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     justifySelf: 'flex-end',
   },
   profilePic: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 }));
 
@@ -56,8 +55,6 @@ const UserProfile = () => {
   const user = useSelector((state) => state.auth);
   const distance = distanceConverter(user.distance, 'ft');
   const pace = moment.utc(user.pace * 1000).format('m:ss');
-
-  // console.log('user from user profile: ', user);
 
   return (
     <Container className={classes.profileContainer} maxWidth="sm">
@@ -70,7 +67,6 @@ const UserProfile = () => {
                 id="avatar"
                 alt={`${user.username}`}
                 src={`${user.profileImg}`}
-
               />
             </div>
           </Box>
