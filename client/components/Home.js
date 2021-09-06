@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = (props) => {
+const Home = () => {
   const classes = useStyles();
-  const user = useSelector((state) => state.auth);
-  console.log('user: ', user);
+  // const user = useSelector((state) => state.auth);
+  // console.log('user: ', user);
 
   //  cannot redirect from the backend, this was my only thought
   // if (user.newProfile === 'YES') {

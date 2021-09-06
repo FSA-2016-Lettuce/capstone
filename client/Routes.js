@@ -13,7 +13,9 @@ import { me } from './store';
 import CreateRun from './components/CreateRun';
 import MeetTheTeam from './components/footer/MeetTheTeam';
 import SignupWaiting from './components/SignupWaiting';
+import LandingPageWaiting from './components/LandingPageWaiting';
 import UserStats from './components/stats/UserStatsPage';
+
 
 /**
  * COMPONENT
@@ -30,7 +32,7 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route exact path="/" exact component={Home} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/users/:id/profile/" component={UserProfile} />
@@ -49,11 +51,12 @@ class Routes extends Component {
               component={UserProfileForm}
             />
             <Route path="/routes/create" component={CreateRoute} />
-            <Redirect to="/home" />
+            <Redirect to="/" />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={LandingPage} />
+            <Route path="/" exact component={LandingPageWaiting} />
+            <Route path="/landingpage" exact component={LandingPage} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/meet-the-team" component={MeetTheTeam} />

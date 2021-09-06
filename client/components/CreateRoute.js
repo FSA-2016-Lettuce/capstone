@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '6px',
   },
   modal: {
-    justifyContent:'flex-end'
+    justifyContent: 'flex-end',
   },
   test: {
-    display: 'grid'
-  }
+    display: 'grid',
+  },
 }));
 
 const CreateRoute = () => {
@@ -75,8 +75,6 @@ const CreateRoute = () => {
   // Callback functions to handle drawing state
   // When a polyline is created, add that polyline layer to state
   const _onCreated = (e) => {
-    console.log('ON CREATE: ', e);
-
     const { layerType, layer } = e;
     if (layerType === 'polyline') {
       const { _leaflet_id } = layer;
@@ -90,8 +88,6 @@ const CreateRoute = () => {
 
   // When a polyline is edited, update the polyline that was edited
   const _onEdited = (e) => {
-    console.log('ON EDIT: ', e);
-
     const {
       layers: { _layers },
     } = e;
@@ -107,7 +103,6 @@ const CreateRoute = () => {
 
   // When a polyline is deleted, remove that polyline from state
   const _onDeleted = (e) => {
-    console.log('ON DELETE: ', e);
     const {
       layers: { _layers },
     } = e;
@@ -144,7 +139,9 @@ const CreateRoute = () => {
 
       // Dispatch thunk to create the route and push back to the home page
       dispatch(_createRoute(routeDetails));
-      history.push('/runs/create');
+      setTimeout(() => {
+        history.push('/runs/create');
+      }, 400);
     } else {
       // Otherwise, do nothing but show error message
       setErrorVis('visible');
@@ -153,7 +150,7 @@ const CreateRoute = () => {
 
   return (
     <div>
-      <div className='test'>
+      <div className="test">
         <InstructionalModal className={classes.modal} />
       </div>
       <MapContainer
