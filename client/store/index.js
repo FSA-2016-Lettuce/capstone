@@ -6,6 +6,7 @@ import auth from './auth';
 import route from './route';
 import run from './run';
 
+
 const reducer = combineReducers({ auth, route, run });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

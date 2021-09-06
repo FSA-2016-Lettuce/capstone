@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  avatarBadge: {
+    "border-radius": '50%',
+  },
   hide: {
     display: 'none',
   },
@@ -97,7 +100,7 @@ const MainDrawer = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
 
-  console.log('user from drawer', user);
+  // console.log('user from drawer', user);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -135,7 +138,7 @@ const MainDrawer = () => {
           clickHandler: () => {
             handleDrawerClose();
           },
-          path: '/',
+          path: `/users/stats/${user.id}`,
         },
         {
           label: 'Meet the Team',
@@ -203,7 +206,7 @@ const MainDrawer = () => {
           </Link>
           {user.username ? (
             <Link to={`/users/${user.id}/profile`}>
-              <img id="profile-img" src={user.profileImg}></img>
+              <img className= {classes.avatarBadge}id="profile-img" src={user.profileImg}></img>
             </Link>
           ) : (
             <img src="/lettuce-logo.png" id="profile-img" />
