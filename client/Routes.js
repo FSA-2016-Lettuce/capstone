@@ -17,7 +17,6 @@ import MessagesList from './components/MessagesList';
 import LandingPageWaiting from './components/LandingPageWaiting';
 import UserStats from './components/stats/UserStatsPage';
 
-
 /**
  * COMPONENT
  */
@@ -41,7 +40,7 @@ class Routes extends Component {
             <Route exact path="/runs/create" component={CreateRun} />
             <Route exact path="/runs/:id/messages" component={MessagesList} />
             <Route exact path="/runs/:id" component={SingleRunView} />
-            <Route path="/users/stats/:id" component={UserStats} /
+            <Route path="/users/stats/:id" component={UserStats} />
             <Route path="/meet-the-team" component={MeetTheTeam} />
             <Route
               exact
