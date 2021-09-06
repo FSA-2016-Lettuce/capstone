@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { distanceConverter, displayPace } from '../utils';
 import moment from 'moment';
-import ProfileAvatar from './ProfileAvatar';
+// import ProfileAvatar from './ProfileAvatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,20 +54,6 @@ const UserProfile = () => {
 
   return (
     <Container className={classes.profileContainer} maxWidth="sm">
-      <Box>
-        <div className={classes.imageDiv}>
-          <Avatar
-            className={classes.avatar}
-            id="avatar"
-            alt={`${user.username}`}
-            src={`${user.profileImg}`}
-          />
-        </div>
-      </Box>
-      <Button className={classes.button} variant="outlined" color="primary">
-        Add/Edit Photo
-      </Button>
-      <ProfileAvatar />
       <List className={classes.root}>
         <ListItem>
           <ListItemAvatar>

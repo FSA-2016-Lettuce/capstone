@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import reducer, { updateUserThunk } from '../../store/auth';
 import { _getStats } from '../../store/run';
-
+import { useHistory } from 'react-router';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment-timezone';
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -39,13 +40,14 @@ const useStyles = makeStyles({
 
 export default function UserStats(props) {
   const classes = useStyles();
+  const user = useSelector((state) => state.auth);
+  const runs = useSelector((state) => state.run.allRuns);
 
   //was in userStats previously
   const userId = props.match.params.id;
-  const user = useSelector((state) => state.auth);
 
 
-  const runs = useSelector((state) => state.run.allRuns);
+
 
   const dispatch = useDispatch();
 

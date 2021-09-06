@@ -13,18 +13,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateUserThunk } from '../store/auth';
 import { useHistory } from 'react-router-dom';
 import { distanceConverter, getCoords, timeConverter } from '../utils';
+import { avatarList } from '../../script/seedData';
+import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '92%',
+      flexGrow: 1,
       textAlign: 'center',
     },
   },
+  avatar: {
+    height: 200,
+    width: 200,
+    margin: 'auto',
+
+    textAlign: 'center',
+  },
   button: {
     margin: theme.spacing(1),
-    width: '60%',
+  },
+
+  imageDiv: {
+    margin: '10px',
+  },
+  profileContainer: {
+    textAlign: 'center',
   },
   container: {
     marginTop: '15px',
@@ -57,6 +73,7 @@ export default function UserProfileForm() {
     homeLat: user.homeLat,
     homeLng: user.homeLng,
     newProfile: user.newProfile,
+    profileImg: user.profileImg,
   });
 
   const changeHandler = (e) => {
@@ -90,6 +107,23 @@ export default function UserProfileForm() {
       <Box display="flex" justifyContent="space-around" flexWrap="wrap">
         <Container maxWidth="sm">
           <form className={classes.root} noValidate autoComplete="off">
+            <Box>
+              <div className={classes.imageDiv}>
+                <Avatar
+                  className={classes.avatar}
+                  id="avatar"
+                  alt={`${user.username}`}
+                  src={`${user.profileImg}`}
+                />
+              </div>
+            </Box>
+            <Button
+              className={classes.button}
+              variant="outlined"
+              color="primary"
+            >
+              Add/Edit Avatar
+            </Button>
             <TextField
               required
               name="firstName"

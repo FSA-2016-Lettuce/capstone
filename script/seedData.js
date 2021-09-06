@@ -15,7 +15,7 @@ const avatarList = [
   { src: '/avatarImages/guy_yellowShirt_brownHair.jpeg' },
   { src: '/avatarImages/lady_yellowShirtVest_greyHair.jpeg' },
   { src: '/avatarImages/oldGuy_greenShirt_greyHair.jpeg' },
-  { src: '/avatarImages/YoungGIrl_purpleShirt_blueHair.jpeg' },
+  { src: '/avatarImages/YoungGirl_purpleShirt_blueHair.jpeg' },
   { src: '/avatarImages/youngGuy_redShirt_brownHair.jpeg' },
   { src: '/avatarImages/guy_burgundyShirt_blondeHair.jpeg' },
   { src: '/avatarImages/youngGirl_business_blonde.jpeg' },
