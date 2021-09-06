@@ -26,3 +26,4 @@ Run.belongsTo(Route);
 
 Route.hasMany(Waypoint);
 Waypoint.belongsTo(Route);
+

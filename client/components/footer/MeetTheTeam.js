@@ -27,7 +27,7 @@ const teamInfo = [
   {
     name: 'Jose Fernandez',
     role: 'Developer',
-    focus: 'Co-authored map api integration, UI design, front-end specialty',
+    focus: 'Co-authored map api integration, User Stats, Profile Avatar, Instructional Modal',
     linkedIn: 'https://www.linkedin.com/in/josefernandez33/',
     gitHub: 'https://github.com/joseRFernandez',
     image: 'https://avatars.githubusercontent.com/u/75868864?v=4',
