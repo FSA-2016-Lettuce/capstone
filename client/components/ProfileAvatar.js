@@ -34,40 +34,40 @@ export default function ProfileAvatar(props) {
     setAvatarPreview(e.target.src);
   };
 
-    // i want to display an alert to the user asking to confirm if they want this image as their new profile
-    // ideally the image would become bigger and the text would conditionally render if they want to keep their avatar or if they would like to change it
 
-    return (
-      <Fragment>
-        <Box>
-          <div className={classes.imageDiv}>
-            <Avatar
-              className={classes.avatar}
-              id="avatar"
-              alt={`${user.username}`}
-              src={`${avatarPreview}`}
+
+  // i want to display an alert to the user asking to confirm if they want this image as their new profile
+  // ideally the image would become bigger and the text would conditionally render if they want to keep their avatar or if they would like to change it
+
+  return (
+    <Fragment>
+      <Box>
+        <div className={classes.imageDiv}>
+          <Avatar
+            className={classes.avatar}
+            id="avatar"
+            alt={`${user.username}`}
+            src={`${avatarPreview}`}
+          />
+        </div>
+      </Box>
+      <ImageList
+        variant="round"
+        rowHeight={160}
+        className={classes.imageList}
+        cols={3}
+      >
+        {avatarList.map((item, idx) => (
+          <ImageListItem key={idx} cols={item.cols || 1}>
+            <img
+              src={item.src}
+              alt="my profile image"
+              key={idx}
+              onClick={imageClickHandler}
             />
-          </div>
-        </Box>
-        <ImageList
-          variant="round"
-          rowHeight={160}
-          className={classes.imageList}
-          cols={3}
-        >
-          {avatarList.map((item, idx) => (
-            <ImageListItem key={idx} cols={item.cols || 1}>
-              <img
-                src={item.src}
-                alt="my profile image"
-                key={idx}
-                onClick={displayPreview}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-
-      </Fragment>
-    );
-  }
-
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </Fragment>
+  );
+}

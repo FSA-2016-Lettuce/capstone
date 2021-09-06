@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 import { distanceConverter, getCoords, timeConverter } from '../utils';
 import { avatarList } from '../../script/seedData';
 import { Avatar } from '@material-ui/core';
+import ModalDialog from './ModalDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +62,7 @@ export default function UserProfileForm() {
   const history = useHistory();
 
   const [errorVis, setErrorVis] = useState('hidden');
+  const [modalOpenStatus, setModalOpenStatus] = useState(false);
 
   const [formState, setFormState] = useState({
     firstName: user.firstName,
@@ -76,7 +78,19 @@ export default function UserProfileForm() {
     profileImg: user.profileImg,
   });
 
+  // for modal
+  const handleOpen = () => {
+    modalOpenStatus(true);
+  };
+
+  const handleClose = () => {
+    setModalOpenStatus(false);
+  };
+
+//
+
   const changeHandler = (e) => {
+    console.log(e.target.name)
     setFormState({ ...formState, [e.target.name]: e.target.value });
     console.log(formState);
   };
@@ -99,7 +113,13 @@ export default function UserProfileForm() {
     }
   };
 
+  const modalRender = (e) => {
+    setModalOpenStatus('true')
+
+  }
+
   return (
+    <>
     <Container maxWidth="sm">
       <Typography variant="h5" className={classes.title}>
         Edit Profile
@@ -114,16 +134,18 @@ export default function UserProfileForm() {
                   id="avatar"
                   alt={`${user.username}`}
                   src={`${user.profileImg}`}
+                  onClick={modalRender}
                 />
               </div>
             </Box>
-            <Button
+            <ModalDialog
               className={classes.button}
               variant="outlined"
               color="primary"
+              onClick={modalRender}
             >
               Add/Edit Avatar
-            </Button>
+            </ModalDialog>
             <TextField
               required
               name="firstName"
@@ -239,5 +261,7 @@ export default function UserProfileForm() {
         </Button>
       </Box>
     </Container>
+    </>
   );
 }
+
