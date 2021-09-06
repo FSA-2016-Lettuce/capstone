@@ -60,7 +60,7 @@ export default function ModalDialog() {
   };
 
   const updateUser = async () => {
-    const updatedUser = {
+    const updatedUser = {...user,
       profileImg: avatarPreview
     };
     await dispatch(updateUserThunk(updatedUser))

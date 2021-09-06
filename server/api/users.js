@@ -21,9 +21,8 @@ router.get('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
-    const updatedUser = await user.update(req.query);
-    console.log(req.query);
-    res.send(updatedUser);
+    await user.update(req.body);
+    res.send(user);
   } catch (error) {
     next(error);
   }
