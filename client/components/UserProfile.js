@@ -7,6 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { deepPurple } from '@material-ui/core/colors';
 import { useSelector } from 'react-redux';
@@ -48,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
   profilePic: {
     justifyContent: 'center',
   },
+  title: {
+    margin: '8px',
+  },
 }));
 
 const UserProfile = () => {
@@ -58,6 +62,9 @@ const UserProfile = () => {
 
   return (
     <Container className={classes.profileContainer} maxWidth="sm">
+      <Typography variant="h5" className={classes.title}>
+        Profile
+      </Typography>
       <List className={classes.root}>
         <ListItem className={classes.profilePic}>
           <Box className={classes.box}>

@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     paddingLeft: '6px',
-    marginTop: '20px',
+    marginTop: '10px',
+    display: 'inline',
   },
   subtitle: {
     paddingLeft: '6px',
@@ -50,6 +51,10 @@ const useStyles = makeStyles((theme) => ({
   },
   test: {
     display: 'grid',
+  },
+  flex: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }));
 
@@ -150,8 +155,13 @@ const CreateRoute = () => {
 
   return (
     <div>
-      <div className="test">
-        <InstructionalModal className={classes.modal} />
+      <div className={classes.flex}>
+        <Typography variant="h5" className={classes.title}>
+          Create a Route
+        </Typography>
+        <div className="test">
+          <InstructionalModal className={classes.modal} />
+        </div>
       </div>
       <MapContainer
         center={[user.homeLat, user.homeLng]}
