@@ -13,23 +13,20 @@ const useStyles = makeStyles((theme) => ({
   banner: {
     marginLeft: theme.spacing(2),
   },
+  runDetail: {
+    padding: '6px',
+    marginTop: '8px',
+  },
 }));
 
 const Home = () => {
   const classes = useStyles();
-  // const user = useSelector((state) => state.auth);
-  // console.log('user: ', user);
-
-  //  cannot redirect from the backend, this was my only thought
-  // if (user.newProfile === 'YES') {
-  //   history.push(`/users/${user.id}/profile/edit`);
-  // }
 
   return (
     <div>
-      <h2 className={classes.banner}>
-        Welcome to flock! The runs in your area are shown below:{' '}
-      </h2>
+      <Typography variant="h5" className={classes.runDetail}>
+        Find A Run
+      </Typography>
       <FilterRuns />
     </div>
   );
