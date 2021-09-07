@@ -8,7 +8,7 @@ import HomeMapRunView from './HomeMapRunView';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
-    height: '55vh',
+    height: '60vh',
   },
 }));
 
