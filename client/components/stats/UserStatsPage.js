@@ -11,7 +11,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import moment from 'moment-timezone';
+import moment from 'moment';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   },
   dialog: {
     fontWeight: '900',
-    fontSize: '3em'
+    fontSize: '3em',
   },
 });
 
@@ -66,6 +66,7 @@ export default function UserStats(props) {
             <StyledTableCell>Run Name</StyledTableCell>
             <StyledTableCell align="right">Run Date</StyledTableCell>
             <StyledTableCell align="right">Run Pace</StyledTableCell>
+            <StyledTableCell align="right">Run Distance</StyledTableCell>
             <StyledTableCell align="right">Run Status</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -75,7 +76,6 @@ export default function UserStats(props) {
               <StyledTableCell align="right"></StyledTableCell>
 
               <StyledTableCell align="right">No Data</StyledTableCell>
-
             </TableRow>
           ) : (
             runs.map((run, idx) => (
@@ -83,7 +83,9 @@ export default function UserStats(props) {
                 <StyledTableCell component="th" scope="row">
                   {run.route.name}
                 </StyledTableCell>
-                <StyledTableCell align="right">{run.startDate}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {moment(run.startDate).format()}
+                </StyledTableCell>
                 <StyledTableCell align="right">
                   {run.pace / 60 + ' min/mile'}
                 </StyledTableCell>
