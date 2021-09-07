@@ -16,6 +16,7 @@ import { avatarList, users } from '../../script/seedData';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserThunk } from '../store/auth';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -47,6 +48,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ModalDialog() {
   const classes = useStyles();
+  const history = useHistory();
 
   const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const [open, setOpen] = React.useState(false);
@@ -70,6 +72,9 @@ export default function ModalDialog() {
   const updateUser = async () => {
     const updatedUser = { ...user, profileImg: avatarPreview };
     await dispatch(updateUserThunk(updatedUser));
+    // history.push(`users/${user.id}/profile/`);
+
+    handleClose();
   };
 
   return (
