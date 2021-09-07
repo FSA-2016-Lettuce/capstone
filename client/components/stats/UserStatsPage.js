@@ -47,8 +47,7 @@ const useStyles = makeStyles({
 
 export default function UserStats(props) {
   const classes = useStyles();
-  const user = useSelector((state) => state.auth);
-  const runs = useSelector((state) => state.run.allRuns);
+  const stats = useSelector((state) => state.run.stats);
 
   //was in userStats previously
   const userId = props.match.params.id;
@@ -63,47 +62,39 @@ export default function UserStats(props) {
   }, []);
 
   return (
-    <div>
-      <Typography variant="h5" className={classes.title}>
-        Stats
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Run Name</StyledTableCell>
-              <StyledTableCell align="right">Run Date</StyledTableCell>
-              <StyledTableCell align="right">Run Pace</StyledTableCell>
-              <StyledTableCell align="right">Run Distance</StyledTableCell>
-              <StyledTableCell align="right">Run Status</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {runs.length === 0 ? (
-              <TableRow className={classes.dialog}>
-                <StyledTableCell align="right"></StyledTableCell>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Run Name</StyledTableCell>
+            <StyledTableCell align="right">Run Date</StyledTableCell>
+            <StyledTableCell align="right">Run Pace</StyledTableCell>
+            <StyledTableCell align="right">Run Status</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {stats.length === 0 ? (
+            <TableRow className={classes.dialog}>
+              <StyledTableCell align="right"></StyledTableCell>
 
-                <StyledTableCell align="right">No Data</StyledTableCell>
-              </TableRow>
-            ) : (
-              runs.map((run, idx) => (
-                <StyledTableRow key={idx}>
-                  <StyledTableCell component="th" scope="row">
-                    {run.route.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {moment(run.startDate).format()}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {run.pace / 60 + ' min/mile'}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{run.status}</StyledTableCell>
-                </StyledTableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+              <StyledTableCell align="right">No Data</StyledTableCell>
+            </TableRow>
+          ) : (
+            stats.map((run, idx) => (
+              <StyledTableRow key={idx}>
+                <StyledTableCell component="th" scope="row">
+                  {run.route.name}
+                </StyledTableCell>
+                <StyledTableCell align="right">{run.startDate}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {run.pace / 60 + ' min/mile'}
+                </StyledTableCell>
+                <StyledTableCell align="right">{run.status}</StyledTableCell>
+              </StyledTableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
