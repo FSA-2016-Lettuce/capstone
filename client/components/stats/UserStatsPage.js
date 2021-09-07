@@ -43,8 +43,6 @@ const useStyles = makeStyles({
 
 export default function UserStats(props) {
   const classes = useStyles();
-  const user = useSelector((state) => state.auth);
-  const runs = useSelector((state) => state.run.allRuns);
   const stats = useSelector((state) => state.run.stats)
 
   //was in userStats previously
@@ -55,7 +53,6 @@ export default function UserStats(props) {
   useEffect(() => {
     async function loadStats() {
       await dispatch(_getStats(userId));
-      console.log(stats)
     }
     loadStats();
   }, []);
