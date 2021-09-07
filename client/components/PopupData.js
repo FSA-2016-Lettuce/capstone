@@ -12,7 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
-    height: '50vh',
+    height: '40vh',
   },
   buttonFlex: {
     display: 'flex',
@@ -33,29 +33,16 @@ const PopupData = (props) => {
   return (
     <div>
       <Typography variant="h6">{route.name}</Typography>
-      <List>
-        <ListItem>
-          <ListItemText
-            className={classes.listItemText}
-            primary="Start Time"
-            secondary={displayDate}
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            className={classes.listItemText}
-            primary="Pace"
-            secondary={displayPace}
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            className={classes.listItemText}
-            primary="Distance"
-            secondary={displayDistance}
-          />
-        </ListItem>
-      </List>
+      <div>
+        <strong>Start Time</strong>
+        <div>{displayDate}</div>
+        <br />
+        <strong>Pace</strong>
+        <div>{displayPace}</div>
+        <br />
+        <strong>Distance</strong>
+        <div>{displayDistance}</div>
+      </div>
       <Box className={classes.buttonFlex}>
         <Link to={`/runs/${id}`}>
           <Button

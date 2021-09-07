@@ -8,10 +8,11 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
+import Typography from '@material-ui/core/Typography';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import moment from 'moment-timezone';
+import moment from 'moment';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -37,13 +38,16 @@ const useStyles = makeStyles({
   },
   dialog: {
     fontWeight: '900',
-    fontSize: '3em'
+    fontSize: '3em',
+  },
+  title: {
+    margin: '8px',
   },
 });
 
 export default function UserStats(props) {
   const classes = useStyles();
-  const stats = useSelector((state) => state.run.stats)
+  const stats = useSelector((state) => state.run.stats);
 
   //was in userStats previously
   const userId = props.match.params.id;
@@ -74,7 +78,6 @@ export default function UserStats(props) {
               <StyledTableCell align="right"></StyledTableCell>
 
               <StyledTableCell align="right">No Data</StyledTableCell>
-
             </TableRow>
           ) : (
             stats.map((run, idx) => (
