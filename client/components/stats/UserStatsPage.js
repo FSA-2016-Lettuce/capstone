@@ -45,6 +45,7 @@ export default function UserStats(props) {
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   const runs = useSelector((state) => state.run.allRuns);
+  const stats = useSelector((state) => state.run.stats)
 
   //was in userStats previously
   const userId = props.match.params.id;
@@ -54,6 +55,7 @@ export default function UserStats(props) {
   useEffect(() => {
     async function loadStats() {
       await dispatch(_getStats(userId));
+      console.log(stats)
     }
     loadStats();
   }, []);
@@ -70,7 +72,7 @@ export default function UserStats(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {runs.length === 0 ? (
+          {stats.length === 0 ? (
             <TableRow className={classes.dialog}>
               <StyledTableCell align="right"></StyledTableCell>
 
@@ -78,7 +80,7 @@ export default function UserStats(props) {
 
             </TableRow>
           ) : (
-            runs.map((run, idx) => (
+            stats.map((run, idx) => (
               <StyledTableRow key={idx}>
                 <StyledTableCell component="th" scope="row">
                   {run.route.name}
