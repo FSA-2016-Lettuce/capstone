@@ -11,7 +11,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import { ImageList, ImageListItem, Divider, Avatar } from '@material-ui/core';
+import {
+  ImageList,
+  ImageListItem,
+  Divider,
+  Avatar,
+  Box,
+} from '@material-ui/core';
 import { avatarList, users } from '../../script/seedData';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserThunk } from '../store/auth';
@@ -21,8 +27,16 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
   },
-  button: {
-    margin: theme.spacing(1),
+  submitButton: {
+    margin: 'auto',
+    width: '45%',
+  },
+  root: {
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -74,7 +88,7 @@ export default function ModalDialog() {
   };
 
   return (
-    <div>
+    <Box className={classes.root}>
       <Button
         className={classes.button}
         variant="outlined"
@@ -136,6 +150,6 @@ export default function ModalDialog() {
           ))}
         </ImageList>
       </Dialog>
-    </div>
+    </Box>
   );
 }

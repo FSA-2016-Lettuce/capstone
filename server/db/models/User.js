@@ -69,7 +69,6 @@ User.prototype.correctPassword = function (candidatePwd) {
   //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password);
 };
-
 User.prototype.generateToken = function () {
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
@@ -101,6 +100,7 @@ User.findByToken = async function (token) {
     throw error;
   }
 };
+
 
 /**
  * hooks

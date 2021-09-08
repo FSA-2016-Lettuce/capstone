@@ -89,16 +89,6 @@ export const updateUserThunk = (user) => {
   };
 };
 
-// export const uploadUserImage = () => {
-//   return async (dispatch) => {
-//     try {
-//       const {data: userImage} = await axios.post(`https//api.cloudinary.com/v1_/${cloud_name}/image/upload`, userImage)
-//     } catch(e) {
-//       console.log(e);
-//     }
-//   }
-// }
-
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
   return {

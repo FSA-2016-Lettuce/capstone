@@ -18,6 +18,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+//going to add real image here
 router.put('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
