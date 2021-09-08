@@ -29,6 +29,7 @@
     "@material-ui/pickers": "^3.3.10",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
+    "cloudinary-react": "^1.7.0",
     "compression": "^1.7.3",
     "express": "^4.16.4",
     "history": "^4.9.0",
