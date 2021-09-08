@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { distanceConverter, displayPace } from '../utils';
 import moment from 'moment';
+import CamApp from './cloudinary/CamComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,6 +77,7 @@ const UserProfile = () => {
                 src={`${user.profileImg}`}
               />
             </div>
+            <CamApp />
           </Box>
         </ListItem>
         <ListItem>

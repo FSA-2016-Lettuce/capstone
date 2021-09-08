@@ -8,3 +8,4 @@ package-lock.json
 .vscode
 secrets.js
 googlePhotos.txt
+cloudinary_secrets.js
