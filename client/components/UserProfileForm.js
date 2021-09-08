@@ -25,12 +25,15 @@ const useStyles = makeStyles((theme) => ({
       width: '92%',
       flexGrow: 1,
       textAlign: 'center',
+      display: 'flex',
+      justifyContent: 'center'
     },
   },
   avatar: {
     height: 200,
     width: 200,
     margin: 'auto',
+    justifyContent: 'center',
 
     textAlign: 'center',
   },
@@ -40,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
   imageDiv: {
     margin: '10px',
+    justifySelf: 'center'
   },
   profileContainer: {
     textAlign: 'center',
@@ -128,64 +132,63 @@ export default function UserProfileForm() {
   return (
     <>
       <Container maxWidth="sm">
-
         <Typography variant="h5" className={classes.title}>
           Edit Profile
         </Typography>
         <Box display="flex" justifyContent="space-around" flexWrap="wrap">
           <Container maxWidth="sm">
             <form className={classes.root} noValidate autoComplete="off">
-                <div className={classes.imageDiv}>
-                  <Avatar
-                    className={classes.avatar}
-                    id="avatar"
-                    alt={`${user.username}`}
-                    src={`${user.profileImg}`}
-                    onClick={modalRender}
-                  />
-                </div>
-
-                <CamApp />
-                <ModalDialog
-                  className={classes.button}
-                  variant="outlined"
-                  color="primary"
+              <div className={classes.imageDiv}>
+                <Avatar
+                  className={classes.avatar}
+                  id="avatar"
+                  alt={`${user.username}`}
+                  src={`${user.profileImg}`}
                   onClick={modalRender}
-                >
-                  Add/Edit Avatar
-                </ModalDialog>
-                <TextField
-                  required
-                  name="firstName"
-                  label="First Name"
-                  defaultValue={user.firstName}
-                  variant="outlined"
-                  onChange={changeHandler}
                 />
-                <TextField
-                  required
-                  name="lastName"
-                  label="Last Name"
-                  defaultValue={user.lastName}
-                  variant="outlined"
-                  onChange={changeHandler}
-                />
-                <TextField
-                  required
-                  name="password"
-                  label="Password"
-                  defaultValue="***"
-                  type="password"
-                  variant="outlined"
-                  onChange={changeHandler}
-                />
-                <TextField
-                  name="address"
-                  label="Address"
-                  defaultValue={user.address ? user.address : ''}
-                  variant="outlined"
-                  onChange={changeHandler}
-                />
+              </div>
+
+              <CamApp />
+              <ModalDialog
+                className={classes.button}
+                variant="outlined"
+                color="primary"
+                onClick={modalRender}
+              >
+                Add/Edit Avatar
+              </ModalDialog>
+              <TextField
+                required
+                name="firstName"
+                label="First Name"
+                defaultValue={user.firstName}
+                variant="outlined"
+                onChange={changeHandler}
+              />
+              <TextField
+                required
+                name="lastName"
+                label="Last Name"
+                defaultValue={user.lastName}
+                variant="outlined"
+                onChange={changeHandler}
+              />
+              <TextField
+                required
+                name="password"
+                label="Password"
+                defaultValue="***"
+                type="password"
+                variant="outlined"
+                onChange={changeHandler}
+              />
+              <TextField
+                name="address"
+                label="Address"
+                defaultValue={user.address ? user.address : ''}
+                variant="outlined"
+                onChange={changeHandler}
+              />
               {errorVis === 'visible' ? (
                 <Box component="div" color="red" fontWeight="fontWeightBold">
                   Unfortunately we are unable find this address. Please enter a

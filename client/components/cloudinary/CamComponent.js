@@ -21,16 +21,14 @@ export default function CamApp() {
       width: '30%',
       flexGrow: 1,
       backgroundColor: theme.palette.background.paper,
-      display: 'flex',
-      justifyContent: 'center',
     },
     button: {
       margin: theme.spacing(1),
-      background: 'primary'
+      background: theme.palette.background.paper,
     },
     preview: {
-      width: '3em'
-    }
+      width: '3em',
+    },
   }));
 
   const [imageSelected, setImageSelected] = useState('');
@@ -61,13 +59,16 @@ export default function CamApp() {
 
   return fileUploaded === false ? (
     <div className={classes.root}>
-      <input
+      <input className ={classes.button}
         type="file"
+        accept="image/jpeg, image/jpg, image/png"
         onChange={(event) => {
           setImageSelected(event.target.files[0]);
         }}
       />
-      <Button className={classes.button} onClick={uploadImage}>Upload Image</Button>
+      <Button className={classes.button} onClick={uploadImage}>
+        Upload Image
+      </Button>
       <Image
         className={classes.preview}
         cloudName={`${cloudinary.cloud_name}`}
@@ -77,14 +78,16 @@ export default function CamApp() {
     </div>
   ) : (
     <div>
-      <Input
+      <input
         type="file"
-        accept= 'image/png'
+        accept="image/jpeg, image/jpg, image/png"
         onChange={(event) => {
           setImageSelected(event.target.files[0]);
         }}
       />
-      <Button className={classes.button} onClick={uploadImage}>Choose Another</Button>
+      <Button className={classes.button} onClick={uploadImage}>
+        Choose Another
+      </Button>
       <Image className={classes.preview} src={user.profileImg} />
     </div>
   );
