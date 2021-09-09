@@ -33,6 +33,9 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
+  root: {
+    borderRadius: 0,
+  },
   table: {
     minWidth: 700,
   },
@@ -62,14 +65,15 @@ export default function UserStats(props) {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className={classes.root} component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Run Name</StyledTableCell>
-            <StyledTableCell align="right">Run Date</StyledTableCell>
-            <StyledTableCell align="right">Run Pace</StyledTableCell>
-            <StyledTableCell align="right">Run Status</StyledTableCell>
+            <StyledTableCell align="right">Date</StyledTableCell>
+            <StyledTableCell align="right">Distance (miles)</StyledTableCell>
+            <StyledTableCell align="right">Pace</StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,7 +89,12 @@ export default function UserStats(props) {
                 <StyledTableCell component="th" scope="row">
                   {run.route.name}
                 </StyledTableCell>
-                <StyledTableCell align="right">{run.startDate}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {moment(run.startDate).format('MMM Do YYYY')}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {(run.route.distance / 5280).toFixed(2) + ' miles'}
+                </StyledTableCell>
                 <StyledTableCell align="right">
                   {run.pace / 60 + ' min/mile'}
                 </StyledTableCell>
@@ -98,3 +107,6 @@ export default function UserStats(props) {
     </TableContainer>
   );
 }
+
+
+
