@@ -32,26 +32,29 @@ const useStyles = makeStyles((theme) => ({
     width: '45%',
   },
   root: {
-    width: '100%',
+    width: '92%',
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
+    overflow: 'hidden',
     flexDirection: 'column',
-    alignItems: 'center',
+
   },
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  list: {
+    margin: 0,
+    padding: 5
+  },
   imageList: {
-    color: theme.pr,
     display: 'flex',
-    alignItems: 'center',
     flexDirection: 'row',
     wrap: 'flex-wrap',
   },
   image: {
-    height: 300,
-    width: 300,
+    height: '6em',
+    width: '6em',
   },
 }));
 
@@ -134,7 +137,7 @@ export default function ModalDialog() {
         <ImageList
           variant="round"
           rowHeight={160}
-          className={classes.imageList}
+          className={classes.list}
           cols={3}
         >
           {avatarList.map((item, idx) => (

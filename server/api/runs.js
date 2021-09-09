@@ -21,11 +21,11 @@ router.get(`/complete/:userId`, async (req, res, next) => {
         },
       ],
       where: {
-        status: 'COMPLETED'
-      }
+        status: 'COMPLETED' || 'OPEN' || 'ACTIVE',
+      },
     });
     console.log('what are routes and users', runs);
-    res.send(runs)
+    res.send(runs);
   } catch (error) {
     next(error);
   }

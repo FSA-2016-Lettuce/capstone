@@ -68,14 +68,7 @@ const UserProfile = () => {
       <List className={classes.root}>
         <ListItem className={classes.profilePic}>
           <Box className={classes.box}>
-            {/* <div className={classes.imageDiv}>
-              <Avatar
-                className={classes.avatar}
-                id="avatar"
-                alt={`${user.username}`}
-                src={`${user.profileImg}`}
-              />
-            </div> */}
+
           </Box>
         </ListItem>
         <ListItem>

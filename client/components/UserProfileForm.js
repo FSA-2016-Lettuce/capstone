@@ -26,16 +26,14 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
       textAlign: 'center',
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
   },
   avatar: {
     height: 200,
     width: 200,
     margin: 'auto',
-    justifyContent: 'center',
-
-    textAlign: 'center',
+    justifySelf: 'center',
   },
   button: {
     margin: theme.spacing(1),
@@ -43,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
   imageDiv: {
     margin: '10px',
-    justifySelf: 'center'
+    display: 'flex',
   },
   profileContainer: {
     textAlign: 'center',
@@ -83,14 +81,6 @@ export default function UserProfileForm() {
     newProfile: user.newProfile,
     profileImg: user.profileImg,
   });
-
-  useEffect(() => {
-    // setFormState({...formState, newProfile: })
-    console.log(
-      'CREATED BY useEFFECT image in currentState at form',
-      formState.profileImg
-    );
-  }, []);
 
   // for modal
   const handleOpen = () => {
@@ -144,7 +134,6 @@ export default function UserProfileForm() {
                   id="avatar"
                   alt={`${user.username}`}
                   src={`${user.profileImg}`}
-                  onClick={modalRender}
                 />
               </div>
 

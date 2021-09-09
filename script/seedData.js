@@ -1,7 +1,6 @@
 const moment = require('moment');
 
 const avatarList = [
-  { src: '/cody.png'},
   {src: '/avatarImages/picA.jpg'},
   {src: '/avatarImages/picB.jpg'},
   {src: '/avatarImages/picC.jpg'},
@@ -10,6 +9,7 @@ const avatarList = [
   {src: '/avatarImages/picF.jpg'},
   {src: '/avatarImages/picG.jpg'},
   {src: '/avatarImages/picH.jpg'},
+  { src: '/cody.png'},
   {src: '/avatarImages/picAnimalA.jpg'},
   {src: '/avatarImages/picAnimalB.jpg'},
   {src: '/avatarImages/picAnimalC.jpg'},
