@@ -1,27 +1,27 @@
 const moment = require('moment');
 
 const avatarList = [
-  { src: '/cody.png'},
-  {src: '/avatarImages/picA.jpg'},
-  {src: '/avatarImages/picB.jpg'},
-  {src: '/avatarImages/picC.jpg'},
-  {src: '/avatarImages/picD.jpg'},
-  {src: '/avatarImages/picE.jpg'},
-  {src: '/avatarImages/picF.jpg'},
-  {src: '/avatarImages/picG.jpg'},
-  {src: '/avatarImages/picH.jpg'},
-  {src: '/avatarImages/picAnimalA.jpg'},
-  {src: '/avatarImages/picAnimalB.jpg'},
-  {src: '/avatarImages/picAnimalC.jpg'},
-  {src: '/avatarImages/picAnimalD.jpg'},
-  {src: '/avatarImages/picAnimalE.jpg'},
-  {src: '/avatarImages/picAnimalF.jpg'},
-  {src: '/avatarImages/picAnimalG.jpg'},
-  {src: '/avatarImages/picAnimalH.jpg'},
-  {src: '/avatarImages/picAnimalI.jpg'},
-  {src: '/avatarImages/picAnimalJ.jpg'},
-  {src: '/avatarImages/picAnimalK.jpg'},
-  {src: '/avatarImages/picAnimalL.jpg'},
+  { src: '/cody.png' },
+  { src: '/avatarImages/picA.jpg' },
+  { src: '/avatarImages/picB.jpg' },
+  { src: '/avatarImages/picC.jpg' },
+  { src: '/avatarImages/picD.jpg' },
+  { src: '/avatarImages/picE.jpg' },
+  { src: '/avatarImages/picF.jpg' },
+  { src: '/avatarImages/picG.jpg' },
+  { src: '/avatarImages/picH.jpg' },
+  { src: '/avatarImages/picAnimalA.jpg' },
+  { src: '/avatarImages/picAnimalB.jpg' },
+  { src: '/avatarImages/picAnimalC.jpg' },
+  { src: '/avatarImages/picAnimalD.jpg' },
+  { src: '/avatarImages/picAnimalE.jpg' },
+  { src: '/avatarImages/picAnimalF.jpg' },
+  { src: '/avatarImages/picAnimalG.jpg' },
+  { src: '/avatarImages/picAnimalH.jpg' },
+  { src: '/avatarImages/picAnimalI.jpg' },
+  { src: '/avatarImages/picAnimalJ.jpg' },
+  { src: '/avatarImages/picAnimalK.jpg' },
+  { src: '/avatarImages/picAnimalL.jpg' },
 ];
 
 const users = [
@@ -94,96 +94,109 @@ const users = [
   },
 ];
 
-const futureDate = moment().add(3, 'days');
-const pastDate = moment().subtract(3, 'days');
-const now = moment();
+// const futureDate = moment().add(3, 'days');
+// const pastDate = moment().subtract(3, 'days');
+// const now = moment();
 
-const runs = [
-  {
-    startDate: futureDate,
-    pace: 300,
-  },
-  {
-    startDate: futureDate,
-    pace: 510,
-  },
-  {
-    startDate: pastDate,
-    pace: 510,
-  },
-  {
-    startDate: pastDate,
-    pace: 450,
-  },
-  {
-    startDate: now,
-    pace: 480,
-  },
-  {
-    startDate: now,
-    pace: 540,
-  },
-  {
-    startDate: futureDate,
-    pace: 540,
-  },
-  {
-    startDate: futureDate,
-    pace: 510,
-  },
-  {
-    startDate: futureDate,
-    pace: 450,
-  },
-  {
-    startDate: now,
-    pace: 480,
-  },
-  {
-    startDate: pastDate,
-    pace: 420,
-  },
-  {
-    startDate: futureDate,
-    pace: 510,
-  },
-  {
-    startDate: futureDate,
-    pace: 660,
-  },
-  {
-    startDate: pastDate,
-    pace: 450,
-  },
-  {
-    startDate: now,
-    pace: 480,
-  },
-  {
-    startDate: now,
-    pace: 540,
-  },
-  {
-    startDate: futureDate,
-    pace: 510,
-  },
-  {
-    startDate: futureDate,
-    pace: 360,
-  },
-  {
-    startDate: futureDate,
-    pace: 540,
-  },
-  {
-    startDate: now,
-    pace: 480,
-  },
-  {
-    startDate: pastDate,
-    pace: 600,
-  },
-];
+const runs = [];
+
+for (let i = -26; i <= 52; i++) {
+  const runStartDate = moment().add(i, 'weeks');
+  for (let j = 0; j < 21; j++) {
+    const runPace = 270 + 30 * (Math.floor(Math.random() * 16) + 1);
+    runs.push({
+      startDate: runStartDate,
+      pace: runPace,
+    });
+  }
+}
+
+// const runs = [
+//   {
+//     startDate: futureDate,
+//     pace: 300,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 510,
+//   },
+//   {
+//     startDate: pastDate,
+//     pace: 510,
+//   },
+//   {
+//     startDate: pastDate,
+//     pace: 450,
+//   },
+//   {
+//     startDate: now,
+//     pace: 480,
+//   },
+//   {
+//     startDate: now,
+//     pace: 540,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 540,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 510,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 450,
+//   },
+//   {
+//     startDate: now,
+//     pace: 480,
+//   },
+//   {
+//     startDate: pastDate,
+//     pace: 420,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 510,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 660,
+//   },
+//   {
+//     startDate: pastDate,
+//     pace: 450,
+//   },
+//   {
+//     startDate: now,
+//     pace: 480,
+//   },
+//   {
+//     startDate: now,
+//     pace: 540,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 510,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 360,
+//   },
+//   {
+//     startDate: futureDate,
+//     pace: 540,
+//   },
+//   {
+//     startDate: now,
+//     pace: 480,
+//   },
+//   {
+//     startDate: pastDate,
+//     pace: 600,
+//   },
+// ];
 
 const routes = [
   { name: 'Crocheron Park Run' },

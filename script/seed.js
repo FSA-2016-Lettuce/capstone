@@ -34,9 +34,12 @@ async function seed() {
   // Associate Routes to Runs
   const allRoutes = await Route.findAll();
   const allRuns = await Run.findAll();
-  await Promise.all(allRuns.map((run, idx) => run.setRoute(allRoutes[idx])));
+  console.log('number of runs: ', allRuns.length);
+  await Promise.all(
+    allRuns.map((run, idx) => run.setRoute(allRoutes[idx % allRoutes.length]))
+  );
 
-  // Creating Waypoints with Route associations
+  // Create Waypoints with Route associations
   for (let i = 0; i < allRoutesWaypoints.length; i++) {
     await Promise.all(
       allRoutesWaypoints[i].map((waypoint) => Waypoint.create(waypoint))
