@@ -16,6 +16,7 @@ import { avatarList, users } from '../../script/seedData';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserThunk } from '../store/auth';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { mergeClasses } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -28,16 +29,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  box: {
+    display: 'flex',
+  },
   imageList: {
     color: theme.pr,
     display: 'flex',
-    alignItems: 'center',
+
     flexDirection: 'row',
     wrap: 'flex-wrap',
   },
   image: {
-    height: 300,
-    width: 300,
+    height: 200,
+    width: 200,
   },
 }));
 
@@ -74,7 +78,7 @@ export default function ModalDialog() {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Button
         className={classes.button}
         variant="outlined"
@@ -116,25 +120,26 @@ export default function ModalDialog() {
             src={`${avatarPreview}`}
           />
         </div>
-
-        <ImageList
-          variant="round"
-          rowHeight={160}
-          className={classes.imageList}
-          cols={3}
-        >
-          {avatarList.map((item, idx) => (
-            <ImageListItem key={idx} cols={item.cols || 1}>
-              <img
-                src={item.src}
-                className={classes.image}
-                alt="my profile image"
-                key={idx}
-                onClick={imageClickHandler}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
+        <div className={classes.box}>
+          <ImageList
+            className={classes.imageList}
+            variant="round"
+            rowHeight={160}
+            cols={3}
+          >
+            {avatarList.map((item, idx) => (
+              <ImageListItem key={idx} cols={item.cols || 1}>
+                <img
+                  src={item.src}
+                  className={classes.image}
+                  alt="my profile image"
+                  key={idx}
+                  onClick={imageClickHandler}
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </div>
       </Dialog>
     </div>
   );
