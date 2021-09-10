@@ -21,11 +21,11 @@ router.get(`/complete/:userId`, async (req, res, next) => {
         },
       ],
       where: {
-        status: 'COMPLETED'
-      }
+        status: 'COMPLETED',
+      },
     });
     console.log('what are routes and users', runs);
-    res.send(runs)
+    res.send(runs);
   } catch (error) {
     next(error);
   }
@@ -65,7 +65,7 @@ router.get('/', async (req, res, next) => {
     // Set up where clauses
     if (pace > 0 && pace < 1000) {
       whereClauseRun.pace = {
-        [Op.between]: [pace - 60, pace + 60],
+        [Op.between]: [pace - 90, pace + 90],
       };
     }
 
@@ -84,7 +84,7 @@ router.get('/', async (req, res, next) => {
 
     if (distance > 0 && distance < 10000 * 5280) {
       whereClauseRoute.distance = {
-        [Op.between]: [distance - 5280, distance + 5280],
+        [Op.between]: [distance - 7920, distance + 7920],
       };
     }
 
