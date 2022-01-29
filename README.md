@@ -14,7 +14,7 @@ Check out the deployed version of flock here: https://flock-of-lettuce.herokuapp
 
 ## Test Application
 
-Please credentials below for full experience:
+Please use credentials below for full experience:
 
 username: matt@gmail.com
 password: matt123
