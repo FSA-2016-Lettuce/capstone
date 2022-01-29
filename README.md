@@ -12,7 +12,9 @@ The app is inspired by the personal experience of our contributors, who struggle
 
 Check out the deployed version of flock here: https://flock-of-lettuce.herokuapp.com/
 
-To test application, use below credentials for full experience:
+## Test Application
+
+Please credentials below for full experience:
 
 username: matt@gmail.com
 password: matt123
