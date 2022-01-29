@@ -13,7 +13,7 @@ const teamInfo = [
     linkedIn: 'https://www.linkedin.com/in/christophernieves20/',
     gitHub: 'https://github.com/Nievescs20',
     image:
-      'https://media-exp1.licdn.com/dms/image/C4E03AQGNqwS2buXonA/profile-displayphoto-shrink_800_800/0/1629979232073?e=1635984000&v=beta&t=1Ou09S9qRChQ9yp9xwuSpBM_5emPoNBc8lAVbQwjntg',
+      'https://avatars.githubusercontent.com/u/63509338?s=400&u=f1fd9eba63c9a5269c947adf079e29fcc13918d0&v=4',
   },
   {
     name: 'Jared Melnyk',
