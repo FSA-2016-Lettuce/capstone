@@ -12,6 +12,11 @@ The app is inspired by the personal experience of our contributors, who struggle
 
 Check out the deployed version of flock here: https://flock-of-lettuce.herokuapp.com/
 
+To test application, use below credentials for full experience:
+
+username: matt@gmail.com
+password: matt123
+
 ## Features
 
 flock is a progressive web app that aims to be the one stop shop for runners looking for group run events. Once users sign up for an account, they can immediately begin searching for already existing run events on a map. The run events include important details such as start time, pace, distance, other users who have joined the run, and a map showing the path for the given run. Once a user choses to join a run, they will gain access to a chat room for that run event, in which all users who have joined can chat in real time. If a user includes an address and pace/distance preferences in their profile page, then the map to search for run events will automatically center on the provided address and the available run events will be filted to their pace/distance preferences.
